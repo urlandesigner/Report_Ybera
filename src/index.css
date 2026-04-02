@@ -1,0 +1,67 @@
+/* Carrega a fonte primeiro (antes do Tailwind) */
+@import '@fontsource/plus-jakarta-sans/200.css';  /* ExtraLight — mais leve para "Relatório Mensal de" */
+@import '@fontsource/plus-jakarta-sans/400.css';
+@import '@fontsource/plus-jakarta-sans/500.css';
+@import '@fontsource/plus-jakarta-sans/600.css';
+@import '@fontsource/plus-jakarta-sans/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --report-radius: 1rem;
+    --report-radius-lg: 1.25rem;
+    --report-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06);
+    --report-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.06);
+  }
+  * {
+    @apply box-border;
+  }
+  body {
+    @apply antialiased text-report-dark bg-report-offWhite;
+  }
+}
+
+/* Focus visível para acessibilidade */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-report-dark;
+}
+
+/* Reforça Plus Jakarta Sans (mesmo se algo no bundle sobrescrever o style do HTML) */
+html.font-plus-jakarta,
+html.font-plus-jakarta body,
+html.font-plus-jakarta #root,
+html.font-plus-jakarta #root * {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+/* Título "Resumo Executivo" com gradiente (Figma) */
+.report-title-gradient {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background: linear-gradient(90deg, #83FF8F -13.58%, #CC7FF0 120.82%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Efeito glass para as tags do header — border-radius estilo iOS (cantos suaves) */
+.glass-effect {
+  /* iOS usa cantos contínuos; 14px é o valor típico para controles pequenos no HIG */
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px) brightness(0.8);
+  -webkit-backdrop-filter: blur(10px) brightness(0.8);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover: sombra na cor do card (--card-hover-shadow definido no elemento) */
+.card-hover-tinted:hover {
+  box-shadow: var(--card-hover-shadow, 0 25px 50px -12px rgba(0, 0, 0, 0.1));
+}

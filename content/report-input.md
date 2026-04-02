@@ -1,0 +1,138 @@
+# Relatório Mensal de Tecnologia
+## Março 2026
+
+metaTag: Março 2026
+heroFooterLine1: Ciclo de Desenvolvimento 1.2.34 — Sprints 4, 5 e 6
+heroFooterLine2: Versão lançada em 24 de março de 2026.
+
+## Resumo Executivo
+- Autonomia e gestão administrativa global: Novos dashboards e edição de preços aumentam autonomia e reduzem dependência de desenvolvimento.
+- Evolução e estabilidade no e-commerce: Otimizações na jornada e novas integrações elevam performance, conversão e confiabilidade da operação.
+- Integrações e automações com IA e atendimento: Automação de monitoramento e suporte reduz esforço manual e acelera a resposta ao cliente.
+- Consolidação e governança de dados: Nova estrutura de dados melhora qualidade das informações e suporte à tomada de decisão.
+- Avanços estruturais no novo PRO: Evolução de pesquisas, protótipos e Design System prepara a base para o novo produto.
+- Melhorias de performance e arquitetura: Refatorações técnicas e evoluções estruturais garantem escalabilidade e redução de débito técnico.
+
+## Destaques
+- Pacote de Melhorias de Integração Bling <> Lisa (630 pontos no Business Value Score): Arquitetura foi o maior esforço técnico e operacional da versão. Agrupa a implementação do campo de rebaixamento (que identifica qual dado falta no pedido, como etiqueta ou nota fiscal), a resolução do problema de impressão de etiquetas em duplicidade e a tratativa sistêmica para a retomada da operação de Crossborder (Shipsmart).
+- Estruturação Global de Domínios Próprios (471 pontos) - E-commerce, No Code e Global: Um grande movimento focado em credibilidade e SEO. Agrupa o apontamento de novos domínios para as plataformas No Code (Academy e Pass), a migração das lojas Shopify do Chile, Panamá e México (que saíram de subdomínios para domínios locais independentes) e a troca dos domínios dos links de catálogo e indicação do Club.
+- Autonomia Administrativa Global (425 pontos) - Ybera Club Global: Focado em dar poder de gestão aos administradores sem depender da TI. Agrupa os expressivos Incrementos no Dashboard Admin (trazendo novos indicadores como influencers ativos por país e ranking de gestores) e a liberação da funcionalidade de Edição de Preço de produtos diretamente pelo admin em todas as Lybera Shops.
+- Automação de Atendimento e Triagem com IA (349 pontos) - IA / Dados: Um salto na gestão de crises e suporte. Condensa a criação do monitoramento automático de comentários negativos nas redes (Posts, Ads e DM) utilizando Inteligência Artificial, a automação para responder problemas de pedidos via Meta API, o monitoramento de contas específicas (@Ybera, Jhonatan, etc.) e a priorização automática da fila de reembolsos no Zendesk.
+- Camada de Validação de Dados na Finalização de Pedido (300 pontos) - Ecommerce Brasil: Implementação de uma barreira de segurança extra que garante a integridade cadastral no momento da geração do pedido. O objetivo principal é reduzir as falhas no gateway de pagamento e evitar clientes com dados inconsistentes na base.
+-  Integração do Influencer Hero (300 pontos) - Ecommerce Shopify EUA: Automatizou o envio de amostras (samples) e o controle de inventário integrando a plataforma Influencer Hero ao ecossistema Shopify, viabilizando a escala da estratégia de recrutamento no mercado americano.
+- Evolução e Liberação do Ybera Connect (248 pontos) - Ybera Club Brasil: Agrupa as ações focadas na ferramenta de captação de leads. Inclui as ações para a liberação oficial do Connect para um grupo restrito de usuários (com concessão de créditos e acessos) e melhorias de classificação e monitoramento de leads com menos de 1.000 seguidores.
+- Nova Página de Rastreio Ybera.com (240 pontos) - Ecommerce Brasil: Para acompanhar a troca do sistema logístico para a Intelipost, foi necessário realizar o redesign e a reimplementação completa de uma nova página de rastreamento, dando mais visibilidade ao cliente final e reduzindo chamados no SAC.
+- Agendamento e Gerenciamento de Banners no Shopify (240 pontos) Ecommerce Global: Estendeu a todo o ecossistema Shopify da Ybera a ferramenta que permite aos times de negócio programarem com antecedência a data e a hora de ativação e desativação de banners, eliminando plantões manuais de madrugada.
+- Segurança Financeira com Chave Pix para Saques (225 pontos) - Ybera Club Brasil: Implementação de uma regra de conformidade rigorosa: o sistema agora exige e permite apenas o cadastro de chaves Pix que estejam diretamente vinculadas ao CNPJ do próprio usuário logado. Isso evita fraudes e o repasse de valores para contas de terceiros.
+
+
+## Entregas Principais
+### Ybera Club Global
+- Incrementos Dashboard Admin: Implementamos a exibição de novos indicadores estratégicos, como número de influencers e gestores ativos por país, total pago em comissões, crescimento mensal da rede e top 10 gestores/influencers do ano.
+- Edição de preço (Lybera Shop Admin Global): Implementamos a funcionalidade que permite aos administradores da Lybera Shop, em todos os países vigentes, editarem os preços dos produtos diretamente pelo Escritório Virtual, garantindo total autonomia sem necessidade de acionar o time de desenvolvimento.
+- Troca de domínio dos links do catálogo: Implementamos a alteração dos domínios dos links de indicação e filtro de marcas no escritório virtual, garantindo que as divulgações direcionem corretamente ao novo formato.
+
+### Ecommerce Global
+- Migração da loja Shopify para domínios próprios por país: Realizamos a migração da loja para Shopify Admin, com direcionamento para subdomínios personalizados por país, garantindo melhor performance e organização.
+- Finalização do Agendamento e Gerenciamento de Banners no Shopify: Estendemos para os EUA e México a ferramenta que permite aos administradores programar data e hora para ativação e desativação automática de banners. Ou seja, todos as nossas lojas hospedadas na shopify contam com esse recurso.	
+
+### Ybera Club Brasil
+- Ações para liberação oficial do Connect: Estruturamos a liberação segmentada do Connect, liberando relatórios para o Admin2, 500 créditos para gestores específicos e o acesso oficial à ferramenta para um grupo restrito, além de algumas melhorias e correções pontuais, sob a batuta do time de Performance do Club.
+- MVP Novo Plano de Carreira: Implementamos, no Escritório Virtual do Ybera Club, o Novo Plano de Carreira. O plano será dividido em três trilhas principais, com novos benefícios, visual customizado, badges, e possibilidades futuras que abrirão um leque impressionante de engajamento pela própria plataforma.
+  - O que consta no MVP: atualização visual de todo o plano de carreira já existente.
+  - O que não entrou nesta versão: microconquistas entre os marcos do plano de carreira, informações pós conquista dos 100k em comissões, divisão para influencers com agenciamento exclusivo e não-exclusivo.
+- Inserção de Chave Pix para Saques: Implementamos o cadastro de chaves Pix vinculadas exclusivamente ao CNPJ do usuário logado, evitando saques para contas de terceiros. A ideia é aumentar o número de pix cadastrados ao longo dos próximos meses.
+- Melhorias Connect - restrição de leads com menos de 1000 seguidores no Instagram: Implementamos a classificação e o monitoramento específico para leads que possuem menos de 1.000 seguidores no Instagram, restringindo-os inicialmente à finalização do cadastro.
+- Remoção temporária da opção de pagamentos por Lyberas: Removemos, temporariamente, a opção de pagamento com saldo Lybera na Lybera Shop Brasil, ocultando seus valores em todas as telas, a fim de priorizar meios de pagamento que inferem retorno financeiro líquido à companhia e evitam desgaste operacional.
+- Ações Pontuais: Realizamos pequenas correções e levantamentos, incluindo a liberação de vagas para gestoras, extração de relatórios, criação de usuários administrativos e ajustes de estoque para integração com a Lisa.
+
+### Ecommerce Brasil
+- Integração Adyen na Loja Ybera.com: Realizamos a integração com o gateway da Adyen, usado pelos maiores players do mundo. Esta ação deve melhorar os dados de pedidos cancelados, além de nos garantir escalabilidade automática em grandes campanhas.
+- Reestruturação da Página de Kits Wake: Corrigimos o comportamento da página para que ela funcione logicamente como um kit de produtos reais na jornada de compra, e não mais como uma lista solta de compras.
+- Correção Exibição de Calendário de Ofertas no Strapi: Avançamos com a segunda etapa de melhoria do calendário de ofertas, dando ao gestor de loja a opção de exibir ou não os preços nos spots de produto durante as campanhas promocionais.
+- Nova Página de Rastreio Ybera.com: Refizemos e implementamos uma nova página de rastreamento de pedidos integrada diretamente à Intelipost, permitindo o rastreamento sem necessidade de login.	
+- Camada de Validação de Dados no Finalização de Pedido: Implementamos uma camada de segurança extra no e-commerce, para garantir a integridade dos dados cadastrais antes do fechamento do pedido, reduzindo falhas no gateway de pagamento.
+- Campanhas Comerciais de Março: Implementamos a melhoria de visual em carrinho e checkout para a ação de descontos progressivos.
+- Habilitação de Campo de Cupom no Etapa Checkout/Confirmar: Disponibilizamos o campo de cupom de desconto na última etapa do checkout do Store Front além de habilitar o input manual do cupom em toda etapa de checkout.
+- Redirect URL Ibera.com: Implementamos correção técnica para garantir que redirecionamentos de URL preservem os parâmetros de rastreio de afiliados (UTMs), evitando a perda de vínculos e comissões.
+- APM de campanha (Lean/Work): Acompanhamento e governança das etapas 1 e 2 de desenvolvimento do app de compra pelo time da LeanWork. Essas etapas envolvem Fase 1 – Setup + Afiliados e Fase 2 – Cupons e Brindes Customizados.
+
+### Ybera Club EUA
+- Replicar o Cálculo de Imposto no Kit Primeira Compra: Implementamos o envio automático dos dados de endereço da influenciadora para a API da Stripe, garantindo que a taxa de imposto correta seja calculada e exibida com transparência no checkout do kit de adesão.
+
+### Ecommerce Shopify EUA
+- Integração Influencer Hero: Implementamos a integração da plataforma Influencer Hero ao Shopify EUA para viabilizar o envio automático de produtos e amostras para influenciadores, controlando o estoque na estratégia de recrutamento.
+- Internalização das funcionalidades de Upsell e Cart Drawer: Iniciamos a migração para internalizar as funcionalidades promocionais do app Upnova diretamente na arquitetura nativa da loja Shopify (Cart Drawer), garantindo melhor performance e redução de custos externos.
+
+### Ybera Club LATAM
+- Disponibilização do componente de metas para Chile e Panamá: Habilitamos o componente para que administradores do Chile e Panamá possam configurar e gerenciar metas (individuais e coletivas) nas respectivas regiões.
+
+### Ecommerce Shopify LATAM
+- Instalação e configuração do app Payflow para o Chile: Implementamos o app Payflow no e-commerce chileno para permitir maior controle sobre como os métodos de pagamento são exibidos no checkout.
+
+### Implementações NO CODE
+- Reapontamento de domínios sob novo servidor: Migração dos domínios do modelo centralizado (COALIAS) para apontamentos diretos no novo servidor, com reorganização das rotas para maior controle e estabilidade.
+- Inclusão de nova categoria para venda: Incluímos a categoria "Erick Loureiro" no menu suspenso de tipos de ingressos no painel administrativo, para tornar possível a venda para o Club.
+
+### Implementações em IA
+- Monitoramento Automático de Comentários Negativos: Implementamos fluxo via n8n + Meta + IA para identificar comentários negativos em posts, ads e DMs em tempo real e transformá-los automaticamente em tickets prioritários no Zendesk.
+- Criação de Fluxo e Priorização de Reembolsos no Zendesk: Implementamos intenção específica no bot que identifica pedidos de reembolso e os direciona sem fricção diretamente para o atendimento humano prioritário.
+- Automação de Respostas orientando sobre problemas relacionado a pedidos: Implementamos resposta automática via n8n (pela API da Meta) para comentários e DMs envolvendo problemas logísticos e de rastreio, direcionando ao SAC oficial.
+- Automação de Monitoramento de Redes Sociais: Criamos fluxo no n8n que usa linguagem natural (NLP) para triagem e alerta em tempo real de reclamações enviadas às contas do @Ybera, @YberaClub, @Jhonatan e @Romulo.
+- Automação de Geração de Chang Log Document: Criamos automação via n8n para extrair a maior parte das informações necessárias para gerar este Change Log de forma automatizada.
+
+### Implementações de Dados
+- Ingestão de dados Ybera-Club - 1º Fase: Iniciamos a estruturação do Data Lake carregando as principais tabelas do Club, corrigindo pipelines e reduzindo o excesso de colunas extraídas.
+- Migração Pipelines de Dados: Refatoramos pipelines antigos e construímos um endpoint de ingestão (Webhook) para tratar eventos vindos do Bling em tempo real.
+- Deploy Processo para o GCP: Fizemos o deploy da infraestrutura com escalabilidade e segurança na nuvem do Google (GCP).
+- Mapeamento de Fluxo do webhook/API Bling e construção do Webhook: Realizamos mapeamento detalhado do webhook do Bling para consumo direto dos status dos eventos. Depois, implementamos a construção do webhook com sucesso.
+- Relatório CEP: Realizamos análise interna voltada à identificação e correção de CEPs errados que estavam na base da Wake.
+- Sustentação: Realizamos ajustes corretivos e operacionais nos valores cadastrados de metas do Painel da Live, conforme solicitação.
+
+
+### Outras Implementações
+- Criação de Notas de entrada no Bling: Acionamos times internos e externos após a perda de estoque para criar uma conversão emergencial de notas, importando milhares de notas de saída para gerar as de entrada correspondentes. Grande ponto para a extrema ajuda do time de Ecommerce, que nos auxiliou em todo o processo.
+- Fundamentos do GLPI: Fundamentos do GLPI lançados, substituindo a Zendesk como ferramenta de helpdesk interna do grupo, além de substituir a Pipefy como plataforma de solicitações institucionais, como reembolsos, contratações, etc.
+
+
+## Produto & Design
+
+- Design System Kaizen | image: /assets/kaizen.png: Lançamento oficial do Design System Kaizen, estabelecendo um novo padrão de consistência, escalabilidade e eficiência para o ecossistema digital Ybera.
+
+- Avanços Novo PRO – Research Role Profissional: Finalizamos pesquisa, agrupamento de requisitos e entregamos protótipos de alta fidelidade para a role Profissional.
+
+- Avanços Novo PRO – Research Role Representante: Finalizamos a pesquisa, o levantamento de requisitos e a prototipação de alta fidelidade para a role Representante.
+
+- Design System Novo PRO: Confeccionamos um design system exclusivo para o novo PRO, com destaque para os componentes exclusivos dos apps do Representante e do Profissional, com novidades em relação ao Design System geral do novo Ybera PRO.
+
+- Mapeamento das Funcionalidades do Upnova no Cart Drawer: Mapeamos, documentamos e prototipamos as funcionalidades do app para dar base ao desenvolvimento interno no carrinho nativo Shopify.
+
+- Integração TikTok Shop: Prototipamos o modal que convida influenciadoras a conectarem suas contas e acompanharem vendas feitas pelo TikTok Shop integradas ao plano de carreira.
+
+- Protótipo Botão Flutuante de Compra – Ybera.com: Prototipamos o Mobile Sticky Add-to-Cart para garantir acesso contínuo ao botão de compra durante a rolagem no celular.
+
+- Protótipo de Refatoração dos Spots de Produto: Refizemos visualmente os spots (cards) de produtos para dar extrema clareza à vantagem financeira sem perder a identidade premium.
+
+- Protótipo do Campo de Cupom no Checkout/Complete: Desenhamos o local de exibição da inserção do cupom para a etapa final do checkout.
+
+- Avanços na pesquisa e diagnóstico de conversão (Ecommerce Global): Concluímos etapas de diagnóstico que mapearam atritos na jornada, resultando em protótipos do Sticky cart mobile e na redução de ruído visual promocional na homepage.
+
+- Protótipo de Modal de Aviso para Download de novo APP: Prototipamos a tela de aviso para usuários baixarem a nova aplicação, direcionando de forma imperativa para o download do app atualizado.
+
+- Outras demandas pontuais: Executamos diversas melhorias como definição de cores globais, template PDP One Page, templates de banners EUA, adaptações de UX no Connect, gestão de banners e módulo de transmissão.
+
+## Arquitetura
+- Fase 02 Refatoração do Frontend: Realizamos uma profunda atualização estrutural do frontend (foco em stack, Vite.js e Design System) para eliminar débitos técnicos, melhorar a performance e preparar o ambiente para a futura migração para Next.js.
+- Integração Bling - Lisa - Implementação de Campo de Rebaixamento: Na integração, criamos validações que apontam exatamente qual dado está travando o pedido (ex: sem etiqueta, sem NF) para facilitar resolução.
+- Integração Bling - Lisa - Resolução nas Etiquetas: Adequamos o sistema para não enviar ou imprimir etiquetas em duplicidade.
+- Integração Bling - Lisa - Tratativa para retomar operação Crossborder (Shipsmart): Adequamos tecnicamente a integração para comportar e habilitar novamente os pedidos via Shipsmart.
+- Integração Bling - Lisa - Integração novo Bling Top Cosméticos: Estruturamos uma ramificação de integração totalmente nova focada em atender a operação específica do Bling da Top Cosméticos.
+
+
+## Próximos Passos
+- Integração com o TikTok Shop e Shopee - Ybera Club Brasil - Fase 1: Dando início ao Ybera Club Omnichannel.
+- V2 do Plano de Carreira - Ybera Club Brasil: Inclusão das microconquistas entre os marcos do plano de carreira.
+- Encerramento da implementação do ERP Sênior: Finalização da implementação do ERP Sênior, com todas as validações realizadas.
+- Ferramenta de Inclusão de Banners no Escritório Virtual - Ybera Club Global: Os admins poderão se comunicar de forma mais visual com o club, com uma nova ferramenta de inserção de banners. Tudo feito diretamente pelo painel administrativo do Club.
+- V4 Lybera Shop Ybera Club Brasil - Fase 1: Inserção de pagamentos com saldo bloqueado e compras válidas para ativação mensal.
+- Payout USA: Meio automatizado de payout, utilizando a Wise como meio de operar os pagamentos de comissão.

@@ -1,0 +1,6 @@
+{
+  // JSON: sem format on save — reduz conflito com `report.json` gerado por npm run generate-report
+  "[json]": {
+    "editor.formatOnSave": false
+  }
+}

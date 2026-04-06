@@ -56,3 +56,4 @@ Após o `#` título e o `##` do mês, use linhas `chave: valor` (até o próximo
 - `heroFooterLine1` / `heroFooterLine2` — duas linhas do rodapé da capa
 
 Se `metaTag` estiver vazio no JSON, a página usa o texto do `##` mês como fallback.
+# Report_Ybera

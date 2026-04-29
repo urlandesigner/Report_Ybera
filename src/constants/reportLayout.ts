@@ -2,10 +2,10 @@
  * Coluna única do relatório (desktop e mobile): mesma largura máx., padding e ritmo vertical
  * em todas as secções (exceto hero, que partilha só o alinhamento horizontal).
  */
-export const REPORT_MAX_WIDTH_CLASS = 'max-w-[1000px]'
+export const REPORT_MAX_WIDTH_CLASS = 'max-w-[1200px]'
 
-/** Padding horizontal unificado (alinhado com a capa em lg). */
-export const REPORT_PAD_X = 'px-4 sm:px-6 lg:px-8'
+/** Sem padding horizontal: as secções alinham diretamente à largura máxima do relatório. */
+export const REPORT_PAD_X = 'px-0'
 
 /** Padding vertical do bloco de conteúdo dentro de cada secção. */
 export const REPORT_PAD_Y = 'py-8 sm:py-10'

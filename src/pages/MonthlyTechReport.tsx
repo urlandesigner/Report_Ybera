@@ -1,4 +1,13 @@
-import { useMemo, useRef, useState } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ComponentPropsWithoutRef,
+  type CSSProperties,
+  type ReactNode,
+} from 'react'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import {
   ReportPageLayout,
@@ -11,7 +20,11 @@ import {
   ProductDesignSectionContent,
   DeliveriesSection,
   ReportFooter,
+  ReportTableOfContents,
+  ReportMonthSelector,
+  type ReportTocItem,
 } from '../components/report'
+import { useReadingProgress } from '../hooks/useReadingProgress'
 import {
   reportMock,
   destaquesSectionMeta,
@@ -22,15 +35,16 @@ import {
   type ProductDesignCard,
 } from '../data/reportMock'
 import type { NextStepItem, ReportJson } from '../data/report.types'
-import reportJson from '../data/report.json'
 import {
-  SatisfactionSurveyPopup,
-  createSurveySubmitHandler,
-  DEFAULT_STORAGE_KEY,
-} from 'satisfaction-survey-react'
+  getLatestReport,
+  getReportByPeriod,
+  listReportPeriods,
+  periodValue,
+} from '../data/reportRegistry'
 import { REPORT_SECTION_INNER_CLASS } from '../constants/reportLayout'
-
-const report = reportJson as ReportJson
+import { REPORT_ANCHOR } from '../constants/reportSectionAnchors'
+import { useInitialReportHashScroll } from '../hooks/useInitialReportHashScroll'
+import { useSectionHashSync } from '../hooks/useSectionHashSync'
 
 /** Última palavra do `#` vira destaque do hero (ex.: "Relatório Mensal de" + "Tecnologia"). */
 function splitHeroTitle(fullTitle: string): { title: string; highlight: string } {
@@ -56,7 +70,6 @@ function executiveCardsFromReport(data: ReportJson): ExecutiveCard[] {
   }))
 }
 
-/** Mesma rotação de variantes dos cards mock (layout inalterado). */
 const PD_VARIANTS: ProductDesignCard['variant'][] = [
   'pastel-green',
   'pastel-yellow',
@@ -77,7 +90,6 @@ function productDesignCardsFromReport(data: ReportJson): ProductDesignCard[] {
   }))
 }
 
-/** Section `## Destaques` → cards no padrão Produto & Design (pastéis + grid). */
 function highlightsCardsFromReport(data: ReportJson): ProductDesignCard[] {
   const items = data.highlights ?? []
   if (!items.length) return []
@@ -90,7 +102,6 @@ function highlightsCardsFromReport(data: ReportJson): ProductDesignCard[] {
   }))
 }
 
-/** `deliveries` no JSON → `DeliveryCategory[]` do layout (descrição vira um bullet). */
 function deliveriesFromReport(data: ReportJson): DeliveryCategory[] {
   const blocks = data.deliveries ?? []
   if (!blocks.length) return reportMock.deliveries
@@ -112,7 +123,6 @@ function deliveriesFromReport(data: ReportJson): DeliveryCategory[] {
   }))
 }
 
-/** Section `## Arquitetura` → cards da seção 05 (badge 05). */
 function architectureCardsFromReport(data: ReportJson): ImprovementCard[] {
   const items = data.architecture ?? []
   if (!items.length) return reportMock.improvementsCards
@@ -123,32 +133,114 @@ function architectureCardsFromReport(data: ReportJson): ImprovementCard[] {
   }))
 }
 
-/** Ícone padrão dos cards: arrow-right na cor #0F131B */
 const cardIcon = <ArrowRight className="w-6 h-6 stroke-[1.5]" style={{ color: '#0F131B' }} />
 
 const { sections, footer } = reportMock
 
-const hero = {
-  ...reportMock.hero,
-  ...(report.title.trim() ? splitHeroTitle(report.title) : {}),
-  metaTag: report.metaTag?.trim() || report.month?.trim() || reportMock.hero.metaTag,
-  heroFooterLine1: report.heroFooterLine1?.trim() || reportMock.hero.heroFooterLine1,
-  heroFooterLine2: report.heroFooterLine2?.trim() || reportMock.hero.heroFooterLine2,
-}
-
-const executiveSummaryCards = executiveCardsFromReport(report)
-const deliveries = deliveriesFromReport(report)
-const architectureCards = architectureCardsFromReport(report)
-const productDesignCards = productDesignCardsFromReport(report)
-
-/** Linhas de 2 cards (mesmo grid da terceira linha da section). */
 function chunkPairs<T>(arr: T[]): T[][] {
   const out: T[][] = []
   for (let i = 0; i < arr.length; i += 2) out.push(arr.slice(i, i + 2))
   return out
 }
 
-const highlightCards = highlightsCardsFromReport(report)
+const SECTION_SCROLL_ANCHOR = 'scroll-mt-16 md:scroll-mt-[4.5rem]'
+
+type RevealSectionProps = ComponentPropsWithoutRef<'section'> & {
+  children: ReactNode
+}
+
+function RevealSection({ children, className = '', style, ...props }: RevealSectionProps) {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const node = sectionRef.current
+    if (!node) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      setVisible(true)
+      return
+    }
+
+    let rafId: number | null = null
+    const syncParallax = () => {
+      rafId = null
+      const rect = node.getBoundingClientRect()
+      const travel = window.innerHeight + rect.height
+      const progress = travel > 0 ? Math.min(1, Math.max(0, (window.innerHeight - rect.top) / travel)) : 0.5
+      const centered = progress - 0.5
+
+      node.style.setProperty('--section-parallax', String(progress))
+      node.style.setProperty('--section-shift', `${centered * -34}px`)
+      node.style.setProperty('--section-float-a', `${centered * 120}px`)
+      node.style.setProperty('--section-float-b', `${centered * -86}px`)
+      node.style.setProperty('--section-scale', String(1 + Math.abs(centered) * 0.025))
+    }
+
+    const requestSync = () => {
+      if (rafId != null) return
+      rafId = window.requestAnimationFrame(syncParallax)
+    }
+
+    // threshold 0: secções altas (ex. Entregas) com deep link só mostram o topo no ecrã;
+    // com threshold 0.12, intersectionRatio podia ficar sempre abaixo do limiar e a secção
+    // permanecia invisível (comportamento inconsistente entre browsers/viewports).
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '0px 0px 0px 0px', threshold: 0 }
+    )
+
+    observer.observe(node)
+    syncParallax()
+    window.addEventListener('scroll', requestSync, { passive: true })
+    window.addEventListener('resize', requestSync)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', requestSync)
+      window.removeEventListener('resize', requestSync)
+      if (rafId != null) window.cancelAnimationFrame(rafId)
+    }
+  }, [])
+
+  return (
+    <section
+      ref={sectionRef}
+      className={`${className} relative overflow-hidden transform-gpu transition-[opacity,transform,filter] duration-700 ease-out ${
+        visible ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-8 opacity-0 blur-[2px]'
+      }`}
+      style={{ '--section-parallax': 0.5, ...style } as CSSProperties}
+      {...props}
+    >
+      <div
+        className="pointer-events-none absolute -left-[18%] top-[6%] h-[22rem] w-[22rem] rounded-full bg-[#83FF8F]/20 blur-3xl mix-blend-multiply will-change-transform"
+        style={{
+          transform: 'translate3d(0, var(--section-float-a, 0px), 0) scale(var(--section-scale, 1))',
+        }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -right-[16%] bottom-[8%] h-[26rem] w-[26rem] rounded-full bg-[#CC7FF0]/18 blur-3xl mix-blend-multiply will-change-transform"
+        style={{
+          transform: 'translate3d(0, var(--section-float-b, 0px), 0) scale(var(--section-scale, 1))',
+        }}
+        aria-hidden
+      />
+      <div
+        className="relative z-[1] transform-gpu will-change-transform"
+        style={{ transform: 'translate3d(0, var(--section-shift, 0px), 0)' }}
+      >
+        {children}
+      </div>
+    </section>
+  )
+}
 
 function normalizeNextStepsItems(raw: ReportJson['nextSteps'] | undefined): NextStepItem[] {
   if (!Array.isArray(raw)) return []
@@ -167,39 +259,160 @@ function normalizeNextStepsItems(raw: ReportJson['nextSteps'] | undefined): Next
 }
 
 export function MonthlyTechReport() {
-  const section06Ref = useRef<HTMLElement>(null)
-  const [surveyDismissed, setSurveyDismissed] = useState(false)
-  const nextStepsItems = normalizeNextStepsItems(report.nextSteps)
+  const { year: yearParam, month: monthParam } = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  const handleSurveySubmit = useMemo(
-    () =>
-      createSurveySubmitHandler({
-        storageKey: DEFAULT_STORAGE_KEY,
-        apiUrl: import.meta.env.VITE_SURVEY_API_URL,
-      }),
-    []
+  const year = yearParam?.trim() ?? ''
+  const month = monthParam ? monthParam.trim().padStart(2, '0') : ''
+
+  const reportPeriods = useMemo(() => listReportPeriods(), [])
+
+  const report = useMemo((): ReportJson | null => {
+    if (!/^\d{4}$/.test(year) || !/^\d{2}$/.test(month)) return null
+    return getReportByPeriod(year, month)
+  }, [year, month])
+
+  const latest = useMemo(() => getLatestReport(), [])
+  const latestPath = `/report/${latest.year}/${latest.month}`
+
+  const prevPeriodKeyRef = useRef<string | null>(null)
+  useEffect(() => {
+    const key = `${year}-${month}`
+    if (!report) return
+    if (prevPeriodKeyRef.current === null) {
+      prevPeriodKeyRef.current = key
+      return
+    }
+    if (prevPeriodKeyRef.current !== key) {
+      prevPeriodKeyRef.current = key
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
+  }, [year, month, report])
+
+  const hero = useMemo(
+    () => ({
+      ...reportMock.hero,
+      ...(report && report.title.trim() ? splitHeroTitle(report.title) : {}),
+      metaTag: report?.metaTag?.trim() || report?.month?.trim() || reportMock.hero.metaTag,
+      heroFooterLine1: report?.heroFooterLine1?.trim() || reportMock.hero.heroFooterLine1,
+      heroFooterLine2: report?.heroFooterLine2?.trim() || reportMock.hero.heroFooterLine2,
+    }),
+    [report]
   )
+
+  const executiveSummaryCards = useMemo(
+    () => (report ? executiveCardsFromReport(report) : []),
+    [report]
+  )
+  const deliveries = useMemo(() => (report ? deliveriesFromReport(report) : []), [report])
+  const architectureCards = useMemo(
+    () => (report ? architectureCardsFromReport(report) : []),
+    [report]
+  )
+  const productDesignCards = useMemo(
+    () => (report ? productDesignCardsFromReport(report) : []),
+    [report]
+  )
+  const highlightCards = useMemo(
+    () => (report ? highlightsCardsFromReport(report) : []),
+    [report]
+  )
+
+  const nextStepsItems = useMemo(
+    () => (report ? normalizeNextStepsItems(report.nextSteps) : []),
+    [report]
+  )
+
+  const tocItems = useMemo((): ReportTocItem[] => {
+    const items: ReportTocItem[] = [{ id: REPORT_ANCHOR.resumo, label: 'Resumo' }]
+    if (highlightCards.length > 0) {
+      items.push({ id: REPORT_ANCHOR.destaques, label: 'Destaques' })
+    }
+    items.push(
+      { id: REPORT_ANCHOR.entregas, label: 'Entregas' },
+      { id: REPORT_ANCHOR.produto, label: 'Produto' },
+      { id: REPORT_ANCHOR.arquitetura, label: 'Arquitetura' },
+      { id: REPORT_ANCHOR.proximosPassos, label: 'Próximos passos' }
+    )
+    return items
+  }, [highlightCards.length])
+
+  const tocSectionIds = useMemo(() => tocItems.map((i) => i.id), [tocItems])
+  const { progress, activeSectionId } = useReadingProgress(tocSectionIds)
+  const [showMonthSelector, setShowMonthSelector] = useState(false)
+
+  useEffect(() => {
+    const syncMonthSelectorVisibility = () => {
+      const heroTags = document.getElementById('report-hero-tags')
+      if (!heroTags) return
+
+      const rect = heroTags.getBoundingClientRect()
+      setShowMonthSelector(rect.bottom <= 0)
+    }
+
+    syncMonthSelectorVisibility()
+    window.addEventListener('scroll', syncMonthSelectorVisibility, { passive: true })
+    window.addEventListener('resize', syncMonthSelectorVisibility)
+
+    return () => {
+      window.removeEventListener('scroll', syncMonthSelectorVisibility)
+      window.removeEventListener('resize', syncMonthSelectorVisibility)
+    }
+  }, [])
+
+  const { hashSyncEnabled } = useInitialReportHashScroll({
+    hasDestaquesSection: highlightCards.length > 0,
+    pathname: location.pathname,
+  })
+  useSectionHashSync(activeSectionId, { enabled: hashSyncEnabled })
+
+  const monthSelector = useMemo(
+    () => (
+      <ReportMonthSelector
+        options={reportPeriods}
+        value={periodValue(year, month)}
+        onChange={(y, m) => {
+          navigate(`/report/${y}/${m}`, { replace: false })
+        }}
+      />
+    ),
+    [reportPeriods, year, month, navigate]
+  )
+
+  if (!/^\d{4}$/.test(year) || !/^\d{1,2}$/.test(monthParam ?? '') || !report) {
+    return <Navigate to={latestPath} replace />
+  }
 
   return (
     <ReportPageLayout>
-      {/* Hero: largura total do navegador, sem margin */}
       <section className="w-full">
         <HeroHeader data={hero} />
       </section>
 
-      {/* Seção 1: Resumo Executivo — background #F8F8F8 */}
-      <section className="w-full bg-[#F8F8F8]" aria-labelledby="executive-summary-heading">
-        <div className={`relative ${REPORT_SECTION_INNER_CLASS}`}>
-          <ExecutiveSummarySection
-            section={sections[0]}
-            cards={executiveSummaryCards}
-          />
-        </div>
-      </section>
+      <ReportTableOfContents
+        items={tocItems}
+        activeSectionId={activeSectionId}
+        progress={progress}
+        monthSelector={showMonthSelector ? monthSelector : null}
+      />
 
-      {/* Destaques — só exibe se `## Destaques` tiver bullets no markdown */}
+      <RevealSection
+        id={REPORT_ANCHOR.resumo}
+        className={`w-full bg-[#F8F8F8] ${SECTION_SCROLL_ANCHOR}`}
+        aria-labelledby="executive-summary-heading"
+      >
+        <div className={`relative ${REPORT_SECTION_INNER_CLASS}`}>
+          <ExecutiveSummarySection section={sections[0]} cards={executiveSummaryCards} />
+        </div>
+      </RevealSection>
+
       {highlightCards.length > 0 && (
-        <section className="w-full bg-white relative" aria-labelledby="section-destaques-heading">
+        <RevealSection
+          id={REPORT_ANCHOR.destaques}
+          className={`relative w-full bg-white ${SECTION_SCROLL_ANCHOR}`}
+          aria-labelledby="section-destaques-heading"
+        >
           <div className={`relative ${REPORT_SECTION_INNER_CLASS}`}>
             <ReportSectionTitle
               badge={destaquesSectionMeta.badge}
@@ -210,12 +423,7 @@ export function MonthlyTechReport() {
               badgeColor="#F0F0F0"
               fullTitleGradient
               decoration={
-                <img
-                  src="/assets/image01.svg"
-                  alt=""
-                  className="opacity-80 sm:opacity-100"
-                  aria-hidden
-                />
+                <img src="/assets/image01.svg" alt="" className="opacity-80 sm:opacity-100" aria-hidden />
               }
             />
             <DestaquesCards
@@ -226,11 +434,14 @@ export function MonthlyTechReport() {
               }))}
             />
           </div>
-        </section>
+        </RevealSection>
       )}
 
-      {/* Seção 2: Entregas Principais — mesmo container que as demais */}
-      <section className="w-full bg-white" aria-labelledby="section-2">
+      <RevealSection
+        id={REPORT_ANCHOR.entregas}
+        className={`w-full bg-white ${SECTION_SCROLL_ANCHOR}`}
+        aria-labelledby="section-2"
+      >
         <div className={`relative ${REPORT_SECTION_INNER_CLASS}`}>
           <ReportSectionTitle
             badge={sections[1].badge}
@@ -240,32 +451,36 @@ export function MonthlyTechReport() {
             description={sections[1].description}
             titleId="section-2-heading"
             badgeColor="#F0F0F0"
-            decoration={
-              <img src="/assets/image02.svg" alt="" className="opacity-90 sm:opacity-100" aria-hidden />
-            }
+            decoration={<img src="/assets/image02.svg" alt="" className="opacity-90 sm:opacity-100" aria-hidden />}
           />
           <DeliveriesSection categories={deliveries} />
         </div>
-      </section>
+      </RevealSection>
 
-      {/* Seção 4: Produto & Design — mesmo fundo cinza e número branco da seção 01 (Resumo Executivo) */}
-      <section className="relative w-full bg-[#F8F8F8]" aria-labelledby="section-4">
+      <RevealSection
+        id={REPORT_ANCHOR.produto}
+        className={`relative w-full bg-[#F8F8F8] ${SECTION_SCROLL_ANCHOR}`}
+        aria-labelledby="section-4"
+      >
         <div className={`relative ${REPORT_SECTION_INNER_CLASS}`}>
-        <ReportSectionTitle
-          badge={sections[3].badge}
-          brand={sections[3].brand}
-          titleSplit={sections[3].titleSplit}
-          title={!sections[3].titleSplit ? sections[3].title : undefined}
-          description={sections[3].description}
-          titleId="section-4-heading"
-          decoration={<img src="/assets/image04.svg" alt="" aria-hidden />}
-        />
-        <ProductDesignSectionContent cards={productDesignCards} cardIcon={cardIcon} />
+          <ReportSectionTitle
+            badge={sections[3].badge}
+            brand={sections[3].brand}
+            titleSplit={sections[3].titleSplit}
+            title={!sections[3].titleSplit ? sections[3].title : undefined}
+            description={sections[3].description}
+            titleId="section-4-heading"
+            decoration={<img src="/assets/image04.svg" alt="" aria-hidden />}
+          />
+          <ProductDesignSectionContent cards={productDesignCards} cardIcon={cardIcon} />
         </div>
-      </section>
+      </RevealSection>
 
-      {/* Seção 5: Arquitetura (conteúdo de ## Arquitetura no markdown) — background #ffffff */}
-      <section className="w-full bg-white" aria-labelledby="section-5-heading">
+      <RevealSection
+        id={REPORT_ANCHOR.arquitetura}
+        className={`w-full bg-white ${SECTION_SCROLL_ANCHOR}`}
+        aria-labelledby="section-5-heading"
+      >
         <div className={`relative ${REPORT_SECTION_INNER_CLASS}`}>
           <ReportSectionTitle
             badge={sections[4].badge}
@@ -292,10 +507,7 @@ export function MonthlyTechReport() {
               </Card>
             ) : null}
             {chunkPairs(architectureCards.slice(1)).map((pair, rowIdx) => (
-              <div
-                key={`architecture-row-${rowIdx}`}
-                className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-[32px]"
-              >
+              <div key={`architecture-row-${rowIdx}`} className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-[32px]">
                 {pair.map((item) => (
                   <Card key={item.id} variant="soft" backgroundColor="#F8F8F8" title={item.title}>
                     {item.text}
@@ -305,48 +517,43 @@ export function MonthlyTechReport() {
             ))}
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      {/* Seção 6: Próximos Passos — background #ffffff */}
-      <section ref={section06Ref} className="w-full bg-white" aria-labelledby="section-6">
+      <RevealSection
+        id={REPORT_ANCHOR.proximosPassos}
+        className={`w-full bg-white ${SECTION_SCROLL_ANCHOR}`}
+        aria-labelledby="section-6"
+      >
         <div className={`relative ${REPORT_SECTION_INNER_CLASS}`}>
-        <ReportSectionTitle
-          badge={sections[5].badge}
-          brand={sections[5].brand}
-          titleSplit={sections[5].titleSplit}
-          title={!sections[5].titleSplit ? sections[5].title : undefined}
-          description={sections[5].description}
-          titleId="section-6-heading"
-          badgeColor="#F0F0F0"
-          fullTitleGradient
-        />
-        <div className="relative z-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px]">
-          {nextStepsItems.map((item, idx) => (
-            <NextStepsCard
-              key={`next-step-${idx}`}
-              title={item.title}
-              description={item.description}
-            />
-          ))}
+          <ReportSectionTitle
+            badge={sections[5].badge}
+            brand={sections[5].brand}
+            titleSplit={sections[5].titleSplit}
+            title={!sections[5].titleSplit ? sections[5].title : undefined}
+            description={sections[5].description}
+            titleId="section-6-heading"
+            badgeColor="#F0F0F0"
+            fullTitleGradient
+          />
+          <div className="relative z-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px]">
+            {nextStepsItems.map((item, idx) => (
+              <NextStepsCard key={`next-step-${idx}`} title={item.title} description={item.description} />
+            ))}
+          </div>
         </div>
-        </div>
-      </section>
+      </RevealSection>
 
-      {!surveyDismissed && (
-        <SatisfactionSurveyPopup
-          triggerRef={section06Ref}
-          onSubmit={handleSurveySubmit}
-          onClose={() => setSurveyDismissed(true)}
-          fontFamily='"Plus Jakarta Sans", sans-serif'
-        />
-      )}
-
-      {/* Footer: fundo 100% largura, conteúdo alinhado às secções */}
-      <section className="w-full bg-white">
+      <RevealSection className="w-full bg-white">
         <div className={REPORT_SECTION_INNER_CLASS}>
-          <ReportFooter title={footer.title} slogan={footer.slogan} contactPrompt={footer.contactPrompt} email={footer.email} brand={footer.brand} />
+          <ReportFooter
+            title={footer.title}
+            slogan={footer.slogan}
+            contactPrompt={footer.contactPrompt}
+            email={footer.email}
+            brand={footer.brand}
+          />
         </div>
-      </section>
+      </RevealSection>
     </ReportPageLayout>
   )
 }

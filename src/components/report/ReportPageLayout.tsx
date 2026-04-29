@@ -1,4 +1,6 @@
 import { type ReactNode } from 'react'
+import { ReportBackToTop } from './ReportBackToTop'
+import { ReportSkipLink } from './ReportSkipLink'
 
 interface ReportPageLayoutProps {
   children: ReactNode
@@ -17,8 +19,10 @@ export function ReportPageLayout({ children }: ReportPageLayoutProps) {
         <div className="absolute bottom-1/4 -right-32 w-80 h-80 bg-report-pastel-green/25 rounded-full blur-3xl" />
         <div className="absolute top-2/3 left-1/2 -translate-x-1/2 w-[28rem] h-64 bg-report-pastel-lavender/20 rounded-full blur-3xl" />
       </div>
-      <main className="relative w-full">
+      <main id="report-main" className="relative w-full">
+        <ReportSkipLink />
         {children}
+        <ReportBackToTop />
       </main>
     </div>
   )

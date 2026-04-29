@@ -1,5 +1,11 @@
+export { ReadingProgressBar } from './ReadingProgressBar'
+export { ReportBackToTop } from './ReportBackToTop'
 export { ReportPageLayout } from './ReportPageLayout'
+export { ReportSkipLink } from './ReportSkipLink'
+export { ReportTableOfContents } from './ReportTableOfContents'
+export type { ReportTocItem } from './ReportTableOfContents'
 export { HeroHeader } from './HeroHeader'
+export { ReportMonthSelector } from './ReportMonthSelector'
 export { SectionHeader } from './SectionHeader'
 export { ReportSectionTitle } from './ReportSectionTitle'
 export { ExecutiveSummarySection } from './ExecutiveSummarySection'
@@ -16,13 +22,3 @@ export { ReportFooter } from './ReportFooter'
 export { SparkleDecoration } from './SparkleDecoration'
 export { SupportCard } from './SupportCard'
 export { RocketIllustration } from './RocketIllustration'
-export {
-  SatisfactionSurveyPopup,
-  createSurveySubmitHandler,
-  registerSurveyResponse,
-  saveSurveyToLocalStorage,
-  getSurveyResponses,
-  sendSurveyToApi,
-  DEFAULT_STORAGE_KEY,
-} from 'satisfaction-survey-react'
-export type { SatisfactionSurveyData, RegisterSurveyOptions } from 'satisfaction-survey-react'

@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react'
+import { StaticMeshGradient } from '@paper-design/shaders-react'
 import type { SectionMeta, ExecutiveCard, ExecutiveCardDotColor } from '../../data/reportMock'
 import { CARD_HOVER_ARTICLE_CLASSES } from './Card'
 import { ReportSectionTitle } from './ReportSectionTitle'
@@ -15,6 +16,14 @@ const dotColorClasses: Record<ExecutiveCardDotColor, string> = {
   purple: 'bg-purple-500',
   green: 'bg-green-500',
   orange: 'bg-orange-500',
+}
+
+/** Cores muito suaves para StaticMeshGradient (Paper Shaders), alinhadas ao tom da bolinha. */
+const meshColorsByDot: Record<ExecutiveCardDotColor, string[]> = {
+  blue: ['#ffffff', '#ffffff', '#f4f8ff', '#e8f1ff'],
+  purple: ['#ffffff', '#ffffff', '#faf7ff', '#f2edff'],
+  green: ['#ffffff', '#ffffff', '#f5fcf7', '#e9f6ee'],
+  orange: ['#ffffff', '#ffffff', '#fffaf6', '#fff0e0'],
 }
 
 /**
@@ -50,38 +59,56 @@ export function ExecutiveSummarySection({
 
       {/* Grid 6 cards: 3 por linha no desktop (lg:grid-cols-3); 2 colunas no sm; 1 no mobile */}
       <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-[32px] lg:grid-cols-3">
-        {cards.map((item) => (
+        {cards.map((item, index) => (
           <article
             key={item.id}
-            className={`${CARD_HOVER_ARTICLE_CLASSES} flex flex-col items-start gap-[1.25rem] p-6 flex-1 min-w-0 rounded-[20px] border bg-[#FFF]`}
+            className={`${CARD_HOVER_ARTICLE_CLASSES} relative flex min-h-0 flex-1 flex-col items-start gap-[1.25rem] overflow-hidden rounded-[20px] border p-6`}
             style={{ borderColor: '#E6E8EC', ['--card-hover-shadow' as string]: '0 25px 50px -12px #E6E8ECcc' }}
           >
-            <span
-              className={`inline-block w-3 h-3 rounded-full shrink-0 ${dotColorClasses[item.dotColor]}`}
-              aria-hidden
-            />
-            <h3
-              className="text-[18px] font-bold leading-[130%] tracking-[-0.02em] text-[#3C3C3C] sm:text-xl md:text-2xl lg:text-[26px] lg:tracking-[-0.78px]"
-              style={{
-                fontFamily: '"Plus Jakarta Sans", sans-serif',
-                fontStyle: 'normal',
-              }}
-            >
-              {item.title}
-            </h3>
-            <p
-              style={{
-                fontFamily: '"Plus Jakarta Sans", sans-serif',
-                color: '#505052',
-                fontSize: 16,
-                fontStyle: 'normal',
-                fontWeight: 400,
-                lineHeight: '160%',
-                whiteSpace: 'normal',
-              }}
-            >
-              {item.text}
-            </p>
+            <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[20px]" aria-hidden>
+              <StaticMeshGradient
+                className="absolute inset-0 h-full w-full min-h-[12rem]"
+                speed={0}
+                colors={meshColorsByDot[item.dotColor]}
+                positions={2}
+                waveX={0.55}
+                waveXShift={0.15 + index * 0.04}
+                waveY={0.72}
+                waveYShift={0.35}
+                mixing={0.94}
+                grainMixer={0.06}
+                grainOverlay={0.12}
+                rotation={(37 + index * 41) % 360}
+              />
+            </div>
+            <div className="relative z-[1] flex min-h-0 w-full flex-col items-start gap-[1.25rem]">
+              <span
+                className={`inline-block h-3 w-3 shrink-0 rounded-full ${dotColorClasses[item.dotColor]}`}
+                aria-hidden
+              />
+              <h3
+                className="text-[18px] font-bold leading-[130%] tracking-[-0.02em] text-[#3C3C3C] sm:text-xl md:text-2xl lg:text-[26px] lg:tracking-[-0.78px]"
+                style={{
+                  fontFamily: '"Plus Jakarta Sans", sans-serif',
+                  fontStyle: 'normal',
+                }}
+              >
+                {item.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: '"Plus Jakarta Sans", sans-serif',
+                  color: '#505052',
+                  fontSize: 16,
+                  fontStyle: 'normal',
+                  fontWeight: 400,
+                  lineHeight: '160%',
+                  whiteSpace: 'normal',
+                }}
+              >
+                {item.text}
+              </p>
+            </div>
           </article>
         ))}
       </div>

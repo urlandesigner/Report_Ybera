@@ -1,10 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'node:path'
+import { surveyApiPlugin } from './vite-plugin-survey-api'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), surveyApiPlugin()],
   root: '.',
   publicDir: 'public',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   optimizeDeps: {
     // Com o default (true), o Vite segura os ficheiros de `node_modules/.vite/deps/`
     // até acabar o crawl de imports — no browser parece "pendente" em react.js, lucide, etc.

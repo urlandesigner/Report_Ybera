@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { clsx } from 'clsx'
 import type { ProductDesignCard } from '../../data/reportMock'
 import { CARD_HOVER_ARTICLE_CLASSES, cardHoverShadowStyle } from './Card'
+import { ParallaxImage, StaggerContainer, StaggerItem } from '../animations'
 
 /** Hero (índice 0): lilás claro */
 const PD_HERO_BG = '#EDE9FE'
@@ -65,10 +66,9 @@ function ProductDesignSurfaceCard({
         {title}
       </h3>
       <div
-        className="text-base font-normal text-[#505052]"
+        className="text-base font-normal leading-normal text-neutral-600"
         style={{
           fontFamily: '"Plus Jakarta Sans", sans-serif',
-          lineHeight: '22.75px',
         }}
       >
         {children}
@@ -115,10 +115,9 @@ function ProductDesignHeroCard({
             {item.title}
           </h3>
           <div
-            className="text-base font-normal text-[#505052] md:text-lg"
+            className="text-base font-normal leading-normal text-neutral-600"
             style={{
               fontFamily: '"Plus Jakarta Sans", sans-serif',
-              lineHeight: '160%',
             }}
           >
             {item.text}
@@ -138,11 +137,12 @@ function ProductDesignHeroCard({
         </div>
         {item.image ? (
           <div className="order-1 flex min-w-0 w-full items-center justify-center overflow-hidden rounded-2xl md:order-2">
-            <img
+            <ParallaxImage
               src={item.image}
               alt=""
               className="h-auto w-full max-w-full object-contain"
-              aria-hidden
+              intensity={14}
+              ariaHidden
             />
           </div>
         ) : null}
@@ -167,44 +167,49 @@ export function ProductDesignSectionContent({ cards, cardIcon }: ProductDesignSe
   const rest = cards.slice(4)
 
   return (
-    <div className="flex flex-col gap-4 md:gap-[32px]">
-      <ProductDesignHeroCard item={hero} icon={cardIcon} />
+    <StaggerContainer className="flex flex-col gap-4 md:gap-[32px]" stagger={0.07}>
+      <StaggerItem>
+        <ProductDesignHeroCard item={hero} icon={cardIcon} />
+      </StaggerItem>
 
       {trio.length > 0 && (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px] lg:grid-cols-3 lg:gap-[32px]">
+        <StaggerContainer className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px] lg:grid-cols-3 lg:gap-[32px]" stagger={0.06}>
           {trio.map((item, i) => (
-            <ProductDesignSurfaceCard
-              key={item.id}
-              title={item.title}
-              backgroundColor={PD_TRIO_BGS[i]}
-              icon={cardIcon}
-            >
-              {item.text}
-            </ProductDesignSurfaceCard>
+            <StaggerItem key={item.id}>
+              <ProductDesignSurfaceCard
+                title={item.title}
+                backgroundColor={PD_TRIO_BGS[i]}
+                icon={cardIcon}
+              >
+                {item.text}
+              </ProductDesignSurfaceCard>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       )}
 
       {chunkPairs(rest).map((pair, rowIdx) => {
         const [leftBg, rightBg] = PD_PAIR_ROW_BGS[rowIdx % PD_PAIR_ROW_BGS.length]
         return (
-          <div
+          <StaggerContainer
             key={`pd-pair-row-${rowIdx}`}
             className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px]"
+            stagger={0.07}
           >
             {pair.map((item, colIdx) => (
-              <ProductDesignSurfaceCard
-                key={item.id}
-                title={item.title}
-                backgroundColor={colIdx === 0 ? leftBg : rightBg}
-                icon={cardIcon}
-              >
-                {item.text}
-              </ProductDesignSurfaceCard>
+              <StaggerItem key={item.id}>
+                <ProductDesignSurfaceCard
+                  title={item.title}
+                  backgroundColor={colIdx === 0 ? leftBg : rightBg}
+                  icon={cardIcon}
+                >
+                  {item.text}
+                </ProductDesignSurfaceCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         )
       })}
-    </div>
+    </StaggerContainer>
   )
 }

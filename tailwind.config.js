@@ -101,6 +101,20 @@ export default {
       maxWidth: {
         report: '72rem',
       },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
+        'float-visible': {
+          '0%, 100%': { transform: 'translateY(0px) rotate(-1deg)' },
+          '50%': { transform: 'translateY(-16px) rotate(2deg)' },
+        },
+      },
+      animation: {
+        float: 'float 6s ease-in-out infinite',
+        'float-visible': 'float-visible 5.5s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

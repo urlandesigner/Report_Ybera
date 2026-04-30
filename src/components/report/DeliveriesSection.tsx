@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { useState } from 'react'
 import type { DeliveryCategory, DeliveryItem } from '../../data/reportMock'
 
 const fontSans = { fontFamily: '"Plus Jakarta Sans", sans-serif' } as const
@@ -20,12 +20,12 @@ function renderDeliveryCategoryTitle(name: string) {
 function DeliveryItemBlock({ delivery }: { delivery: DeliveryItem }) {
   return (
     <div className="flex min-w-0 flex-col gap-2">
-      <h4 className="text-[18px] font-semibold leading-7 text-[#3C3C3C]" style={fontSans}>
+      <h4 className="text-[17px] font-medium leading-6 text-[#3C3C3C]" style={fontSans}>
         {delivery.title}
       </h4>
       {delivery.bullets.length > 0 ? (
         <div
-          className="space-y-2 text-base font-light leading-[22.75px] text-[#505052]"
+          className="space-y-1.5 text-base font-normal leading-normal text-neutral-600"
           style={fontSans}
         >
           {delivery.bullets.map((bullet, i) => (
@@ -37,10 +37,9 @@ function DeliveryItemBlock({ delivery }: { delivery: DeliveryItem }) {
       ) : null}
       {delivery.notes && delivery.notes.length > 0 ? (
         <ul
-          className={clsx(
-            'list-disc list-outside space-y-2 pl-5 text-base font-light leading-[22.75px] text-[#505052] marker:text-[#505052]',
-            delivery.bullets.length > 0 && 'mt-2'
-          )}
+          className={`list-disc list-outside space-y-1.5 pl-5 text-base font-normal leading-normal text-neutral-600 marker:text-neutral-400 ${
+            delivery.bullets.length > 0 ? 'mt-2' : ''
+          }`}
           style={fontSans}
         >
           {delivery.notes.map((note, ni) => (
@@ -70,22 +69,26 @@ interface DeliveriesSectionProps {
  * título grande à esquerda como âncora, lista à direita dentro de painel branco (título + texto).
  */
 export function DeliveriesSection({ categories }: DeliveriesSectionProps) {
+  const [expandedByCategory, setExpandedByCategory] = useState<Record<string, boolean>>({})
+
+  const toggleCategory = (id: string) => {
+    setExpandedByCategory((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
   return (
-    <div className="flex w-full min-w-0 flex-col font-sans" aria-labelledby="deliveries-heading">
+    <section className="w-full min-w-0 font-sans" aria-labelledby="deliveries-heading">
       <h2 id="deliveries-heading" className="sr-only">
         Entregas por categoria
       </h2>
       {categories.map((category, index) => (
         <article
           key={category.id}
-          className={clsx(
-            'flex w-full min-w-0 flex-col gap-6 rounded-report-lg bg-[rgba(241,241,241,0.5)] p-3 lg:flex-row lg:items-stretch lg:gap-20',
-            index > 0 && 'mt-6 md:mt-12'
-          )}
+          className={`relative grid grid-cols-1 gap-10 overflow-visible rounded-report-lg bg-[rgba(241,241,241,0.5)] p-3 lg:grid-cols-[320px_1fr] ${
+            index > 0 ? 'mt-6 md:mt-12' : ''
+          }`}
         >
-          {/* Coluna esquerda: flex col + min-h-0 no desktop para o sticky limitar-se ao article; wrapper interno com sticky + self-start */}
-          <div className="min-w-0 shrink-0 p-3 sm:p-6 lg:flex lg:min-h-0 lg:max-w-sm lg:basis-[min(100%,303px)] lg:flex-col">
-            <div className="w-full max-w-full lg:sticky lg:top-[32px] lg:z-[1] lg:self-start">
+          <aside className="relative overflow-visible p-3 sm:p-6 lg:p-0">
+            <div className="w-fit rounded-2xl px-4 py-3 lg:sticky lg:top-[96px]">
               <h3
                 className="text-[24px] font-semibold leading-[130%] tracking-[-0.06em] text-[#3C3C3C] sm:text-3xl md:text-[40px] lg:text-[48px] lg:leading-[3rem] lg:tracking-[-1.44px]"
                 style={fontSans}
@@ -93,18 +96,52 @@ export function DeliveriesSection({ categories }: DeliveriesSectionProps) {
                 {renderDeliveryCategoryTitle(category.name)}
               </h3>
             </div>
-          </div>
+          </aside>
 
-          {/* Coluna direita: entregas em painel branco */}
-          <div className="min-w-0 flex-1 px-0 pb-0 sm:px-3 sm:pb-3 lg:px-0 lg:pb-0">
-            <div className="flex flex-col gap-6 rounded-2xl bg-report-card p-card shadow-report-soft">
-              {category.deliveries.map((delivery, idx) => (
+          <div className="min-w-0 px-0 pb-0 sm:px-3 sm:pb-3 lg:px-0 lg:pb-0">
+            <div className="flex flex-col gap-5 rounded-2xl bg-report-card p-card shadow-report-soft">
+              {category.deliveries.slice(0, 3).map((delivery, idx) => (
                 <DeliveryItemBlock key={idx} delivery={delivery} />
               ))}
+
+              {category.deliveries.length > 3 ? (
+                <>
+                  <div
+                    className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${
+                      expandedByCategory[category.id] ? 'max-h-[1800px] opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="mt-1 flex flex-col gap-5 pt-1">
+                      {category.deliveries.slice(3).map((delivery, idx) => (
+                        <DeliveryItemBlock key={`extra-${idx}`} delivery={delivery} />
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => toggleCategory(category.id)}
+                    className="group mt-1 inline-flex w-fit items-center gap-1 rounded-full px-0 py-1 text-sm font-medium text-[#6A6A70] transition-colors duration-200 hover:text-[#2F2F33] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1E1E20]"
+                    style={fontSans}
+                    aria-expanded={Boolean(expandedByCategory[category.id])}
+                  >
+                    {expandedByCategory[category.id] ? (
+                      'Ver menos ↑'
+                    ) : (
+                      <>
+                        +{category.deliveries.length - 3} entregas
+                        <span className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-0.5">
+                          →
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </>
+              ) : null}
             </div>
           </div>
         </article>
       ))}
-    </div>
+    </section>
   )
 }

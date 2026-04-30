@@ -437,7 +437,7 @@ export function MonthlyTechReport() {
         </RevealSection>
       )}
 
-      <RevealSection
+      <section
         id={REPORT_ANCHOR.entregas}
         className={`w-full bg-white ${SECTION_SCROLL_ANCHOR}`}
         aria-labelledby="section-2"
@@ -455,7 +455,7 @@ export function MonthlyTechReport() {
           />
           <DeliveriesSection categories={deliveries} />
         </div>
-      </RevealSection>
+      </section>
 
       <RevealSection
         id={REPORT_ANCHOR.produto}

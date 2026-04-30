@@ -114,8 +114,8 @@ export function Card({
         {title}
       </h3>
       <div
-        className="mt-1 text-base font-normal"
-        style={{ color: '#505052', fontFamily: '"Plus Jakarta Sans", sans-serif', lineHeight: '22.75px' }}
+        className="mt-1 text-base font-normal leading-normal text-neutral-600"
+        style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
       >
         {children}
       </div>

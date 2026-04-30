@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { ReadingProgressBar } from './ReadingProgressBar'
 import AnimatedTabs from '../forgeui/animated-tabs'
 
@@ -27,7 +27,19 @@ export function ReportTableOfContents({
   monthSelector,
 }: ReportTableOfContentsProps) {
   if (items.length === 0) return null
-  const activeTab = activeSectionId ?? items[0]?.id
+  const [optimisticActiveTab, setOptimisticActiveTab] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!optimisticActiveTab) return
+    if (activeSectionId === optimisticActiveTab) {
+      setOptimisticActiveTab(null)
+      return
+    }
+    const t = window.setTimeout(() => setOptimisticActiveTab(null), 650)
+    return () => window.clearTimeout(t)
+  }, [activeSectionId, optimisticActiveTab])
+
+  const activeTab = optimisticActiveTab ?? activeSectionId ?? items[0]?.id
 
   return (
     <div className="sticky top-0 z-30 border-b border-[#E6E8EC]/80 bg-report-offWhite/95 backdrop-blur-sm">
@@ -41,8 +53,11 @@ export function ReportTableOfContents({
                 label: item.label,
                 href: `#${item.id}`,
               }))}
+              onTabChange={(value) => {
+                setOptimisticActiveTab(value)
+              }}
               className="mx-0 min-h-[54px] w-full justify-start gap-3 overflow-x-auto rounded-none bg-transparent p-0 [-ms-overflow-style:none] [scrollbar-width:none] sm:min-h-[58px] sm:flex-wrap sm:gap-4 sm:overflow-visible sm:py-2 [&::-webkit-scrollbar]:hidden"
-              triggerClassName="h-auto whitespace-nowrap rounded-full px-4 py-2 text-[17px] font-normal text-[#505052] hover:text-[#3C3C3C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1E1E20] data-[current=true]:font-medium data-[current=true]:text-white"
+              triggerClassName="h-auto whitespace-nowrap rounded-full px-4 py-2 text-[16px] font-normal text-[#505052] hover:text-[#3C3C3C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1E1E20] data-[current=true]:font-medium data-[current=true]:text-white"
             />
           </nav>
           {monthSelector ? (

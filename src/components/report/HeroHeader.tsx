@@ -1,6 +1,7 @@
 import type { HeroData } from '../../data/reportMock'
 import { REPORT_MAX_WIDTH_CLASS } from '../../constants/reportLayout'
 import { BubbleBackground } from '../animate-ui/components/backgrounds/bubble'
+import { AnimatedSection, ParallaxImage } from '../animations'
 
 /** Mesma coluna de conteúdo que `REPORT_SECTION_INNER_CLASS` (sem padding vertical das secções). */
 const HERO_CONTENT_COLUMN = ['mx-auto w-full min-w-0', REPORT_MAX_WIDTH_CLASS, 'px-4 sm:px-6 lg:px-0'].join(' ')
@@ -56,7 +57,10 @@ export function HeroHeader({ data }: { data: HeroData }) {
         </div>
 
         {/* Área central: título + arte 3D em uma composição editorial. */}
-        <div className="relative z-[1] grid min-h-0 flex-1 grid-cols-1 items-center gap-8 py-2 sm:grid-cols-[minmax(0,1.1fr)_minmax(180px,0.9fr)] md:gap-10 lg:py-0">
+        <AnimatedSection
+          className="relative z-[1] grid min-h-0 flex-1 grid-cols-1 items-center gap-8 py-2 sm:grid-cols-[minmax(0,1.1fr)_minmax(180px,0.9fr)] md:gap-10 lg:py-0"
+          delay={0.05}
+        >
           <h1 className="relative z-[1] min-w-0" style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
               <span
                 className="block w-fit max-w-full text-[clamp(1.5rem,5.5vw,4.375rem)] font-extralight leading-[1.08] tracking-tight sm:leading-[1.1]"
@@ -71,7 +75,7 @@ export function HeroHeader({ data }: { data: HeroData }) {
               </span>
               {/* leading generoso no mobile: clip de descendentes (ex. "g") com background-clip:text + overflow no header */}
               <span
-                className="mt-2 block w-fit max-w-full pb-[0.12em] text-[clamp(2rem,10vw,6rem)] font-bold leading-[1.38] sm:mt-3 sm:pb-0 sm:leading-[1.1] lg:leading-[120px]"
+                className="block w-fit max-w-full pb-[0.12em] text-[clamp(2rem,10vw,6rem)] font-bold leading-[1.38] sm:pb-0 sm:leading-[1.1] lg:leading-[120px]"
                 style={{
                   background: gradient,
                   backgroundClip: 'text',
@@ -82,15 +86,16 @@ export function HeroHeader({ data }: { data: HeroData }) {
                 {data.highlight}
               </span>
             </h1>
-          <div className="relative hidden min-h-[180px] items-center justify-end sm:flex">
-            <img
+          <div className="relative hidden min-h-[180px] items-center justify-end overflow-hidden sm:flex">
+            <ParallaxImage
               src="/assets/chrome51.png"
               alt=""
               className="pointer-events-none h-auto w-[min(280px,42vw)] max-w-[320px] object-contain opacity-90 lg:w-[320px]"
-              aria-hidden
+              intensity={16}
+              ariaHidden
             />
           </div>
-        </div>
+        </AnimatedSection>
 
         {/* Rodapé da capa: metadados e símbolo alinhados à base da área de conteúdo. */}
         <div className="relative z-[1] mt-auto flex h-auto min-h-0 w-full flex-col gap-4 sm:min-h-[60px] sm:flex-row sm:items-end sm:justify-between">

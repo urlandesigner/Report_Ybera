@@ -1,4 +1,5 @@
 import { HighlightCard, type HighlightCardItem } from './HighlightCard'
+import { AnimatedReveal } from './AnimatedReveal'
 
 export interface DestaquesCardsProps {
   items: HighlightCardItem[]
@@ -15,21 +16,33 @@ export function DestaquesCards({ items }: DestaquesCardsProps) {
   const card6 = rest[4]
   const tail = rest.slice(5)
 
+  let animIndex = 0
+
   return (
     <div className="flex flex-col gap-4 md:gap-[32px]">
-      <HighlightCard item={first} className="w-full" />
+      <AnimatedReveal index={animIndex++}>
+        <HighlightCard item={first} className="w-full" />
+      </AnimatedReveal>
       {cards2to5.length > 0 && (
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px]">
           {cards2to5.map((item) => (
-            <HighlightCard key={item.id} item={item} className="h-full min-w-0" />
+            <AnimatedReveal key={item.id} index={animIndex++}>
+              <HighlightCard item={item} className="h-full min-w-0" />
+            </AnimatedReveal>
           ))}
         </div>
       )}
-      {card6 ? <HighlightCard item={card6} className="w-full" /> : null}
+      {card6 ? (
+        <AnimatedReveal index={animIndex++}>
+          <HighlightCard item={card6} className="w-full" />
+        </AnimatedReveal>
+      ) : null}
       {tail.length > 0 && (
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px]">
           {tail.map((item) => (
-            <HighlightCard key={item.id} item={item} className="h-full min-w-0" />
+            <AnimatedReveal key={item.id} index={animIndex++}>
+              <HighlightCard item={item} className="h-full min-w-0" />
+            </AnimatedReveal>
           ))}
         </div>
       )}

@@ -394,7 +394,8 @@ export function MonthlyTechReport() {
         items={tocItems}
         activeSectionId={activeSectionId}
         progress={progress}
-        monthSelector={showMonthSelector ? monthSelector : null}
+        visible={showMonthSelector}
+        monthSelector={monthSelector}
       />
 
       <RevealSection

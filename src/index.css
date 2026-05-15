@@ -113,6 +113,23 @@ html.font-plus-jakarta #root * {
   font-family: "Plus Jakarta Sans", sans-serif !important;
 }
 
+/* Hero — grid técnico (linhas + quadrados nas interseções) */
+.hero-grid-bg {
+  --hero-grid-size: 44px;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M44 0H0V1h44M0 44V0h1v44' fill='none' stroke='rgba(255,255,255,0.065)' stroke-width='1'/%3E%3Crect x='-1.5' y='-1.5' width='3' height='3' fill='rgba(255,255,255,0.14)'/%3E%3C/svg%3E");
+  background-size: var(--hero-grid-size) var(--hero-grid-size);
+}
+
+/* Título do hero — verde → lilás (~⅓ verde, ⅔ lilás) */
+.hero-title-gradient {
+  background-image: linear-gradient(91deg, #83ff8f 0%, #83ff8f 28%, #b89ef5 42%, #cc7ff0 58%, #cc7ff0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Título "Resumo Executivo" com gradiente (Figma) */
 .report-title-gradient {
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -124,6 +141,107 @@ html.font-plus-jakarta #root * {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Menu flutuante — moldura + vidro (Creator Fuel header__nav-border / header__nav) */
+.report-floating-nav-border {
+  border-radius: 9999px;
+  padding: 2px;
+  background-image:
+    linear-gradient(150deg, rgba(255, 255, 255, 0) 69%, rgba(255, 255, 255, 0.5)),
+    linear-gradient(157deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 40%);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+}
+
+.report-floating-nav {
+  border-radius: 9999px;
+  background-color: rgba(221, 221, 223, 0.8);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* Badge hero — secondary “Diagnose your site” (Creator Fuel / RedesignLab) */
+.hero-premium-badge {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  border-radius: 9999px;
+  padding: 1px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.2),
+    rgba(255, 255, 255, 0.6) 7%,
+    rgba(255, 255, 255, 0.6) 92%,
+    rgba(0, 0, 0, 0.2)
+  );
+  box-shadow: 0 8px 16px rgba(44, 64, 103, 0.2);
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-premium-badge::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 15%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #000;
+  border-radius: 9999px;
+  opacity: 0.15;
+  filter: blur(3.5px);
+  pointer-events: none;
+}
+
+.hero-premium-badge__fill {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  background-color: #cbcdd3;
+  color: #3c3d3e;
+  font-weight: 600;
+  text-shadow: 0 4px 2px rgba(0, 0, 0, 0.15);
+  transition: background-color 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .hero-premium-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(44, 64, 103, 0.26);
+  }
+
+  .hero-premium-badge:hover .hero-premium-badge__fill {
+    background-color: #c4c6cc;
+  }
+}
+
+.hero-premium-badge:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(44, 64, 103, 0.2);
+}
+
+.hero-premium-badge[data-state='open'] {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(44, 64, 103, 0.26);
+}
+
+.hero-premium-badge[data-state='open'] .hero-premium-badge__fill {
+  background-color: #c4c6cc;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-premium-badge {
+    transition: box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-premium-badge:hover,
+  .hero-premium-badge:active {
+    transform: none;
+  }
 }
 
 /* Efeito glass para as tags do header — border-radius estilo iOS (cantos suaves) */

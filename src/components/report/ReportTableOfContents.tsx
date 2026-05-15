@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { ReadingProgressBar } from './ReadingProgressBar'
 import AnimatedTabs from '../forgeui/animated-tabs'
+import { cn } from '@/lib/utils'
 
 export interface ReportTocItem {
   id: string
@@ -9,22 +10,21 @@ export interface ReportTocItem {
 
 interface ReportTableOfContentsProps {
   items: ReportTocItem[]
-  /** Secção cujo topo já passou da linha de ativação (viewport). */
   activeSectionId?: string | null
-  /** Progresso de leitura 0–1 (barra logo abaixo dos links, mesmo bloco sticky). */
   progress: number
-  /** Seletor de período (ex.: mês do relatório), à direita da navegação in-page. */
   monthSelector?: ReactNode
+  visible?: boolean
 }
 
 /**
- * Navegação in-page (estrutural): reduz fricção e rolagem exploratória sem mudar tipografia/cores dos blocos de conteúdo.
+ * Navegação in-page em menu flutuante (vidro Creator Fuel, largura ao conteúdo, 12px do topo).
  */
 export function ReportTableOfContents({
   items,
   activeSectionId = null,
   progress,
   monthSelector,
+  visible = true,
 }: ReportTableOfContentsProps) {
   if (items.length === 0) return null
   const [optimisticActiveTab, setOptimisticActiveTab] = useState<string | null>(null)
@@ -42,10 +42,25 @@ export function ReportTableOfContents({
   const activeTab = optimisticActiveTab ?? activeSectionId ?? items[0]?.id
 
   return (
-    <div className="sticky top-0 z-30 border-b border-[#E6E8EC]/80 bg-report-offWhite/95 backdrop-blur-sm">
-      <div className="mx-auto w-full min-w-0 max-w-[1200px] px-0">
-        <div className="flex w-full min-w-0 flex-col gap-2 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-0">
-          <nav className="min-w-0 flex-1" aria-label="Secções desta página" style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+    <div
+      className={cn(
+        'pointer-events-none fixed inset-x-0 top-3 z-30 flex justify-center px-3 transition-[opacity,transform] duration-300 ease-out',
+        visible ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0',
+      )}
+      aria-hidden={!visible}
+    >
+      <div
+        className={cn(
+          'report-floating-nav-border w-fit max-w-[calc(100vw-24px)]',
+          visible ? 'pointer-events-auto' : 'pointer-events-none',
+        )}
+      >
+        <div
+          className="report-floating-nav flex w-full flex-col overflow-hidden"
+          style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+        >
+        <div className="flex w-fit min-w-0 flex-col items-stretch gap-2 p-1.5 sm:flex-row sm:items-center sm:gap-2 sm:pr-2">
+          <nav className="min-w-0 w-fit" aria-label="Secções desta página">
             <AnimatedTabs
               activeTab={activeTab}
               tabs={items.map((item) => ({
@@ -56,18 +71,23 @@ export function ReportTableOfContents({
               onTabChange={(value) => {
                 setOptimisticActiveTab(value)
               }}
-              className="mx-0 min-h-[54px] w-full justify-start gap-3 overflow-x-auto rounded-none bg-transparent p-0 [-ms-overflow-style:none] [scrollbar-width:none] sm:min-h-[58px] sm:flex-wrap sm:gap-4 sm:overflow-visible sm:py-2 [&::-webkit-scrollbar]:hidden"
-              triggerClassName="h-auto whitespace-nowrap rounded-full px-4 py-2 text-[16px] font-normal text-[#505052] hover:text-[#3C3C3C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1E1E20] data-[current=true]:font-medium data-[current=true]:text-white"
+              className="mx-0 w-auto max-w-full justify-start gap-1 overflow-x-auto rounded-full bg-transparent p-0.5 [-ms-overflow-style:none] [scrollbar-width:none] sm:overflow-visible [&::-webkit-scrollbar]:hidden"
+              triggerClassName="h-8 whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-semibold text-[#3c3d3e] hover:text-[#3c3d3e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1E1E20] data-[current=true]:text-white"
             />
           </nav>
           {monthSelector ? (
-            <div className="flex w-full shrink-0 items-stretch justify-stretch sm:w-auto sm:items-center sm:justify-end sm:self-center sm:py-2">
-              {monthSelector}
-            </div>
+            <>
+              <div
+                className="mx-1 hidden h-6 w-px shrink-0 bg-[#E6E8EC]/90 sm:block"
+                aria-hidden
+              />
+              <div className="flex shrink-0 justify-center sm:justify-start">{monthSelector}</div>
+            </>
           ) : null}
         </div>
+        <ReadingProgressBar progress={progress} className="!h-[2px] !w-full !max-w-none !rounded-none" />
+        </div>
       </div>
-      <ReadingProgressBar progress={progress} />
     </div>
   )
 }

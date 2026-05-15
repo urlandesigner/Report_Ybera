@@ -9,6 +9,9 @@ interface ParallaxImageProps {
   className?: string;
   containerClassName?: string;
   intensity?: number;
+  /** Vertical float amplitude in px (wrapper oscillation, separate from scroll parallax). */
+  floatAmplitude?: number;
+  floatDuration?: number;
   ariaHidden?: boolean;
 }
 
@@ -18,6 +21,8 @@ export function ParallaxImage({
   className,
   containerClassName,
   intensity = 24,
+  floatAmplitude = 0,
+  floatDuration = 5.5,
   ariaHidden,
 }: ParallaxImageProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -28,9 +33,19 @@ export function ParallaxImage({
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [-intensity, intensity]);
+  const enableFloat = !reduceMotion && floatAmplitude > 0;
 
   return (
-    <div ref={containerRef} className={containerClassName}>
+    <motion.div
+      ref={containerRef}
+      className={containerClassName}
+      animate={enableFloat ? { y: [0, -floatAmplitude, 0] } : undefined}
+      transition={
+        enableFloat
+          ? { duration: floatDuration, repeat: Infinity, ease: "easeInOut" }
+          : undefined
+      }
+    >
       <motion.img
         src={src}
         alt={alt}
@@ -38,6 +53,6 @@ export function ParallaxImage({
         aria-hidden={ariaHidden}
         style={reduceMotion ? undefined : { y }}
       />
-    </div>
+    </motion.div>
   );
 }

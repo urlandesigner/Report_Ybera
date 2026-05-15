@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { DeliveryCategory, DeliveryItem } from '../../data/reportMock'
+import { AnimatedReveal } from './AnimatedReveal'
 
 const fontSans = { fontFamily: '"Plus Jakarta Sans", sans-serif' } as const
 
@@ -75,18 +76,20 @@ export function DeliveriesSection({ categories }: DeliveriesSectionProps) {
     setExpandedByCategory((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
+  let animIndex = 0
+
   return (
     <section className="w-full min-w-0 font-sans" aria-labelledby="deliveries-heading">
       <h2 id="deliveries-heading" className="sr-only">
         Entregas por categoria
       </h2>
       {categories.map((category, index) => (
-        <article
-          key={category.id}
-          className={`relative grid grid-cols-1 gap-10 overflow-visible rounded-report-lg bg-[rgba(241,241,241,0.5)] p-3 lg:grid-cols-[320px_1fr] ${
-            index > 0 ? 'mt-6 md:mt-12' : ''
-          }`}
-        >
+        <AnimatedReveal key={category.id} index={animIndex++}>
+          <article
+            className={`relative grid grid-cols-1 gap-10 overflow-visible rounded-report-lg bg-[rgba(241,241,241,0.5)] p-3 lg:grid-cols-[320px_1fr] ${
+              index > 0 ? 'mt-6 md:mt-12' : ''
+            }`}
+          >
           <aside className="relative overflow-visible p-3 sm:p-6 lg:p-0">
             <div className="w-fit rounded-2xl px-4 py-3 lg:sticky lg:top-[96px]">
               <h3
@@ -140,7 +143,8 @@ export function DeliveriesSection({ categories }: DeliveriesSectionProps) {
               ) : null}
             </div>
           </div>
-        </article>
+          </article>
+        </AnimatedReveal>
       ))}
     </section>
   )

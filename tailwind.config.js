@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
+    darkMode: ["class"],
+    content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
@@ -106,6 +107,10 @@ export default {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-8px)' },
         },
+        'float-hero': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-13px)' },
+        },
         'float-visible': {
           '0%, 100%': { transform: 'translateY(0px) rotate(-1deg)' },
           '50%': { transform: 'translateY(-16px) rotate(2deg)' },
@@ -113,6 +118,7 @@ export default {
       },
       animation: {
         float: 'float 6s ease-in-out infinite',
+        'float-hero': 'float-hero 5.5s ease-in-out infinite',
         'float-visible': 'float-visible 5.5s ease-in-out infinite',
       },
     },

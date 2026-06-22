@@ -38,6 +38,8 @@ export interface ArchitectureItem {
 export interface HighlightItem {
   title: string
   description: string
+  /** Sub-itens (lista) exibidos dentro do card — bullets `-` sem `:` abaixo do destaque. */
+  bullets?: string[]
 }
 
 /** Item de `## Próximos Passos` — `- título: descrição` */

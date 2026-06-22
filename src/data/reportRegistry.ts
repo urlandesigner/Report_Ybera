@@ -1,6 +1,10 @@
 import type { ReportJson } from './report.types'
 
 type ReportEntry = { year: string; month: string; data: ReportJson }
+type PeriodValue = `${string}-${string}`
+
+// Mantemos meses antigos no repositório, mas só expomos aqui os períodos aprovados para o site.
+const PUBLISHED_REPORT_PERIODS: PeriodValue[] = ['2026-06']
 
 const reportModules = import.meta.glob<ReportJson>('./reports/*.json', {
   eager: true,
@@ -18,7 +22,15 @@ function sortDesc(a: ReportEntry, b: ReportEntry): number {
   return b.month.localeCompare(a.month)
 }
 
-const SORTED: ReportEntry[] = [...ENTRIES].sort(sortDesc)
+function periodKey(year: string, month: string): PeriodValue {
+  return `${year}-${month.padStart(2, '0')}`
+}
+
+const PUBLISHED_ENTRIES: ReportEntry[] = ENTRIES.filter((entry) =>
+  PUBLISHED_REPORT_PERIODS.includes(periodKey(entry.year, entry.month))
+)
+
+const SORTED: ReportEntry[] = [...PUBLISHED_ENTRIES].sort(sortDesc)
 
 export interface ReportPeriodMeta {
   year: string
@@ -42,7 +54,7 @@ export function getLatestReport(): ReportEntry {
 
 export function getReportByPeriod(year: string, month: string): ReportJson | null {
   const m = month.padStart(2, '0')
-  const found = ENTRIES.find((e) => e.year === year && e.month === m)
+  const found = PUBLISHED_ENTRIES.find((e) => e.year === year && e.month === m)
   return found ? found.data : null
 }
 

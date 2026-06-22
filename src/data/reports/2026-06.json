@@ -33,23 +33,49 @@
   "highlights": [
     {
       "title": "1. Otimização de Conversão e Omnicanalidade Global/LATAM (890 pontos)",
-      "description": "— Abertura pesada de novos canais e ferramentas logísticas com foco absoluto na experiência de compra cross-border."
+      "description": "Abertura pesada de novos canais e ferramentas logísticas com foco absoluto na experiência de compra cross-border.",
+      "bullets": [
+        "Vínculo exclusivo de Cupons com Afiliadas em Lives Shopify (Global)",
+        "Instalação de Automações Klaviyo e Ferramentas EntreGO no Chile e Panamá",
+        "Implementação de Brindes Progressivos e Upsell nativos no México"
+      ]
     },
     {
       "title": "2. Governança Financeira e Estruturação Comercial USA (850 pontos)",
-      "description": "— Gamificação, Engajamento e Campanhas Comerciais BR (850 pontos) — Motor voltado para conversão e incentivo agressivo de vendas às portas do evento mundial."
+      "description": "Gamificação, Engajamento e Campanhas Comerciais BR — motor voltado para conversão e incentivo agressivo de vendas às portas do evento mundial.",
+      "bullets": [
+        "Campanha Gamificada Copa do Mundo no Ybera Club Brasil",
+        "Metas Escaláveis “Campeões em Campo” aplicadas no PRO",
+        "Integração e Comissionamento Extraordinário da Super Live TikTok"
+      ]
     },
     {
       "title": "3. Governança, Autonomia e Escalabilidade (Connect/Club) (750 pontos)",
-      "description": "— Módulo voltado à blindagem do processo administrativo para o mercado do Brasil, gerando independência operacional."
+      "description": "Módulo voltado à blindagem do processo administrativo para o mercado do Brasil, gerando independência operacional.",
+      "bullets": [
+        "Nova infraestrutura para Exclusão e Bloqueio Autônomo de leads no Connect",
+        "Edição livre de Redes Sociais no perfil do Connect",
+        "Ferramenta nativa do Administrador para Troca Rastreável de Redes Multinível."
+      ]
     },
     {
       "title": "4. Conformidade Fiscal, Integrações ERP e Automação (674 pontos)",
-      "description": "— Fechamento de gargalos em repasses financeiros e integridade de dados operacionais nos EUA e Brasil."
+      "description": "Fechamento de gargalos em repasses financeiros e integridade de dados operacionais nos EUA e Brasil.",
+      "bullets": [
+        "Validação Oficial e Autenticada de Perfis no TikTok V3",
+        "Aprofundamento de confiabilidade nos fluxos da nova Tela de Saque",
+        "Habilitação do uso da Conta Corrente (Wallets) em pedidos da loja Wake",
+        "Identificação da Forma de Pagamento em Pedidos Ordoro e Identificação visual do Kit 1ª Compra no ERP Bling"
+      ]
     },
     {
       "title": "5. Modernização Tecnológica e Fundações de Engenharia (565 pontos)",
-      "description": "— Avanços em infraestrutura técnica para elevar a capacidade produtiva e as esteiras de entrega."
+      "description": "Avanços em infraestrutura técnica para elevar a capacidade produtiva e as esteiras de entrega.",
+      "bullets": [
+        "Atualizações definitivas dos SDKs da versão iOS/Android e aprovação Apple",
+        "Implementação do “Kaizen Design System” (Fundação e Tokens base de UI para o Ecossistema Ybera)",
+        "Governança do Backlog (Agenda Pública BVS) e V2 da Ferramenta de Transmissão Segmentada"
+      ]
     }
   ],
   "deliveries": [
@@ -179,8 +205,8 @@
           "description": "Instalamos e configuramos o App Klaviyo para automação inteligente de marketing."
         },
         {
-          "title": "Instalamos o App EntreGO para centralizar e viabilizar a gestão logística inteligente no Chile e Panamá.",
-          "description": ""
+          "title": "Instalação App EntreGO - Chile e Panamá",
+          "description": "Instalamos o App EntreGO para centralizar e viabilizar a gestão logística inteligente no Chile e Panamá."
         },
         {
           "title": "Ações Pontuais - pequenas melhorias e correções",
@@ -224,6 +250,10 @@
         {
           "title": "Web View Agrupado do Change Log",
           "description": "Substituímos a publicação manual do Figma por uma página web dinâmica, navegável e automatizada, eliminando a dependência de design e mantendo um histórico fluido de atualizações para as áreas de negócio."
+        },
+        {
+          "title": "Dashboard de Comparativo de Entregas",
+          "description": "Modernizamos e institucionalizamos o Dashboard analítico do Comparativo de Entregas, acabando com as planilhas manuais."
         },
         {
           "title": "Criação de Banco de Dados de Homologação com Anonimização de Dados",

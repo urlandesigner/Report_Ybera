@@ -126,7 +126,7 @@ export const reportMock: ReportData = {
       badge: '01',
       title: 'Resumo Executivo',
       description:
-        'Panorama das principais entregas do ciclo, com foco em autonomia operacional, integrações críticas e eficiência no e-commerce, além de avanços em dados, arquitetura e IA.',
+        'Panorama estratégico das principais entregas do ciclo, com foco em impacto para o negócio, evolução de plataforma e ganhos operacionais.',
       /** Título split para header estilo Figma: "Resumo" (verde) + "Executivo" (roxo) */
       titleSplit: { left: 'Resumo', right: 'Executivo' },
       brand: 'Executive Summary',
@@ -331,7 +331,7 @@ export const destaquesSectionMeta: SectionMeta = {
   badge: '02',
   title: 'Destaques',
   description:
-    'Principais entregas estratégicas do ciclo, destacando iniciativas de maior impacto em negócio, operação e evolução da plataforma.',
+    'Aqui estão os Grandes Destaques (Épicos) desta versão, classificados pelo maior Valor de Negócio (Business Value Score - BVS) agregado.',
   brand: 'Highlights',
 }
 

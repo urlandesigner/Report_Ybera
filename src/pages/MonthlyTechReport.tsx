@@ -24,6 +24,7 @@ import {
   ReportTableOfContents,
   ReportMonthSelector,
   type ReportTocItem,
+  type HighlightCardItem,
 } from '../components/report'
 import { useReadingProgress } from '../hooks/useReadingProgress'
 import {
@@ -92,15 +93,14 @@ function productDesignCardsFromReport(data: ReportJson): ProductDesignCard[] {
   }))
 }
 
-function highlightsCardsFromReport(data: ReportJson): ProductDesignCard[] {
+function highlightsCardsFromReport(data: ReportJson): HighlightCardItem[] {
   const items = data.highlights ?? []
   if (!items.length) return []
   return items.map((item, i) => ({
     id: `h-${i + 1}`,
-    number: String(i + 1).padStart(2, '0'),
-    variant: PD_VARIANTS[i % PD_VARIANTS.length],
     title: item.title,
-    text: item.description,
+    description: item.description,
+    ...(item.bullets?.length ? { bullets: item.bullets } : {}),
   }))
 }
 
@@ -312,6 +312,15 @@ export function MonthlyTechReport() {
     () => (report ? architectureCardsFromReport(report) : []),
     [report]
   )
+  const architectureTail = useMemo(() => architectureCards.slice(1), [architectureCards])
+  const architectureGridPairs = useMemo(
+    () => chunkPairs(architectureTail.length % 2 === 1 ? architectureTail.slice(0, -1) : architectureTail),
+    [architectureTail]
+  )
+  const architectureFullWidthTail = useMemo(
+    () => (architectureTail.length % 2 === 1 ? architectureTail[architectureTail.length - 1] : null),
+    [architectureTail]
+  )
   const productDesignCards = useMemo(
     () => (report ? productDesignCardsFromReport(report) : []),
     [report]
@@ -440,13 +449,7 @@ export function MonthlyTechReport() {
                 <img src="/assets/image01.svg" alt="" className="opacity-80 sm:opacity-100" aria-hidden />
               }
             />
-            <DestaquesCards
-              items={highlightCards.map((item) => ({
-                id: item.id,
-                title: item.title,
-                description: item.text,
-              }))}
-            />
+            <DestaquesCards items={highlightCards} />
           </div>
         </RevealSection>
       )}
@@ -541,7 +544,7 @@ export function MonthlyTechReport() {
                 {architectureCards[0].text}
               </Card>
             ) : null}
-            {chunkPairs(architectureCards.slice(1)).map((pair, rowIdx) => (
+            {architectureGridPairs.map((pair, rowIdx) => (
               <div key={`architecture-row-${rowIdx}`} className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-[32px]">
                 {pair.map((item) => (
                   <Card key={item.id} variant="soft" backgroundColor="#F8F8F8" title={item.title}>
@@ -550,6 +553,17 @@ export function MonthlyTechReport() {
                 ))}
               </div>
             ))}
+            {architectureFullWidthTail ? (
+              <Card
+                key={architectureFullWidthTail.id}
+                variant="soft"
+                backgroundColor="#F8F8F8"
+                title={architectureFullWidthTail.title}
+                className="w-full !flex-none max-w-none"
+              >
+                {architectureFullWidthTail.text}
+              </Card>
+            ) : null}
           </div>
         </div>
       </RevealSection>

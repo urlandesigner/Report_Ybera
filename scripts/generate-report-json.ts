@@ -7,6 +7,7 @@ import type {
   DeliveryItemJson,
   DeliveryNoteJson,
   ProductDesignItem,
+  HighlightItem,
   ComparativeSection,
   ComparativeVersionItem,
   ComparativeInsightItem,
@@ -143,6 +144,40 @@ function parseTitleDescriptionBullets(bodyLines: string[]): TitleDescriptionItem
       description: content.slice(colon + 1).trim(),
     })
   }
+  return items
+}
+
+/**
+ * `## Destaques`: cada bullet `- Título: descrição` inicia um destaque.
+ * Bullets `-` SEM `:` logo abaixo viram sub-itens (lista) do destaque atual.
+ */
+function parseHighlights(bodyLines: string[]): HighlightItem[] {
+  const items: HighlightItem[] = []
+  let current: HighlightItem | null = null
+
+  for (const raw of bodyLines) {
+    const line = raw.trim()
+    if (!line.startsWith('-')) continue
+    const content = line.replace(/^-\s+/, '').trim()
+    if (!content) continue
+
+    const colon = content.indexOf(':')
+    if (colon === -1) {
+      // Sem `:` → sub-item do destaque atual (se houver).
+      if (current) {
+        ;(current.bullets ??= []).push(content)
+      } else {
+        current = { title: content, description: '' }
+        items.push(current)
+      }
+      continue
+    }
+
+    // Com `:` → novo destaque.
+    current = { title: content.slice(0, colon).trim(), description: content.slice(colon + 1).trim() }
+    items.push(current)
+  }
+
   return items
 }
 
@@ -460,7 +495,7 @@ function buildReportJson(content: string): ReportJson {
   const month = extractMonthAfterTitle(lines)
   const { metaTag, heroFooterLine1, heroFooterLine2 } = extractHeroFrontMatter(lines)
   const executiveSummary = parseTitleDescriptionBullets(extractSectionBody(lines, 'Resumo Executivo'))
-  const highlights = parseTitleDescriptionBullets(extractSectionBody(lines, 'Destaques'))
+  const highlights = parseHighlights(extractSectionBody(lines, 'Destaques'))
   const deliveries = parseEntregasPrincipais(extractSectionBody(lines, 'Entregas Principais'))
   const architecture = parseTitleDescriptionBullets(extractSectionBody(lines, 'Arquitetura'))
   const productDesign = parseProductDesignBullets(extractSectionBody(lines, 'Produto & Design'))

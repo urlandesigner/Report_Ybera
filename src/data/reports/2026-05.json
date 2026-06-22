@@ -1,9 +1,9 @@
 {
   "title": "Relatório Mensal de Tecnologia",
-  "month": "Março 2026",
-  "metaTag": "Março 2026",
-  "heroFooterLine1": "Ciclo de Desenvolvimento 1.2.34 — Sprints 4, 5 e 6",
-  "heroFooterLine2": "Versão lançada em 24 de março de 2026.",
+  "month": "Maio 2026",
+  "metaTag": "Maio 2026",
+  "heroFooterLine1": "Ciclo de Desenvolvimento 1.2.37 — Sprints 7, 8 e 9",
+  "heroFooterLine2": "Versão lançada em 24 de junho de 2026.",
   "executiveSummary": [
     {
       "title": "Autonomia e gestão administrativa global",
@@ -32,14 +32,6 @@
   ],
   "highlights": [
     {
-      "title": "Pacote de Melhorias de Integração Bling <> Lisa (630 pontos no Business Value Score)",
-      "description": "Arquitetura foi o maior esforço técnico e operacional da versão. Agrupa a implementação do campo de rebaixamento (que identifica qual dado falta no pedido, como etiqueta ou nota fiscal), a resolução do problema de impressão de etiquetas em duplicidade e a tratativa sistêmica para a retomada da operação de Crossborder (Shipsmart)."
-    },
-    {
-      "title": "Estruturação Global de Domínios Próprios (471 pontos) - E-commerce, No Code e Global",
-      "description": "Um grande movimento focado em credibilidade e SEO. Agrupa o apontamento de novos domínios para as plataformas No Code (Academy e Pass), a migração das lojas Shopify do Chile, Panamá e México (que saíram de subdomínios para domínios locais independentes) e a troca dos domínios dos links de catálogo e indicação do Club."
-    },
-    {
       "title": "Autonomia Administrativa Global (425 pontos) - Ybera Club Global",
       "description": "Focado em dar poder de gestão aos administradores sem depender da TI. Agrupa os expressivos Incrementos no Dashboard Admin (trazendo novos indicadores como influencers ativos por país e ranking de gestores) e a liberação da funcionalidade de Edição de Preço de produtos diretamente pelo admin em todas as Lybera Shops."
     },
@@ -56,18 +48,6 @@
       "description": "Automatizou o envio de amostras (samples) e o controle de inventário integrando a plataforma Influencer Hero ao ecossistema Shopify, viabilizando a escala da estratégia de recrutamento no mercado americano."
     },
     {
-      "title": "Evolução e Liberação do Ybera Connect (248 pontos) - Ybera Club Brasil",
-      "description": "Agrupa as ações focadas na ferramenta de captação de leads. Inclui as ações para a liberação oficial do Connect para um grupo restrito de usuários (com concessão de créditos e acessos) e melhorias de classificação e monitoramento de leads com menos de 1.000 seguidores."
-    },
-    {
-      "title": "Nova Página de Rastreio Ybera.com (240 pontos) - Ecommerce Brasil",
-      "description": "Para acompanhar a troca do sistema logístico para a Intelipost, foi necessário realizar o redesign e a reimplementação completa de uma nova página de rastreamento, dando mais visibilidade ao cliente final e reduzindo chamados no SAC."
-    },
-    {
-      "title": "Agendamento e Gerenciamento de Banners no Shopify (240 pontos) Ecommerce Global",
-      "description": "Estendeu a todo o ecossistema Shopify da Ybera a ferramenta que permite aos times de negócio programarem com antecedência a data e a hora de ativação e desativação de banners, eliminando plantões manuais de madrugada."
-    },
-    {
       "title": "Segurança Financeira com Chave Pix para Saques (225 pontos) - Ybera Club Brasil",
       "description": "Implementação de uma regra de conformidade rigorosa: o sistema agora exige e permite apenas o cadastro de chaves Pix que estejam diretamente vinculadas ao CNPJ do próprio usuário logado. Isso evita fraudes e o repasse de valores para contas de terceiros."
     }
@@ -79,10 +59,6 @@
         {
           "title": "Incrementos Dashboard Admin",
           "description": "Implementamos a exibição de novos indicadores estratégicos, como número de influencers e gestores ativos por país, total pago em comissões, crescimento mensal da rede e top 10 gestores/influencers do ano."
-        },
-        {
-          "title": "Edição de preço (Lybera Shop Admin Global)",
-          "description": "Implementamos a funcionalidade que permite aos administradores da Lybera Shop, em todos os países vigentes, editarem os preços dos produtos diretamente pelo Escritório Virtual, garantindo total autonomia sem necessidade de acionar o time de desenvolvimento."
         },
         {
           "title": "Troca de domínio dos links do catálogo",
@@ -117,24 +93,8 @@
             {
               "label": "O que consta no MVP",
               "text": "atualização visual de todo o plano de carreira já existente."
-            },
-            {
-              "label": "O que não entrou nesta versão",
-              "text": "microconquistas entre os marcos do plano de carreira, informações pós conquista dos 100k em comissões, divisão para influencers com agenciamento exclusivo e não-exclusivo."
             }
           ]
-        },
-        {
-          "title": "Inserção de Chave Pix para Saques",
-          "description": "Implementamos o cadastro de chaves Pix vinculadas exclusivamente ao CNPJ do usuário logado, evitando saques para contas de terceiros. A ideia é aumentar o número de pix cadastrados ao longo dos próximos meses."
-        },
-        {
-          "title": "Melhorias Connect - restrição de leads com menos de 1000 seguidores no Instagram",
-          "description": "Implementamos a classificação e o monitoramento específico para leads que possuem menos de 1.000 seguidores no Instagram, restringindo-os inicialmente à finalização do cadastro."
-        },
-        {
-          "title": "Remoção temporária da opção de pagamentos por Lyberas",
-          "description": "Removemos, temporariamente, a opção de pagamento com saldo Lybera na Lybera Shop Brasil, ocultando seus valores em todas as telas, a fim de priorizar meios de pagamento que inferem retorno financeiro líquido à companhia e evitam desgaste operacional."
         },
         {
           "title": "Ações Pontuais",
@@ -267,26 +227,6 @@
         {
           "title": "Ingestão de dados Ybera-Club - 1º Fase",
           "description": "Iniciamos a estruturação do Data Lake carregando as principais tabelas do Club, corrigindo pipelines e reduzindo o excesso de colunas extraídas."
-        },
-        {
-          "title": "Migração Pipelines de Dados",
-          "description": "Refatoramos pipelines antigos e construímos um endpoint de ingestão (Webhook) para tratar eventos vindos do Bling em tempo real."
-        },
-        {
-          "title": "Deploy Processo para o GCP",
-          "description": "Fizemos o deploy da infraestrutura com escalabilidade e segurança na nuvem do Google (GCP)."
-        },
-        {
-          "title": "Mapeamento de Fluxo do webhook/API Bling e construção do Webhook",
-          "description": "Realizamos mapeamento detalhado do webhook do Bling para consumo direto dos status dos eventos. Depois, implementamos a construção do webhook com sucesso."
-        },
-        {
-          "title": "Relatório CEP",
-          "description": "Realizamos análise interna voltada à identificação e correção de CEPs errados que estavam na base da Wake."
-        },
-        {
-          "title": "Sustentação",
-          "description": "Realizamos ajustes corretivos e operacionais nos valores cadastrados de metas do Painel da Live, conforme solicitação."
         }
       ]
     },
@@ -310,28 +250,11 @@
       "description": "Realizamos uma profunda atualização estrutural do frontend (foco em stack, Vite.js e Design System) para eliminar débitos técnicos, melhorar a performance e preparar o ambiente para a futura migração para Next.js."
     },
     {
-      "title": "Integração Bling - Lisa - Implementação de Campo de Rebaixamento",
-      "description": "Na integração, criamos validações que apontam exatamente qual dado está travando o pedido (ex: sem etiqueta, sem NF) para facilitar resolução."
-    },
-    {
-      "title": "Integração Bling - Lisa - Resolução nas Etiquetas",
-      "description": "Adequamos o sistema para não enviar ou imprimir etiquetas em duplicidade."
-    },
-    {
-      "title": "Integração Bling - Lisa - Tratativa para retomar operação Crossborder (Shipsmart)",
-      "description": "Adequamos tecnicamente a integração para comportar e habilitar novamente os pedidos via Shipsmart."
-    },
-    {
       "title": "Integração Bling - Lisa - Integração novo Bling Top Cosméticos",
       "description": "Estruturamos uma ramificação de integração totalmente nova focada em atender a operação específica do Bling da Top Cosméticos."
     }
   ],
   "productDesign": [
-    {
-      "title": "Design System Kaizen",
-      "description": "Lançamento oficial do Design System Kaizen, estabelecendo um novo padrão de consistência, escalabilidade e eficiência para o ecossistema digital Ybera.",
-      "image": "/assets/kaizen.png"
-    },
     {
       "title": "Avanços Novo PRO – Research Role Profissional",
       "description": "Finalizamos pesquisa, agrupamento de requisitos e entregamos protótipos de alta fidelidade para a role Profissional."
@@ -343,18 +266,6 @@
     {
       "title": "Design System Novo PRO",
       "description": "Confeccionamos um design system exclusivo para o novo PRO, com destaque para os componentes exclusivos dos apps do Representante e do Profissional, com novidades em relação ao Design System geral do novo Ybera PRO."
-    },
-    {
-      "title": "Mapeamento das Funcionalidades do Upnova no Cart Drawer",
-      "description": "Mapeamos, documentamos e prototipamos as funcionalidades do app para dar base ao desenvolvimento interno no carrinho nativo Shopify."
-    },
-    {
-      "title": "Integração TikTok Shop",
-      "description": "Prototipamos o modal que convida influenciadoras a conectarem suas contas e acompanharem vendas feitas pelo TikTok Shop integradas ao plano de carreira."
-    },
-    {
-      "title": "Protótipo Botão Flutuante de Compra – Ybera.com",
-      "description": "Prototipamos o Mobile Sticky Add-to-Cart para garantir acesso contínuo ao botão de compra durante a rolagem no celular."
     },
     {
       "title": "Protótipo de Refatoração dos Spots de Produto",
@@ -377,6 +288,33 @@
       "description": "Executamos diversas melhorias como definição de cores globais, template PDP One Page, templates de banners EUA, adaptações de UX no Connect, gestão de banners e módulo de transmissão."
     }
   ],
+  "comparative": {
+    "overview": "O ciclo de desenvolvimento da versão 1.2.36 foi concluído com 56 entregas (throughputs), totalizando 5.667 pontos de Business Value Score (BVS). Este resultado demonstra uma alta densidade de valor por entrega, mantendo o patamar de entregas robustas observado nos meses anteriores.",
+    "historyIntro": "Ao observarmos a linha do tempo do ano, a evolução da operação de Produto e Tecnologia demonstra as seguintes métricas:",
+    "history": [
+      { "month": "Janeiro 26", "version": "1.2.32", "summary": "42 entregas | 2.914 pontos." },
+      { "month": "Fevereiro 26", "version": "1.2.33", "summary": "81 entregas | 5.432 pontos." },
+      { "month": "Março 26", "version": "1.2.34", "summary": "64 entregas | 6.702 pontos." },
+      { "month": "Abril 26", "version": "1.2.35", "summary": "59 entregas | 5.476 pontos." },
+      { "month": "Maio 26", "version": "1.2.36", "summary": "56 entregas | 5.667 pontos." }
+    ],
+    "insightsIntro": "A análise detalhada das novas implementações de maio revela três pilares fundamentais de maturidade corporativa:",
+    "insights": [
+      {
+        "title": "Insight 1: Autonomia Operacional e Descentralização de TI",
+        "description": "Maio marcou o \"desafogo\" técnico do time de desenvolvimento através da entrega de ferramentas de autoatendimento para as áreas de negócio. A Ferramenta de Gestão de Banners (Global), o uso do Strapi para o Institucional e o Page Builder no Shopify USA garantem que as equipes de Marketing e E-commerce gerenciem vitrines e landing pages com independência. Isso elimina gargalos de suporte e acelera a execução de campanhas promocionais."
+      },
+      {
+        "title": "Insight 2: Escalabilidade de Arquitetura e Gestão de Custos",
+        "description": "A infraestrutura foi preparada para saltos de volume sem perda de estabilidade, destacando-se o Middleware (Wake > Bling > Lisa), que aumentou em 6 vezes a capacidade de processamento de pedidos. Somado a isso, a operação atingiu um novo nível de governança financeira com a criação da Calculadora de Custo de Projetos e o Contabilizador automático de Esforço, permitindo o cálculo exato do custo de cada funcionalidade desenvolvida, seja por colaboradores CLT ou PJ."
+      },
+      {
+        "title": "Insight 3: Omnicanalidade Agressiva e Retenção Gamificada",
+        "description": "A versão 36 consolidou a expansão de canais de venda com a Integração V2 do TikTok Shop (via API) e a Integração Shopee, espelhando vendas externas diretamente no modelo multinível. Para sustentar esse crescimento, foram ativadas mecânicas pesadas de retenção: o Comissionamento Multinível no Ybera Club PRO (até o 5º nível) e a Gamificação do Ybera Academy e do Plano de Carreira USA, transformando a jornada da influenciadora em uma experiência interativa e meritocrática."
+      }
+    ],
+    "conclusion": "A Versão 36 entrega uma plataforma exponencialmente mais robusta e autônoma. Com a arquitetura de backend agora capaz de absorver grandes picos de vendas e novas ferramentas de controle de custo de desenvolvimento, a companhia está pronta para escalar globalmente com eficiência financeira e operacional no segundo semestre."
+  },
   "nextSteps": [
     {
       "title": "Integração com o TikTok Shop e Shopee - Ybera Club Brasil - Fase 1",

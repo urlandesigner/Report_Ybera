@@ -152,7 +152,7 @@ export const reportMock: ReportData = {
     },
     {
       id: '5',
-      badge: '05',
+      badge: '06',
       title: 'Arquitetura',
       description:
         'Iniciativas estruturais voltadas à evolução da base técnica da plataforma, com foco em performance, eficiência operacional e sustentação do crescimento do ecossistema.',
@@ -160,7 +160,7 @@ export const reportMock: ReportData = {
     },
     {
       id: '6',
-      badge: '06',
+      badge: '07',
       title: 'Próximos passos',
       description:
         'Principais iniciativas em andamento e próximas entregas, com foco na evolução do ecossistema, expansão de funcionalidades e ganho de escala operacional.',
@@ -319,7 +319,7 @@ export const reportMock: ReportData = {
   footer: {
     title: 'Time de Tecnologia Ybera',
     slogan: 'Comprometidos com transparência, inovação e colaboração',
-    contactPrompt: 'Para duvidas ou sugestões',
+    contactPrompt: 'Para dúvidas ou sugestões',
     email: 'lucas.rolim@ybera.com',
     brand: 'Y.',
   },
@@ -333,4 +333,14 @@ export const destaquesSectionMeta: SectionMeta = {
   description:
     'Principais entregas estratégicas do ciclo, destacando iniciativas de maior impacto em negócio, operação e evolução da plataforma.',
   brand: 'Highlights',
+}
+
+/** Metadados do título da section Comparativo (conteúdo vem do `report.json`). */
+export const comparativeSectionMeta: SectionMeta = {
+  id: 'comparativo',
+  badge: '05',
+  title: 'Comparativo',
+  description:
+    'Comparativo evolutivo das versões anteriores, destacando volume de entregas, geração de valor e maturidade operacional ao longo dos ciclos de desenvolvimento.',
+  brand: 'Comparative',
 }

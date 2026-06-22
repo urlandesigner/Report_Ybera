@@ -46,6 +46,38 @@ export interface NextStepItem {
   description: string
 }
 
+/** Card de versão no "Comparativo Histórico (Acumulado)". */
+export interface ComparativeVersionItem {
+  /** Rótulo do mês, ex. "Janeiro 26" */
+  month: string
+  /** Versão, ex. "1.2.32" */
+  version: string
+  /** Resumo da versão, ex. "42 entregas | 2.914 pontos." */
+  summary: string
+}
+
+/** Insight estratégico (subtítulo + texto) na section Comparativo. */
+export interface ComparativeInsightItem {
+  title: string
+  description: string
+}
+
+/** Section `## Comparativo` — visão geral, histórico de versões e insights. */
+export interface ComparativeSection {
+  /** Texto de "Visão Geral da Versão" */
+  overview: string
+  /** Intro de "Comparativo Histórico (Acumulado)" */
+  historyIntro: string
+  /** Cards de versão por mês */
+  history: ComparativeVersionItem[]
+  /** Intro de "Insights Estratégicos para a Diretoria" */
+  insightsIntro: string
+  /** Insights numerados */
+  insights: ComparativeInsightItem[]
+  /** Texto da "Conclusão Estratégica" */
+  conclusion: string
+}
+
 export interface ReportJson {
   title: string
   /** Texto do `##` após o `#` (ex.: período do relatório) */
@@ -64,6 +96,8 @@ export interface ReportJson {
   architecture: ArchitectureItem[]
   /** Section `## Produto & Design` */
   productDesign: ProductDesignItem[]
+  /** Section `## Comparativo` (opcional) — exibida após Produto & Design */
+  comparative?: ComparativeSection
   /** Section `## Próximos Passos` — `- título: descrição` */
   nextSteps: NextStepItem[]
 }

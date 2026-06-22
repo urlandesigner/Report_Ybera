@@ -27,6 +27,21 @@ npm run preview
 
 **Não use** `npm run preview` para desenvolver — ele serve a pasta `dist/` (última build). Para ver mudanças, use sempre `npm run dev`.
 
+## Publicar um novo mês
+
+1. Crie um arquivo Markdown em `content/reports/` com nome `YYYY-MM.md`.
+   - Exemplo: `content/reports/2026-04.md`
+   - O conteúdo deve seguir o mesmo formato de `content/report-input.md`.
+2. Rode:
+
+```bash
+npm run generate-reports
+```
+
+O comando gera automaticamente `src/data/reports/YYYY-MM.json`. Qualquer JSON nessa pasta entra no site sem precisar editar imports ou registrar o mês manualmente.
+
+O `npm run build` também roda `generate-reports` antes de compilar, então em deploy/produção os reports mensais são atualizados automaticamente a partir dos arquivos em `content/reports/`.
+
 ## Estrutura
 
 - `index.html` — entrada HTML (script aponta para `/src/main.tsx`)
@@ -36,7 +51,8 @@ npm run preview
 - `src/pages/MonthlyTechReport.tsx` — página do relatório
 - `src/components/report/` — componentes da seção (incl. `ExecutiveSummarySection`)
 - `src/data/reportMock.ts` — dados exibidos na página (fallbacks)
-- `content/report-input.md` — fonte do relatório; `npm run generate-report` gera `src/data/report.json`
+- `content/report-input.md` — fonte avulsa/legada do relatório; `npm run generate-report` gera `src/data/report.json`
+- `content/reports/YYYY-MM.md` — fonte mensal automatizada; `npm run generate-reports` gera `src/data/reports/YYYY-MM.json`
 
 ### Conflito ao salvar ou fechar `report.json` no Cursor/VS Code
 

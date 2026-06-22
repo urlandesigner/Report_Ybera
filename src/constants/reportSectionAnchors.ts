@@ -7,6 +7,7 @@ export const REPORT_ANCHOR = {
   destaques: 'destaques',
   entregas: 'entregas',
   produto: 'produto',
+  comparativo: 'comparativo',
   arquitetura: 'arquitetura',
   proximosPassos: 'proximos-passos',
 } as const
@@ -17,6 +18,7 @@ export const REPORT_HASH_LEGACY: Record<string, string> = {
   'section-destaques': REPORT_ANCHOR.destaques,
   'section-entregas': REPORT_ANCHOR.entregas,
   'section-produto-design': REPORT_ANCHOR.produto,
+  'section-comparativo': REPORT_ANCHOR.comparativo,
   'section-arquitetura': REPORT_ANCHOR.arquitetura,
   'section-proximos-passos': REPORT_ANCHOR.proximosPassos,
 }

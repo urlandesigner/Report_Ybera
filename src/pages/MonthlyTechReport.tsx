@@ -18,6 +18,7 @@ import {
   DestaquesCards,
   NextStepsCard,
   ProductDesignSectionContent,
+  ComparativeSectionContent,
   DeliveriesSection,
   ReportFooter,
   ReportTableOfContents,
@@ -28,6 +29,7 @@ import { useReadingProgress } from '../hooks/useReadingProgress'
 import {
   reportMock,
   destaquesSectionMeta,
+  comparativeSectionMeta,
   type DeliveryCategory,
   type ExecutiveCard,
   type ExecutiveCardDotColor,
@@ -318,6 +320,12 @@ export function MonthlyTechReport() {
     () => (report ? highlightsCardsFromReport(report) : []),
     [report]
   )
+  const comparative = useMemo(() => report?.comparative ?? null, [report])
+  const hasComparative =
+    !!comparative &&
+    (comparative.overview.trim().length > 0 ||
+      comparative.history.length > 0 ||
+      comparative.insights.length > 0)
 
   const nextStepsItems = useMemo(
     () => (report ? normalizeNextStepsItems(report.nextSteps) : []),
@@ -331,12 +339,17 @@ export function MonthlyTechReport() {
     }
     items.push(
       { id: REPORT_ANCHOR.entregas, label: 'Entregas' },
-      { id: REPORT_ANCHOR.produto, label: 'Produto' },
+      { id: REPORT_ANCHOR.produto, label: 'Produto & Design' }
+    )
+    if (hasComparative) {
+      items.push({ id: REPORT_ANCHOR.comparativo, label: 'Comparativo' })
+    }
+    items.push(
       { id: REPORT_ANCHOR.arquitetura, label: 'Arquitetura' },
       { id: REPORT_ANCHOR.proximosPassos, label: 'Próximos passos' }
     )
     return items
-  }, [highlightCards.length])
+  }, [highlightCards.length, hasComparative])
 
   const tocSectionIds = useMemo(() => tocItems.map((i) => i.id), [tocItems])
   const { progress, activeSectionId } = useReadingProgress(tocSectionIds)
@@ -476,6 +489,27 @@ export function MonthlyTechReport() {
           <ProductDesignSectionContent cards={productDesignCards} cardIcon={cardIcon} />
         </div>
       </RevealSection>
+
+      {hasComparative && comparative && (
+        <RevealSection
+          id={REPORT_ANCHOR.comparativo}
+          className={`relative w-full bg-white ${SECTION_SCROLL_ANCHOR}`}
+          aria-labelledby="section-comparativo-heading"
+        >
+          <div className={`relative ${REPORT_SECTION_INNER_CLASS}`}>
+            <ReportSectionTitle
+              badge={comparativeSectionMeta.badge}
+              brand={comparativeSectionMeta.brand}
+              title={comparativeSectionMeta.title}
+              description={comparativeSectionMeta.description}
+              titleId="section-comparativo-heading"
+              badgeColor="#F0F0F0"
+              fullTitleGradient
+            />
+            <ComparativeSectionContent data={comparative} />
+          </div>
+        </RevealSection>
+      )}
 
       <RevealSection
         id={REPORT_ANCHOR.arquitetura}

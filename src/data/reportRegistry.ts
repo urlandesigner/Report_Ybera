@@ -1,13 +1,17 @@
 import type { ReportJson } from './report.types'
-import report202602 from './reports/2026-02.json'
-import report202603 from './reports/2026-03.json'
 
 type ReportEntry = { year: string; month: string; data: ReportJson }
 
-const ENTRIES: ReportEntry[] = [
-  { year: '2026', month: '03', data: report202603 as ReportJson },
-  { year: '2026', month: '02', data: report202602 as ReportJson },
-]
+const reportModules = import.meta.glob<ReportJson>('./reports/*.json', {
+  eager: true,
+  import: 'default',
+})
+
+const ENTRIES: ReportEntry[] = Object.entries(reportModules).flatMap(([path, data]) => {
+  const match = path.match(/\/(\d{4})-(\d{2})\.json$/)
+  if (!match) return []
+  return [{ year: match[1], month: match[2], data }]
+})
 
 function sortDesc(a: ReportEntry, b: ReportEntry): number {
   if (a.year !== b.year) return b.year.localeCompare(a.year)

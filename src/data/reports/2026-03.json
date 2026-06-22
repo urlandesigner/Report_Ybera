@@ -99,7 +99,7 @@
         },
         {
           "title": "Finalização do Agendamento e Gerenciamento de Banners no Shopify",
-          "description": "Estendemos para os EUA e México a ferramenta que permite aos administradores programar data e hora para ativação e desativação automática de banners. Ou seja, todos as nossas lojas hospedadas na shopify contam com esse recurso."
+          "description": "Estendemos para os EUA e México a ferramenta que permite aos administradores programar data e hora para ativação e desativação automática de banners. Ou seja, todas as nossas lojas hospedadas na Shopify contam com esse recurso."
         }
       ]
     },
@@ -162,7 +162,7 @@
           "description": "Refizemos e implementamos uma nova página de rastreamento de pedidos integrada diretamente à Intelipost, permitindo o rastreamento sem necessidade de login."
         },
         {
-          "title": "Camada de Validação de Dados no Finalização de Pedido",
+          "title": "Camada de Validação de Dados na Finalização de Pedido",
           "description": "Implementamos uma camada de segurança extra no e-commerce, para garantir a integridade dos dados cadastrais antes do fechamento do pedido, reduzindo falhas no gateway de pagamento."
         },
         {
@@ -170,7 +170,7 @@
           "description": "Implementamos a melhoria de visual em carrinho e checkout para a ação de descontos progressivos."
         },
         {
-          "title": "Habilitação de Campo de Cupom no Etapa Checkout/Confirmar",
+          "title": "Habilitação de Campo de Cupom na Etapa Checkout/Confirmar",
           "description": "Disponibilizamos o campo de cupom de desconto na última etapa do checkout do Store Front além de habilitar o input manual do cupom em toda etapa de checkout."
         },
         {
@@ -248,7 +248,7 @@
           "description": "Implementamos intenção específica no bot que identifica pedidos de reembolso e os direciona sem fricção diretamente para o atendimento humano prioritário."
         },
         {
-          "title": "Automação de Respostas orientando sobre problemas relacionado a pedidos",
+          "title": "Automação de Respostas orientando sobre problemas relacionados a pedidos",
           "description": "Implementamos resposta automática via n8n (pela API da Meta) para comentários e DMs envolvendo problemas logísticos e de rastreio, direcionando ao SAC oficial."
         },
         {
@@ -256,7 +256,7 @@
           "description": "Criamos fluxo no n8n que usa linguagem natural (NLP) para triagem e alerta em tempo real de reclamações enviadas às contas do @Ybera, @YberaClub, @Jhonatan e @Romulo."
         },
         {
-          "title": "Automação de Geração de Chang Log Document",
+          "title": "Automação de Geração de Change Log Document",
           "description": "Criamos automação via n8n para extrair a maior parte das informações necessárias para gerar este Change Log de forma automatizada."
         }
       ]

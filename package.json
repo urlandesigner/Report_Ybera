@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "generate-report": "ts-node --esm --project tsconfig.scripts.json scripts/generate-report-json.ts"
+    "generate-report": "ts-node --esm --project tsconfig.scripts.json scripts/generate-report-json.ts",
+    "generate-reports": "ts-node --esm --project tsconfig.scripts.json scripts/generate-report-json.ts --all",
+    "prebuild": "npm run generate-reports"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.2.8",

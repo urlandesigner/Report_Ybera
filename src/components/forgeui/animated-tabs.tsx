@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type MouseEvent } from "react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 type AnimatedTab = string | {
@@ -64,18 +63,7 @@ const AnimatedTabs = ({
                 triggerClassName,
               )}
             >
-              {isActive && (
-                <motion.div
-                  layoutId="active-tab-underline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
-                  initial={false}
-                  transition={{
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 30,
-                  }}
-                />
-              )}
+              {isActive && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />}
               <span className="relative z-10">{label}</span>
             </Trigger>
           );
@@ -108,18 +96,7 @@ const AnimatedTabs = ({
               triggerClassName,
             )}
           >
-            {isActive && (
-              <motion.div
-                layoutId="active-tab-background"
-                className="absolute inset-0 rounded-full bg-[#1E1E20]"
-                initial={false}
-                transition={{
-                  type: "spring",
-                  stiffness: 500,
-                  damping: 30,
-                }}
-              />
-            )}
+            {isActive && <div className="absolute inset-0 rounded-full bg-[#1E1E20]" />}
             <span className="relative z-10">{label}</span>
           </Trigger>
         );

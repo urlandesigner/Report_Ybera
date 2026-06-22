@@ -61,7 +61,7 @@ export function HeroHeader({ data }: { data: HeroData }) {
         background: reduceMotion ? HERO_BG_LAYERS : undefined,
       }}
     >
-      <div className="hero-grid-bg pointer-events-none absolute inset-0 z-0" aria-hidden />
+      <div className="hero-grid-bg pointer-events-none absolute inset-0 z-0 opacity-[0.45]" aria-hidden />
       {!reduceMotion ? (
         <div
           className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-[0.88]"

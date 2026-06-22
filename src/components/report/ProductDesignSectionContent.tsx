@@ -1,5 +1,4 @@
 import { type ReactNode } from 'react'
-import { ArrowRight } from 'lucide-react'
 import { clsx } from 'clsx'
 import type { ProductDesignCard } from '../../data/reportMock'
 import { CARD_HOVER_ARTICLE_CLASSES, cardHoverShadowStyle } from './Card'
@@ -122,18 +121,6 @@ function ProductDesignHeroCard({
           >
             {item.text}
           </div>
-          <button
-            type="button"
-            className="mt-1 inline-flex max-md:self-center items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition hover:opacity-90"
-            style={{
-              fontFamily: '"Plus Jakarta Sans", sans-serif',
-              backgroundColor: '#1E1E20',
-              color: '#ffffff',
-            }}
-          >
-            Por que o Design System importa
-            <ArrowRight className="hidden h-4 w-4 shrink-0 stroke-[2] sm:block" style={{ color: '#ffffff' }} aria-hidden />
-          </button>
         </div>
         {item.image ? (
           <div className="order-1 flex min-w-0 w-full items-center justify-center overflow-hidden rounded-2xl md:order-2">

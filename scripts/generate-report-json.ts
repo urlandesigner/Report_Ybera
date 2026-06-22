@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, unlinkSync, writeFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 import type {
   ReportJson,
   ExecutiveSummaryItem,
@@ -7,6 +7,9 @@ import type {
   DeliveryItemJson,
   DeliveryNoteJson,
   ProductDesignItem,
+  ComparativeSection,
+  ComparativeVersionItem,
+  ComparativeInsightItem,
 } from '../src/data/report.types.ts'
 
 const root = process.cwd()
@@ -14,6 +17,9 @@ const contentDir = join(root, 'content')
 const inputPath = join(contentDir, 'report-input.md')
 const outputDir = join(root, 'src', 'data')
 const outputPath = join(outputDir, 'report.json')
+const monthlyInputDir = join(contentDir, 'reports')
+const monthlyOutputDir = join(outputDir, 'reports')
+const monthlyReportFilename = /^(\d{4})-(\d{2})\.md$/i
 
 type TitleDescriptionItem = ExecutiveSummaryItem
 
@@ -23,6 +29,14 @@ function normalizeNewlines(s: string): string {
 
 function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function normalizeLabel(s: string): string {
+  return s
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .trim()
 }
 
 /** Bloco entre `## {sectionTitle}` e o próximo `## ...` (trim em cada linha para \r, espaços finais, etc.) */
@@ -269,6 +283,173 @@ function parseEntregasPrincipais(bodyLines: string[]): DeliveryCategoryJson[] {
   return categories
 }
 
+/** Bullets de uma subseção `### {heading}` dentro do corpo de uma seção `##`. */
+function extractSubsectionBullets(bodyLines: string[], heading: string): string[] {
+  const re = new RegExp(`^###\\s+${escapeRegex(heading)}\\s*$`, 'i')
+  let i = 0
+  while (i < bodyLines.length && !re.test(bodyLines[i].trim())) i++
+  if (i >= bodyLines.length) return []
+  i++
+  const out: string[] = []
+  while (i < bodyLines.length) {
+    const t = bodyLines[i].trim()
+    if (t.startsWith('###')) break
+    if (t.startsWith('-')) out.push(t)
+    i++
+  }
+  return out
+}
+
+/** Linhas soltas antes da primeira subseção `### ...` dentro de uma seção `## ...`. */
+function extractSectionLeadLines(bodyLines: string[]): string[] {
+  const out: string[] = []
+  for (const raw of bodyLines) {
+    const t = raw.trim()
+    if (t.startsWith('###')) break
+    if (!t || t.startsWith('-')) continue
+    out.push(t)
+  }
+  return out
+}
+
+/**
+ * `## Comparativo`:
+ *  - Linhas `chave: valor` (overview, historyIntro, insightsIntro, conclusion).
+ *  - `### Histórico` com bullets `- Mês | Versão | resumo` (resumo pode conter `|`).
+ *  - `### Insights` com bullets `- Título | Descrição` (split no primeiro `|`).
+ */
+function parseComparative(bodyLines: string[]): ComparativeSection | undefined {
+  if (bodyLines.length === 0) return undefined
+
+  const KEYS = new Set(['overview', 'historyIntro', 'insightsIntro', 'conclusion'])
+  const kv: Record<string, string> = {}
+  for (const raw of bodyLines) {
+    const t = raw.trim()
+    if (!t || t.startsWith('#') || t.startsWith('-')) continue
+    const colon = t.indexOf(':')
+    if (colon <= 0) continue
+    const key = t.slice(0, colon).trim()
+    if (KEYS.has(key)) kv[key] = t.slice(colon + 1).trim()
+  }
+
+  // Compatibilidade com o formato editorial mais livre:
+  // texto corrido antes das subseções, por exemplo:
+  // "Visão Geral da Versão:" + próxima linha com o conteúdo.
+  const leadLines = extractSectionLeadLines(bodyLines)
+  let i = 0
+  while (i < leadLines.length) {
+    const line = leadLines[i]
+    const next = leadLines[i + 1] ?? ''
+    const normalized = normalizeLabel(line)
+
+    if (normalized.startsWith('visao geral da versao:')) {
+      if (!kv.overview) {
+        const colon = line.indexOf(':')
+        kv.overview = line.slice(colon + 1).trim() || next
+      }
+      i += kv.overview === next && next ? 2 : 1
+      continue
+    }
+
+    if (normalized === 'visao geral da versao' || normalized === 'visao geral da versao:') {
+      if (!kv.overview && next) kv.overview = next
+      i += next ? 2 : 1
+      continue
+    }
+
+    if (normalized.startsWith('insights estrategicos para a diretoria:')) {
+      if (!kv.insightsIntro) {
+        const colon = line.indexOf(':')
+        kv.insightsIntro = line.slice(colon + 1).trim() || next
+      }
+      i += kv.insightsIntro === next && next ? 2 : 1
+      continue
+    }
+
+    if (
+      normalized === 'insights estrategicos para a diretoria' ||
+      normalized === 'insights estrategicos para a diretoria:'
+    ) {
+      if (!kv.insightsIntro && next) kv.insightsIntro = next
+      i += next ? 2 : 1
+      continue
+    }
+
+    if (normalized.startsWith('conclusao estrategica:') || normalized === 'conclusao estrategica') {
+      if (!kv.conclusion) {
+        const colon = line.indexOf(':')
+        kv.conclusion = colon >= 0 ? line.slice(colon + 1).trim() : ''
+      }
+      i += 1
+      continue
+    }
+
+    if (!kv.historyIntro && /^Ao observarmos/i.test(line)) {
+      kv.historyIntro = line
+      i += 1
+      continue
+    }
+
+    if (!kv.overview) {
+      kv.overview = line
+    } else if (!kv.historyIntro) {
+      kv.historyIntro = line
+    } else if (!kv.insightsIntro) {
+      kv.insightsIntro = line
+    }
+    i += 1
+  }
+
+  const history: ComparativeVersionItem[] = extractSubsectionBullets(bodyLines, 'Histórico')
+    .map((line) => {
+      const content = line.replace(/^-\s+/, '').trim()
+      const [month = '', version = '', ...rest] = content.split('|').map((s) => s.trim())
+      return { month, version, summary: rest.join(' | ').trim() }
+    })
+    .filter((h) => h.month || h.version)
+
+  const insights: ComparativeInsightItem[] = []
+  for (const line of extractSubsectionBullets(bodyLines, 'Insights')) {
+    const content = line.replace(/^-\s+/, '').trim()
+    if (!content) continue
+
+    const pipe = content.indexOf('|')
+    if (pipe !== -1) {
+      const title = content.slice(0, pipe).trim()
+      const description = content.slice(pipe + 1).trim()
+      if (title) insights.push({ title, description })
+      continue
+    }
+
+    const colon = content.indexOf(':')
+    if (colon !== -1) {
+      const title = content.slice(0, colon).trim()
+      const description = content.slice(colon + 1).trim()
+
+      if (/^Conclus[aã]o Estrat[eé]gica$/i.test(title)) {
+        if (!kv.conclusion) kv.conclusion = description
+        continue
+      }
+
+      if (title) insights.push({ title, description })
+      continue
+    }
+
+    insights.push({ title: content, description: '' })
+  }
+
+  const overview = kv.overview ?? ''
+  const historyIntro = kv.historyIntro ?? ''
+  const insightsIntro = kv.insightsIntro ?? ''
+  const conclusion = kv.conclusion ?? ''
+
+  const hasContent =
+    overview || historyIntro || insightsIntro || conclusion || history.length > 0 || insights.length > 0
+  if (!hasContent) return undefined
+
+  return { overview, historyIntro, history, insightsIntro, insights, conclusion }
+}
+
 /**
  * Monta o objeto final com todas as chaves sempre definidas (string vazia / []).
  * Assim `JSON.stringify` nunca omite propriedades por `undefined` e o formato fica estável.
@@ -283,6 +464,7 @@ function buildReportJson(content: string): ReportJson {
   const deliveries = parseEntregasPrincipais(extractSectionBody(lines, 'Entregas Principais'))
   const architecture = parseTitleDescriptionBullets(extractSectionBody(lines, 'Arquitetura'))
   const productDesign = parseProductDesignBullets(extractSectionBody(lines, 'Produto & Design'))
+  const comparative = parseComparative(extractSectionBody(lines, 'Comparativo'))
   const nextSteps = parseTitleDescriptionBullets(extractSectionBody(lines, 'Próximos Passos'))
 
   return {
@@ -296,6 +478,7 @@ function buildReportJson(content: string): ReportJson {
     deliveries: deliveries ?? [],
     architecture: architecture ?? [],
     productDesign: productDesign ?? [],
+    ...(comparative ? { comparative } : {}),
     nextSteps: nextSteps ?? [],
   }
 }
@@ -326,30 +509,75 @@ function writeValidatedJson(filePath: string, data: ReportJson): void {
   }
 }
 
-if (!existsSync(inputPath)) {
-  console.error(`Arquivo não encontrado: ${inputPath}`)
-  console.error('Crie content/report-input.md com o texto vindo do Google Docs.')
-  process.exit(1)
+function generateReport(inputFile: string, outputFile: string): ReportJson {
+  const md = readFileSync(inputFile, 'utf-8')
+  const payload = buildReportJson(md)
+
+  if (!existsSync(outputDir)) {
+    mkdirSync(outputDir, { recursive: true })
+  }
+
+  const outDir = dirname(outputFile)
+  if (!existsSync(outDir)) {
+    mkdirSync(outDir, { recursive: true })
+  }
+
+  writeValidatedJson(outputFile, payload)
+  return payload
 }
 
-const md = readFileSync(inputPath, 'utf-8')
-const payload = buildReportJson(md)
-
-if (!existsSync(outputDir)) {
-  mkdirSync(outputDir, { recursive: true })
+function logPayload(outputFile: string, payload: ReportJson): void {
+  console.log(`OK → ${outputFile}`)
+  console.log(`  title: ${payload.title || '(vazio)'}`)
+  console.log(`  month: ${payload.month || '(vazio)'}`)
+  console.log(
+    `  capa: metaTag="${payload.metaTag || '(vazio)'}" | footer L1/L2: ${payload.heroFooterLine1 ? 'ok' : '—'} / ${payload.heroFooterLine2 ? 'ok' : '—'}`
+  )
+  console.log(`  executiveSummary: ${payload.executiveSummary.length} card(s)`)
+  console.log(`  highlights: ${payload.highlights.length} card(s)`)
+  const deliveryItems = payload.deliveries.reduce((n, c) => n + c.items.length, 0)
+  console.log(`  deliveries: ${payload.deliveries.length} categor(ies), ${deliveryItems} item(s)`)
+  console.log(`  architecture: ${payload.architecture.length} card(s)`)
+  console.log(`  productDesign: ${payload.productDesign.length} card(s)`)
+  console.log(`  nextSteps: ${payload.nextSteps.length} item(s)`)
 }
 
-writeValidatedJson(outputPath, payload)
-console.log(`OK → ${outputPath}`)
-console.log(`  title: ${payload.title || '(vazio)'}`)
-console.log(`  month: ${payload.month || '(vazio)'}`)
-console.log(
-  `  capa: metaTag="${payload.metaTag || '(vazio)'}" | footer L1/L2: ${payload.heroFooterLine1 ? 'ok' : '—'} / ${payload.heroFooterLine2 ? 'ok' : '—'}`
-)
-console.log(`  executiveSummary: ${payload.executiveSummary.length} card(s)`)
-console.log(`  highlights: ${payload.highlights.length} card(s)`)
-const deliveryItems = payload.deliveries.reduce((n, c) => n + c.items.length, 0)
-console.log(`  deliveries: ${payload.deliveries.length} categor(ies), ${deliveryItems} item(s)`)
-console.log(`  architecture: ${payload.architecture.length} card(s)`)
-console.log(`  productDesign: ${payload.productDesign.length} card(s)`)
-console.log(`  nextSteps: ${payload.nextSteps.length} item(s)`)
+function generateMonthlyReports(): void {
+  if (!existsSync(monthlyInputDir)) {
+    console.error(`Pasta não encontrada: ${monthlyInputDir}`)
+    console.error('Crie arquivos Markdown em content/reports/ usando o formato YYYY-MM.md.')
+    process.exit(1)
+  }
+
+  const files = readdirSync(monthlyInputDir)
+    .filter((file) => monthlyReportFilename.test(file))
+    .sort()
+
+  if (files.length === 0) {
+    console.error(`Nenhum report mensal encontrado em ${monthlyInputDir}`)
+    console.error('Use nomes como content/reports/2026-04.md.')
+    process.exit(1)
+  }
+
+  for (const file of files) {
+    const [, year, month] = file.match(monthlyReportFilename) ?? []
+    if (!year || !month) continue
+    const inputFile = join(monthlyInputDir, file)
+    const outputFile = join(monthlyOutputDir, `${year}-${month}.json`)
+    const payload = generateReport(inputFile, outputFile)
+    logPayload(outputFile, payload)
+  }
+}
+
+if (process.argv.includes('--all')) {
+  generateMonthlyReports()
+} else {
+  if (!existsSync(inputPath)) {
+    console.error(`Arquivo não encontrado: ${inputPath}`)
+    console.error('Crie content/report-input.md com o texto vindo do Google Docs.')
+    process.exit(1)
+  }
+
+  const payload = generateReport(inputPath, outputPath)
+  logPayload(outputPath, payload)
+}

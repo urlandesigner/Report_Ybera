@@ -37,42 +37,52 @@ Para ver mudanças, use sempre `npm run dev`.
 
 ## Publicar um novo mês
 
-Você recebe o conteúdo do mês como texto solto (Google Docs). Há dois caminhos:
+O input oficial de cada mês é o Markdown em `content/reports/YYYY-MM.md`.
+Os JSONs em `src/data/reports/YYYY-MM.json` são gerados a partir desses arquivos e não devem
+ser editados à mão.
 
-### Caminho automatizado (recomendado) — comando `/format-report`
+Fluxo recomendado:
 
-Converte o texto cru no template Markdown usando IA, dentro do Claude Code.
-
-1. Cole o texto do doc em `content/raw/YYYY-MM.txt` (ex.: `content/raw/2026-07.txt`).
-   - Alternativa: cole o texto direto no chat ao rodar o comando, sem criar o `.txt`.
-2. No Claude Code, rode:
-
-   ```
-   /format-report 2026-07
-   ```
-
-   Ele gera `content/reports/2026-07.md` já no padrão do template.
-3. Gere os JSONs:
+1. Cole o texto bruto recebido do Google Docs em `content/raw/YYYY-MM.txt`
+   (ex.: `content/raw/2026-07.txt`).
+2. Gere ou edite o Markdown mensal em `content/reports/YYYY-MM.md`.
+3. Rode:
 
    ```bash
    npm run generate-reports
    ```
 
-Veja `content/raw/README.md` para detalhes do fluxo.
+4. Rode `npm run dev` para revisar no site ou `npm run build` para validar produção.
 
-### Caminho manual
+O comando `npm run build` também executa `generate-reports` antes de compilar. Em
+desenvolvimento, `npm run dev` roda `predev`, que também regenera os relatórios ao iniciar.
 
-1. Crie `content/reports/YYYY-MM.md` seguindo o **Formato do Markdown mensal** (abaixo).
-2. Rode `npm run generate-reports`.
+### Comando `/format-report`
 
-O comando gera `src/data/reports/YYYY-MM.json`. O `npm run build` também roda
-`generate-reports` antes de compilar, então em deploy os reports são atualizados
-automaticamente a partir dos arquivos em `content/reports/`.
+O comando `.claude/commands/format-report.md` converte o texto bruto no Markdown que o
+gerador entende:
+
+```text
+/format-report 2026-07
+```
+
+Ele procura primeiro `content/raw/2026-07.txt`. Se esse arquivo não existir, use o texto
+colado na conversa como fonte.
+
+## Regras do conteúdo mensal
+
+- A única seção que pode ter texto sintetizado é `## Resumo Executivo`.
+- Todas as outras seções devem espelhar o documento-fonte o mais fielmente possível.
+- Se o documento trouxer só o título de um item, mantenha só o título no `.md`.
+- Não invente cards, descrições, números, versões, próximos passos ou destaques.
+- Se uma seção não existir no documento do mês, omita a seção no `.md`.
+- Janeiro/fevereiro, por exemplo, podem não ter `Destaques`; fevereiro também pode não ter
+  `Próximos Passos`.
 
 ## Formato do Markdown mensal
 
 O gerador (`scripts/generate-report-json.ts`) reconhece estas seções. Os títulos `##` devem
-ser escritos **exatamente** como abaixo (com acentos e `&`), senão a seção é ignorada.
+ser escritos exatamente como abaixo, com acentos e `&`, senão a seção é ignorada.
 
 ```markdown
 # Relatório Mensal de Tecnologia
@@ -84,16 +94,35 @@ heroFooterLine2: Versão lançada em 16 de junho de 2026.
 
 ## Resumo Executivo
 - Título do tópico: descrição em uma linha.
+- Outro tópico: descrição em uma linha.
 
 ## Destaques
 - Título do destaque: descrição.
+  - Subitem do destaque sem dois-pontos
+  - Outro subitem do destaque sem dois-pontos
 
 ## Entregas Principais
 ### Categoria (ex.: Ybera Club Brasil)
 - Título da entrega: descrição.
+  - Subitem opcional: texto do subitem
+
+## Melhorias & Otimizações
+- Título: descrição.
 
 ## Produto & Design
 - Título: descrição.
+- Card hero com imagem | image: /assets/arquivo.png | cta: Texto do CTA | ctaUrl: https://exemplo.com: descrição.
+
+## Novo PRO
+- Título: descrição.
+
+## Arquitetura
+- Título: descrição.
+  - Subitem opcional: texto do subitem
+
+## ERP Sênior
+- Título: descrição.
+  - Subitem opcional: texto do subitem
 
 ## Comparativo
 overview: Visão geral da versão, em uma linha.
@@ -107,11 +136,18 @@ conclusion: Conclusão estratégica, em uma linha.
 ### Insights
 - Insight 1: Autonomia Operacional | Descrição completa do insight.
 
-## Arquitetura
+## Suporte & Relatórios
 - Título: descrição.
 
 ## Próximos Passos
 - Título: descrição.
+
+### Aguardando aprovação
+- Item simples sem descrição
+- Outro item simples sem descrição
+
+### Em desenvolvimento
+- Item simples sem descrição
 ```
 
 Regras de sintaxe:
@@ -119,13 +155,29 @@ Regras de sintaxe:
 - **Capa**: após o `#` título e o `##` do mês, use linhas `chave: valor` (`metaTag`,
   `heroFooterLine1`, `heroFooterLine2`) até o próximo `##`. Se `metaTag` ficar vazio, a página
   usa o texto do `##` mês como fallback.
-- **Bullets** (`Resumo Executivo`, `Destaques`, `Entregas Principais`, `Produto & Design`,
-  `Arquitetura`, `Próximos Passos`): `- Título: descrição` — o **primeiro** `:` separa os dois.
+- **Bullets padrão** (`Resumo Executivo`, `Entregas Principais`, `Produto & Design`,
+  `Melhorias & Otimizações`, `Arquitetura`, `Novo PRO`, `ERP Sênior`, `Suporte & Relatórios`,
+  `Próximos Passos` simples): `- Título: descrição`; o primeiro `:` separa título e descrição.
 - **Entregas Principais** usa subcategorias `### Nome da Categoria` com os bullets abaixo.
+  Subitens indentados com dois espaços viram notas dentro da entrega.
+- **Destaques**: o bullet principal com `:` vira card. Subitens indentados abaixo devem evitar
+  `:`; use travessão ou texto simples, senão o parser entende como novo card.
+- **Melhorias & Otimizações vs. Arquitetura**:
+  - Use `## Melhorias & Otimizações` quando o mês tiver essa seção com esse nome visual.
+  - Use `## Arquitetura` quando o mês tiver arquitetura como seção própria.
+  - Se as duas existirem, o gerador prioriza `Melhorias & Otimizações` para os cards de arquitetura visual.
+- **Novo PRO**: seção opcional; quando existe, aparece como seção própria com cards verdes.
+- **ERP Sênior**: seção opcional; quando existe, aparece como seção própria.
+- **Produto & Design com hero**: para um card grande com imagem e CTA, use a sintaxe
+  `- Título | image: /assets/imagem.png | cta: Texto | ctaUrl: https://...: descrição`.
 - **Comparativo** (opcional — omita a seção se não houver dados no mês):
   - `overview`, `historyIntro`, `insightsIntro`, `conclusion`: cada um em **uma única linha**.
   - `### Histórico`: `- Mês AA | versão | resumo` (o resumo pode conter `|`).
   - `### Insights`: `- Título | Descrição` (o **primeiro** `|` separa; a descrição não pode conter `|`).
+- **Próximos Passos**:
+  - Formato simples: bullets `- Título: descrição`.
+  - Formato em colunas: use `### Nome da coluna` e bullets simples abaixo. Quando há colunas,
+    o parser ignora o formato simples dessa seção.
 
 ## Estrutura
 
@@ -144,12 +196,8 @@ Regras de sintaxe:
 
 ### Editar JSONs gerados
 
-Não edite os `src/data/reports/*.json` à mão — eles são regenerados por `npm run generate-reports`
+Não edite os `src/data/reports/*.json` à mão. Eles são regenerados por `npm run generate-reports`
 a partir dos `.md`. Edite o Markdown em `content/reports/` e rode o gerador.
-
-Exceção atual: `src/data/reports/2026-05.json` não tem `.md` correspondente em `content/reports/`,
-então é mantido à mão (o gerador não o sobrescreve). Para passá-lo ao fluxo Markdown, crie
-`content/reports/2026-05.md`.
 
 ### Fluxo legado (`report-input.md` → `report.json`)
 

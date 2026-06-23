@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Calendar } from 'lucide-react'
 import { useReducedMotion } from 'motion/react'
 import Aurora from '@/components/Aurora'
 import GradientText from '@/components/GradientText'
@@ -90,8 +91,9 @@ export function HeroHeader({ data }: { data: HeroData }) {
             </span>
           </span>
           <span className="hero-premium-badge max-w-[min(100%,14rem)] sm:max-w-none">
-            <span className="hero-premium-badge__fill px-3 py-1.5 text-[12px] sm:text-[13px]">
-              {data.metaTag}
+            <span className="hero-premium-badge__fill gap-1.5 whitespace-nowrap px-3 py-1.5 text-[12px] sm:text-[13px]">
+              <Calendar className="size-3.5 shrink-0 opacity-70 sm:size-4" aria-hidden />
+              <span className="min-w-0 truncate">{data.metaTag}</span>
             </span>
           </span>
         </div>

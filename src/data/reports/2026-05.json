@@ -2,54 +2,79 @@
   "title": "Relatório Mensal de Tecnologia",
   "month": "Maio 2026",
   "metaTag": "Maio 2026",
-  "heroFooterLine1": "Ciclo de Desenvolvimento 1.2.37 — Sprints 7, 8 e 9",
-  "heroFooterLine2": "Versão lançada em 24 de junho de 2026.",
+  "heroFooterLine1": "Ciclo de Desenvolvimento 1.2.36 — Sprints 8, 9 e 10",
+  "heroFooterLine2": "Versão lançada em 21 de maio de 2026.",
   "executiveSummary": [
     {
-      "title": "Autonomia e gestão administrativa global",
-      "description": "Novos dashboards e edição de preços aumentam autonomia e reduzem dependência de desenvolvimento."
+      "title": "Autonomia e gestão operacional global",
+      "description": "Novas ferramentas administrativas reduzem dependência técnica e aceleram a gestão de conteúdos, campanhas e comunicação."
     },
     {
-      "title": "Evolução e estabilidade no e-commerce",
-      "description": "Otimizações na jornada e novas integrações elevam performance, conversão e confiabilidade da operação."
+      "title": "Expansão omnichannel e integração de vendas",
+      "description": "Integrações com TikTok Shop e Shopee ampliam canais de venda e fortalecem o ecossistema multinível."
     },
     {
-      "title": "Integrações e automações com IA e atendimento",
-      "description": "Automação de monitoramento e suporte reduz esforço manual e acelera a resposta ao cliente."
+      "title": "Escalabilidade logística e arquitetura",
+      "description": "Middleware e integrações logísticas aumentam capacidade operacional e garantem maior estabilidade no processamento de pedidos."
     },
     {
-      "title": "Consolidação e governança de dados",
-      "description": "Nova estrutura de dados melhora qualidade das informações e suporte à tomada de decisão."
+      "title": "Evolução da experiência e conversão no e-commerce",
+      "description": "Otimizações de UX, campanhas promocionais e novas jornadas elevam conversão e percepção de marca."
     },
     {
-      "title": "Avanços estruturais no novo PRO",
-      "description": "Evolução de pesquisas, protótipos e Design System prepara a base para o novo produto."
+      "title": "Gamificação e retenção no ecossistema",
+      "description": "Mecânicas gamificadas, metas e planos de carreira ampliam engajamento e retenção de influencers."
     },
     {
-      "title": "Melhorias de performance e arquitetura",
-      "description": "Refatorações técnicas e evoluções estruturais garantem escalabilidade e redução de débito técnico."
+      "title": "Governança, dados e inteligência operacional",
+      "description": "Novas integrações de dados e automações fortalecem monitoramento, análise operacional e controle financeiro."
     }
   ],
   "highlights": [
     {
-      "title": "Autonomia Administrativa Global (425 pontos) - Ybera Club Global",
-      "description": "Focado em dar poder de gestão aos administradores sem depender da TI. Agrupa os expressivos Incrementos no Dashboard Admin (trazendo novos indicadores como influencers ativos por país e ranking de gestores) e a liberação da funcionalidade de Edição de Preço de produtos diretamente pelo admin em todas as Lybera Shops."
+      "title": "1. Expansão Omnicanal e Retenção Multinível (900 pontos)",
+      "description": "Este se tornou o maior épico do mês ao consolidar a abertura de novos canais de vendas integrados diretamente ao ecossistema de remuneração da rede.",
+      "bullets": [
+        "Integração TikTok Shop V2 — Integração dos pedidos via API, garantindo automatismo na importação das vendas.",
+        "Integração API Shopee — Espelhamento de vendas externas realizadas por influenciadores no Escritório Virtual.",
+        "Comissionamento Multinível PRO — Implementação da distribuição de bônus para a rede ascendente até o 5º nível."
+      ]
     },
     {
-      "title": "Automação de Atendimento e Triagem com IA (349 pontos) - IA / Dados",
-      "description": "Um salto na gestão de crises e suporte. Condensa a criação do monitoramento automático de comentários negativos nas redes (Posts, Ads e DM) utilizando Inteligência Artificial, a automação para responder problemas de pedidos via Meta API, o monitoramento de contas específicas (@Ybera, Jhonatan, etc.) e a priorização automática da fila de reembolsos no Zendesk."
+      "title": "2. Governança Financeira e Estruturação Comercial USA (850 pontos)",
+      "description": "Um novo pilar de destaque que une a sofisticação da gestão de custos de TI com a evolução da operação americana.",
+      "bullets": [
+        "Calculadora de Custo de Projetos e Contabilizador de Esforço — Ferramentas para calcular o custo exato do desenvolvimento de sistemas, considerando colaboradores CLT e PJ.",
+        "Novo Plano de Carreiras USA — Modelo visual e estrutural atualizado com missões gamificadas e trilhas.",
+        "Regra de Meta Geral e Fluxo de Pedidos EUA — Migração do motor de pedidos para Shopify e criação de bônus acumulativos."
+      ]
     },
     {
-      "title": "Camada de Validação de Dados na Finalização de Pedido (300 pontos) - Ecommerce Brasil",
-      "description": "Implementação de uma barreira de segurança extra que garante a integridade cadastral no momento da geração do pedido. O objetivo principal é reduzir as falhas no gateway de pagamento e evitar clientes com dados inconsistentes na base."
+      "title": "3. Otimização de UX, Conversão e Autonomia no E-commerce Global (725 pontos)",
+      "description": "Focado em reduzir a fricção na jornada de compra e dar independência para as áreas de negócio gerirem conteúdos.",
+      "bullets": [
+        "Otimização de Pop-up Promocional (EUA) — Melhoria na clareza visual e conversão das ofertas.",
+        "Compartilhamento de Carrinho Ecommerce Global — Capacidade de enviar links com carrinhos já estruturados para clientes.",
+        "Padronização de Temas e Page Builder — Governança de temas Shopify e autonomia para criação de landing pages rápidas."
+      ]
     },
     {
-      "title": "Integração do Influencer Hero (300 pontos) - Ecommerce Shopify EUA",
-      "description": "Automatizou o envio de amostras (samples) e o controle de inventário integrando a plataforma Influencer Hero ao ecossistema Shopify, viabilizando a escala da estratégia de recrutamento no mercado americano."
+      "title": "4. Arquitetura Escalável e Eficiência Logística (690 pontos)",
+      "description": "Preparação da infraestrutura para suportar grandes volumes de pedidos com automação logística de ponta.",
+      "bullets": [
+        "Middleware (V0) Wake > Bling > Lisa — Camada intermediária que aumentou em 6 vezes a capacidade de processamento de pedidos.",
+        "Integração Intellipost na Lybera Shop — Automação da escolha de transportadora baseada em custo.",
+        "Ingestão de Dados ERP Bling e Logística — Centralização de eventos de pedidos e logística no Data Lake."
+      ]
     },
     {
-      "title": "Segurança Financeira com Chave Pix para Saques (225 pontos) - Ybera Club Brasil",
-      "description": "Implementação de uma regra de conformidade rigorosa: o sistema agora exige e permite apenas o cadastro de chaves Pix que estejam diretamente vinculadas ao CNPJ do próprio usuário logado. Isso evita fraudes e o repasse de valores para contas de terceiros."
+      "title": "5. Campanhas Comerciais e Empoderamento Administrativo (680 pontos)",
+      "description": "Foco na tração das vendas mensais e na descentralização da gestão de vitrines e conteúdos.",
+      "bullets": [
+        "Motor de Brindes - Campanha Cuidado em Dobro — Configuração de múltiplas regras de elegibilidade para brindes no e-commerce.",
+        "Campanha de Metas Maio (Club) — Implementação de 3 níveis de metas promocionais para influenciadoras.",
+        "Gestão de Banners e Strapi Institucional — Módulos que garantem autonomia total ao administrador para gerir conteúdos visuais e estruturados."
+      ]
     }
   ],
   "deliveries": [
@@ -57,12 +82,20 @@
       "category": "Ybera Club Global",
       "items": [
         {
-          "title": "Incrementos Dashboard Admin",
-          "description": "Implementamos a exibição de novos indicadores estratégicos, como número de influencers e gestores ativos por país, total pago em comissões, crescimento mensal da rede e top 10 gestores/influencers do ano."
+          "title": "Ferramenta para Gestão de Banners",
+          "description": "Implementamos um módulo de Gerenciamento de Banners no painel administrativo do Escritório Ybera Club, permitindo autonomia total ao administrador na gestão de conteúdos visuais, reduzindo dependência do time técnico e o backlog operacional associado."
         },
         {
-          "title": "Troca de domínio dos links do catálogo",
-          "description": "Implementamos a alteração dos domínios dos links de indicação e filtro de marcas no escritório virtual, garantindo que as divulgações direcionem corretamente ao novo formato."
+          "title": "Relatório de Gestão de Vendas",
+          "description": "Adequamos o relatório de Gestão de Vendas dos escritórios dos EUA, México, Panamá e Chile para apresentar a soma total, com a respectiva moeda de cada país, das vendas exibidas na página. A melhoria visa facilitar a visualização do total vendido sem necessidade de cálculos manuais."
+        },
+        {
+          "title": "Transmissão de Mensagens por Upload de Lista de Usuários",
+          "description": "Permitimos que administradores realizem transmissões de mensagens direcionadas para uma lista específica de usuários através do upload de uma planilha contendo usernames válidos."
+        },
+        {
+          "title": "Atualização da versão IOS e Android",
+          "description": "Atualizamos a versão para resolver conflitos relacionados a bibliotecas desatualizadas, versões do React Native e abordagens legadas. Além da atualização visual, essa versão traz um ganho técnico importante, com melhora de estrutura, redução de dependências e melhor performance do app."
         }
       ]
     },
@@ -70,12 +103,16 @@
       "category": "Ecommerce Global",
       "items": [
         {
-          "title": "Migração da loja Shopify para domínios próprios por país",
-          "description": "Realizamos a migração da loja para Shopify Admin, com direcionamento para subdomínios personalizados por país, garantindo melhor performance e organização."
+          "title": "Padronização de Temas Shopify",
+          "description": "Estabelecemos um modelo padronizado e governado de gestão de temas Shopify Global para todos os países (USA, PA, CL, MX), garantindo controle de versionamento, estruturação de branches padronizadas e eliminação de temas paralelos fora do padrão."
         },
         {
-          "title": "Finalização do Agendamento e Gerenciamento de Banners no Shopify",
-          "description": "Estendemos para os EUA e México a ferramenta que permite aos administradores programar data e hora para ativação e desativação automática de banners. Ou seja, todas as nossas lojas hospedadas na Shopify contam com esse recurso."
+          "title": "Compartilhamento de Carrinho",
+          "description": "Implementamos a capacidade de compartilhar um carrinho completo de produtos através de um link, permitindo que outro usuário acesse a loja com a mesma intenção de compra já estruturada."
+        },
+        {
+          "title": "Ações Pontuais - pequenas melhorias e correções",
+          "description": "Executamos ações pontuais: criamos acessos Shopify a usuários específicos, corrigimos a visibilidade de produtos Shipsmart parados na FedEx, exibimos tarja de parceiro no checkout e padronizamos o formato do número do pedido exibido ao cliente."
         }
       ]
     },
@@ -83,22 +120,40 @@
       "category": "Ybera Club Brasil",
       "items": [
         {
-          "title": "Ações para liberação oficial do Connect",
-          "description": "Estruturamos a liberação segmentada do Connect, liberando relatórios para o Admin2, 500 créditos para gestores específicos e o acesso oficial à ferramenta para um grupo restrito, além de algumas melhorias e correções pontuais, sob a batuta do time de Performance do Club."
+          "title": "V2 - Integração TikTok Shop",
+          "description": "Integração dos pedidos via API, que proporciona automatismo na importação das informações de vendas."
         },
         {
-          "title": "MVP Novo Plano de Carreira",
-          "description": "Implementamos, no Escritório Virtual do Ybera Club, o Novo Plano de Carreira. O plano será dividido em três trilhas principais, com novos benefícios, visual customizado, badges, e possibilidades futuras que abrirão um leque impressionante de engajamento pela própria plataforma.",
-          "notes": [
-            {
-              "label": "O que consta no MVP",
-              "text": "atualização visual de todo o plano de carreira já existente."
-            }
-          ]
+          "title": "Integração Intellipost na Lybera Shop",
+          "description": "Integramos a Lybera Shop com a Intellipost para automatizar a escolha da transportadora com base no menor custo de frete, garantindo eficiência operacional sem impacto na experiência do cliente."
         },
         {
-          "title": "Ações Pontuais",
-          "description": "Realizamos pequenas correções e levantamentos, incluindo a liberação de vagas para gestoras, extração de relatórios, criação de usuários administrativos e ajustes de estoque para integração com a Lisa."
+          "title": "Exclusão e Bloqueio de lead do Connect Via Admin e Influencer",
+          "description": "Agora, é permitido que leads tenham autonomia para cancelar seu cadastro no Connect e é possível que administradores possam bloquear ou excluir leads em qualquer etapa do funil, garantindo maior controle, qualidade da base e eficiência operacional."
+        },
+        {
+          "title": "Validação do Pix",
+          "description": "Ajustamos o valor da validação de chave Pix para pessoa jurídica quando o Pix é cadastrado, reduzindo o valor de R$ 1,00 para R$ 0,01."
+        },
+        {
+          "title": "Integração Shopee",
+          "description": "Implementamos uma integração com a API da Shopee para importar vendas realizadas por influenciadores e espelhar essas vendas no Escritório Virtual Ybera Club, respeitando o modelo multinível da plataforma."
+        },
+        {
+          "title": "Ajuste no Prazo de Leitura e Aprovação de Solicitações de Saques",
+          "description": "Alteramos a rotina para que todo o envio de aprovação de saques seja feito de forma manual e em lote, garantindo o respeito ao novo prazo de 48 horas."
+        },
+        {
+          "title": "Implementação do Strapi no Institucional Ybera Club",
+          "description": "Permitimos que administradores visualizem, organizem e editem conteúdos estruturados do yberaclub.com diretamente no Strapi, com gestão centralizada de mídias e padronização técnica."
+        },
+        {
+          "title": "Campanha de Metas Maio - Cuidado em Dobro",
+          "description": "Implementamos a campanha promocional de metas para a base de influencers do Club, composta por 3 níveis de metas, com acompanhamento no Escritório Virtual e banner promocional na homepage."
+        },
+        {
+          "title": "Ações Pontuais - pequenas melhorias e correções",
+          "description": "Emitimos relatórios de pedidos do TikTok Shop, executamos trocas de rede, realizamos ajustes de vínculo de pedidos, ocultamos a aba Assinaturas, fizemos ajustes visuais no extrato, melhoramos as mensagens de erro na Lybera Shop, liberamos acesso ao Connect para gestores indicados e realizamos outros ajustes gerais."
         }
       ]
     },
@@ -106,40 +161,20 @@
       "category": "Ecommerce Brasil",
       "items": [
         {
-          "title": "Integração Adyen na Loja Ybera.com",
-          "description": "Realizamos a integração com o gateway da Adyen, usado pelos maiores players do mundo. Esta ação deve melhorar os dados de pedidos cancelados, além de nos garantir escalabilidade automática em grandes campanhas."
+          "title": "App ybera.com",
+          "description": "Executamos a Fase 3 com a Barra de Progresso Promocional no App SaaS e realizamos a outorga do app para validações dos Stakeholders e lançamento."
         },
         {
-          "title": "Reestruturação da Página de Kits Wake",
-          "description": "Corrigimos o comportamento da página para que ela funcione logicamente como um kit de produtos reais na jornada de compra, e não mais como uma lista solta de compras."
+          "title": "Campanha Cuidado em Dobro - Motor de Brindes com Múltiplas Regras",
+          "description": "Permitimos a configuração e aplicação de diferentes tipos de campanhas de “compre e ganhe” com múltiplas regras de elegibilidade e aplicação de brindes dentro de uma mesma campanha."
         },
         {
-          "title": "Correção Exibição de Calendário de Ofertas no Strapi",
-          "description": "Avançamos com a segunda etapa de melhoria do calendário de ofertas, dando ao gestor de loja a opção de exibir ou não os preços nos spots de produto durante as campanhas promocionais."
+          "title": "Alteração cor do background do hotsite personalizável pelo Strapi",
+          "description": "Alteramos a cor do background da página da live (hotsite personalizável), que estava fixo no código como preto, para a nova cor solicitada."
         },
         {
-          "title": "Nova Página de Rastreio Ybera.com",
-          "description": "Refizemos e implementamos uma nova página de rastreamento de pedidos integrada diretamente à Intelipost, permitindo o rastreamento sem necessidade de login."
-        },
-        {
-          "title": "Camada de Validação de Dados na Finalização de Pedido",
-          "description": "Implementamos uma camada de segurança extra no e-commerce, para garantir a integridade dos dados cadastrais antes do fechamento do pedido, reduzindo falhas no gateway de pagamento."
-        },
-        {
-          "title": "Campanhas Comerciais de Março",
-          "description": "Implementamos a melhoria de visual em carrinho e checkout para a ação de descontos progressivos."
-        },
-        {
-          "title": "Habilitação de Campo de Cupom na Etapa Checkout/Confirmar",
-          "description": "Disponibilizamos o campo de cupom de desconto na última etapa do checkout do Store Front além de habilitar o input manual do cupom em toda etapa de checkout."
-        },
-        {
-          "title": "Redirect URL Ibera.com",
-          "description": "Implementamos correção técnica para garantir que redirecionamentos de URL preservem os parâmetros de rastreio de afiliados (UTMs), evitando a perda de vínculos e comissões."
-        },
-        {
-          "title": "APM de campanha (Lean/Work)",
-          "description": "Acompanhamento e governança das etapas 1 e 2 de desenvolvimento do app de compra pelo time da LeanWork. Essas etapas envolvem Fase 1 – Setup + Afiliados e Fase 2 – Cupons e Brindes Customizados."
+          "title": "Ações Pontuais - pequenas melhorias e correções",
+          "description": "Removemos o chat do componente de live da landing page, ajustamos a resolução do vídeo do componente da home para mobile e alteramos a label de indisponibilidade de produtos sem estoque."
         }
       ]
     },
@@ -147,8 +182,20 @@
       "category": "Ybera Club EUA",
       "items": [
         {
-          "title": "Replicar o Cálculo de Imposto no Kit Primeira Compra",
-          "description": "Implementamos o envio automático dos dados de endereço da influenciadora para a API da Stripe, garantindo que a taxa de imposto correta seja calculada e exibida com transparência no checkout do kit de adesão."
+          "title": "Plano de Carreiras USA - Nova versão",
+          "description": "Adequamos o plano de carreiras do escritório dos EUA ao novo modelo visual e estrutural, incorporando layout atualizado com mapa interativo, missões gamificadas e nova organização em trilhas."
+        },
+        {
+          "title": "Alteração do fluxo dos pedidos na loja interna - EUA",
+          "description": "Viabilizamos a migração do motor de pedidos e produtos da loja interna USA, saindo do Ordoro para o Shopify, disponibilizando um ambiente seguro de testes."
+        },
+        {
+          "title": "Criação de regra de Meta Geral de Abril no Escritório Virtual",
+          "description": "Realizamos a criação da lógica da Meta Geral de Maio no Escritório Virtual, com regra de qualificação baseada no faturamento de abril e pagamento de bônus acumulativo conforme vendas realizadas em maio."
+        },
+        {
+          "title": "Ações Pontuais - pequenas melhorias e correções",
+          "description": "Realizamos o reembolso de estornos ocasionados pela Regra de Negócio vigente, alteramos o cadastro de Pessoa Jurídica para Pessoa Física em alguns casos e modificamos a ordem de exibição de metas."
         }
       ]
     },
@@ -156,12 +203,20 @@
       "category": "Ecommerce Shopify EUA",
       "items": [
         {
-          "title": "Integração Influencer Hero",
-          "description": "Implementamos a integração da plataforma Influencer Hero ao Shopify EUA para viabilizar o envio automático de produtos e amostras para influenciadores, controlando o estoque na estratégia de recrutamento."
+          "title": "Page Builder para Shopify USA",
+          "description": "Recomendamos e implementamos a melhor ferramenta de Page Builder para Shopify que permite criar landing pages com rapidez e autonomia, sem comprometer a performance."
         },
         {
-          "title": "Internalização das funcionalidades de Upsell e Cart Drawer",
-          "description": "Iniciamos a migração para internalizar as funcionalidades promocionais do app Upnova diretamente na arquitetura nativa da loja Shopify (Cart Drawer), garantindo melhor performance e redução de custos externos."
+          "title": "Otimização de UX e Conversão do Pop-up Promocional",
+          "description": "Melhoramos a experiência do usuário e a taxa de conversão dos pop-ups promocionais, garantindo maior clareza visual e confiabilidade na entrega das ofertas."
+        },
+        {
+          "title": "Ajuste na seção “Hear Directly from our Ambassadors”",
+          "description": "Restauramos o comportamento anterior da seção “Hear Directly from our Ambassadors”, garantindo o controle e a curadoria sobre quais conteúdos são destacados na vitrine."
+        },
+        {
+          "title": "Ações Pontuais - pequenas melhorias e correções",
+          "description": "Realizamos os devidos ajustes e correções no analytics do Shopify USA."
         }
       ]
     },
@@ -169,8 +224,8 @@
       "category": "Ybera Club LATAM",
       "items": [
         {
-          "title": "Disponibilização do componente de metas para Chile e Panamá",
-          "description": "Habilitamos o componente para que administradores do Chile e Panamá possam configurar e gerenciar metas (individuais e coletivas) nas respectivas regiões."
+          "title": "Melhoria na Interface e Localização de Botões/Links (Espanhol)",
+          "description": "Implementamos melhorias diretas na interface e na localização de botões e links nas plataformas em idioma espanhol."
         }
       ]
     },
@@ -178,8 +233,21 @@
       "category": "Ecommerce Shopify LATAM",
       "items": [
         {
-          "title": "Instalação e configuração do app Payflow para o Chile",
-          "description": "Implementamos o app Payflow no e-commerce chileno para permitir maior controle sobre como os métodos de pagamento são exibidos no checkout."
+          "title": "Ações Pontuais - pequenas melhorias e correções",
+          "description": "Realizamos o ajuste de fuso horário no Shopify Panamá e ajustamos os privilégios de acesso dos usuários ao widget Tolstoy."
+        }
+      ]
+    },
+    {
+      "category": "Ybera Pro",
+      "items": [
+        {
+          "title": "Comissionamento Multinível - Ybera Club PRO",
+          "description": "Implementamos o comissionamento multinível para vendas realizadas no ambiente Ybera Club PRO, permitindo a distribuição de bônus para a rede ascendente até o 5º nível."
+        },
+        {
+          "title": "Ações Pontuais - pequenas melhorias e correções",
+          "description": "Realizamos trocas de rede pontuais, migração de redes de gestores inativos, extração de relatórios pontuais e correções menores."
         }
       ]
     },
@@ -187,116 +255,146 @@
       "category": "Implementações NO CODE",
       "items": [
         {
-          "title": "Reapontamento de domínios sob novo servidor",
-          "description": "Migração dos domínios do modelo centralizado (COALIAS) para apontamentos diretos no novo servidor, com reorganização das rotas para maior controle e estabilidade."
+          "title": "Unificação de Dados e Nova Interface - Ybera Academy",
+          "description": "Executamos a migração para o Supabase como fonte única de verdade e desenvolvemos um painel administrativo com uma nova interface visual e gestão de logs."
         },
         {
-          "title": "Inclusão de nova categoria para venda",
-          "description": "Incluímos a categoria \"Erick Loureiro\" no menu suspenso de tipos de ingressos no painel administrativo, para tornar possível a venda para o Club."
+          "title": "V1 - Gamificação Ybera Academy",
+          "description": "Desenvolvemos o motor de regras para pontuação, missões, níveis, ranking e loja de recompensas, gamificando a jornada de estudo das influencers."
         }
       ]
     },
     {
-      "category": "Implementações em IA",
+      "category": "Implementações em IA / Dados",
       "items": [
         {
-          "title": "Monitoramento Automático de Comentários Negativos",
-          "description": "Implementamos fluxo via n8n + Meta + IA para identificar comentários negativos em posts, ads e DMs em tempo real e transformá-los automaticamente em tickets prioritários no Zendesk."
+          "title": "V2 - Quinzenário de Evolução de Produto - Newsletter Sprint Report",
+          "description": "Ajustamos a extração de dados do Azure DevOps para exibir automaticamente o motivo de impedimento das features no relatório Quinzenário."
         },
         {
-          "title": "Criação de Fluxo e Priorização de Reembolsos no Zendesk",
-          "description": "Implementamos intenção específica no bot que identifica pedidos de reembolso e os direciona sem fricção diretamente para o atendimento humano prioritário."
+          "title": "Criação de base de painel de Eventos - Logística",
+          "description": "Construímos a infraestrutura da base de dados responsável por alimentar o painel de eventos logísticos."
         },
         {
-          "title": "Automação de Respostas orientando sobre problemas relacionados a pedidos",
-          "description": "Implementamos resposta automática via n8n (pela API da Meta) para comentários e DMs envolvendo problemas logísticos e de rastreio, direcionando ao SAC oficial."
+          "title": "Discovery de Planilhas de ecommerce",
+          "description": "Realizamos uma análise exploratória detalhada para entender a origem dos dados de e-commerce e preparar o plano de automação da coleta e disponibilização destes."
         },
         {
-          "title": "Automação de Monitoramento de Redes Sociais",
-          "description": "Criamos fluxo no n8n que usa linguagem natural (NLP) para triagem e alerta em tempo real de reclamações enviadas às contas do @Ybera, @YberaClub, @Jhonatan e @Romulo."
+          "title": "Discovery ferramentas de Eventos",
+          "description": "Testamos, junto à Nimbus, ferramentas para cadastrar, controlar e disparar as UTMs para captação de eventos."
         },
         {
-          "title": "Automação de Geração de Change Log Document",
-          "description": "Criamos automação via n8n para extrair a maior parte das informações necessárias para gerar este Change Log de forma automatizada."
-        }
-      ]
-    },
-    {
-      "category": "Implementações de Dados",
-      "items": [
-        {
-          "title": "Ingestão de dados Ybera-Club - 1º Fase",
-          "description": "Iniciamos a estruturação do Data Lake carregando as principais tabelas do Club, corrigindo pipelines e reduzindo o excesso de colunas extraídas."
-        }
-      ]
-    },
-    {
-      "category": "Outras Implementações",
-      "items": [
-        {
-          "title": "Criação de Notas de entrada no Bling",
-          "description": "Acionamos times internos e externos após a perda de estoque para criar uma conversão emergencial de notas, importando milhares de notas de saída para gerar as de entrada correspondentes. Grande ponto para a extrema ajuda do time de Ecommerce, que nos auxiliou em todo o processo."
+          "title": "Integração de Dados Financeiros (Adyen)",
+          "description": "Desenvolvemos a estrutura de ingestão para dados de pagamentos provenientes da Adyen visando carga estruturada das transações no Data Lake."
         },
         {
-          "title": "Fundamentos do GLPI",
-          "description": "Fundamentos do GLPI lançados, substituindo a Zendesk como ferramenta de helpdesk interna do grupo, além de substituir a Pipefy como plataforma de solicitações institucionais, como reembolsos, contratações, etc."
+          "title": "Integração de Dados ERP Bling - Pedidos B2C",
+          "description": "Implementamos o fluxo de integração para centralização de dados do ERP Bling B2C, escutando os eventos via webhook para o Data Lake."
+        },
+        {
+          "title": "Ingestão de Dados - Metas Manuais",
+          "description": "Ingerimos os dados relacionados a metas e campanhas do time de Ecommerce no Data Lake."
+        },
+        {
+          "title": "Melhorias - Torre Controle Wake",
+          "description": "Realizamos ajustes e aplicamos melhorias operacionais nos painéis apontadas pela direção do E-commerce."
+        },
+        {
+          "title": "Analise de Estrutura de dados - Logística",
+          "description": "Realizamos a análise e a ingestão dos dados de pedidos da API Lisa/Intelispost e definimos o plano de integração contínua."
+        },
+        {
+          "title": "Contabilizador automático de Esforço aplicado",
+          "description": "Ao finalizar uma Feature, uma automação insere na documentação do DevOps todos os envolvidos na implementação e as horas trabalhadas, para fins de cálculo de custo."
+        },
+        {
+          "title": "Calculadora de Custo de Projetos de Desenvolvimento de Sistema",
+          "description": "Criamos uma aplicação que calcula o custo do desenvolvimento de qualquer sistema internalizado, sejam os colaboradores envolvidos CLT ou PJ."
+        },
+        {
+          "title": "Ações Pontuais - pequenas melhorias e correções",
+          "description": "Ajustamos o leitor de NFSe com CNAEs corretos e endereço do tomador, removemos o criador automático de tickets via Instagram e trocamos o motor de IA responsável pela leitura das NFSes."
         }
       ]
     }
   ],
   "architecture": [
     {
-      "title": "Fase 02 Refatoração do Frontend",
-      "description": "Realizamos uma profunda atualização estrutural do frontend (foco em stack, Vite.js e Design System) para eliminar débitos técnicos, melhorar a performance e preparar o ambiente para a futura migração para Next.js."
-    },
-    {
-      "title": "Integração Bling - Lisa - Integração novo Bling Top Cosméticos",
-      "description": "Estruturamos uma ramificação de integração totalmente nova focada em atender a operação específica do Bling da Top Cosméticos."
+      "title": "V0 - Desenvolvimento de Middleware para integração Wake > Bling > Lisa",
+      "description": "Implementamos a fase inicial do middleware para atuar como camada intermediária entre o e-commerce, o ERP e o sistema logístico, aumentando em 6 vezes nossa capacidade de processamento de pedidos."
     }
   ],
+  "architectureSectionVariant": "architecture",
   "productDesign": [
     {
-      "title": "Avanços Novo PRO – Research Role Profissional",
-      "description": "Finalizamos pesquisa, agrupamento de requisitos e entregamos protótipos de alta fidelidade para a role Profissional."
+      "title": "Design Home e PDP (Modelo E-commerce + Institucional)",
+      "description": "Desenvolvemos uma versão controlada e funcional da Home e PDP que representa o modelo proposto de loja, focando em percepção de marca e redução da fricção."
     },
     {
-      "title": "Avanços Novo PRO – Research Role Representante",
-      "description": "Finalizamos a pesquisa, o levantamento de requisitos e a prototipação de alta fidelidade para a role Representante."
+      "title": "Apresentação - Diagnóstico ybera.com",
+      "description": "Elaboramos e apresentamos para os Stakeholders a pesquisa com o diagnóstico aprofundado contendo melhorias de conversão para o e-commerce."
     },
     {
-      "title": "Design System Novo PRO",
-      "description": "Confeccionamos um design system exclusivo para o novo PRO, com destaque para os componentes exclusivos dos apps do Representante e do Profissional, com novidades em relação ao Design System geral do novo Ybera PRO."
+      "title": "Campanha Gamificada Copa do Mundo | Ybera Club",
+      "description": "Prototipamos e desenhamos a jornada gamificada tematizada para a Copa do Mundo."
     },
     {
-      "title": "Protótipo de Refatoração dos Spots de Produto",
-      "description": "Refizemos visualmente os spots (cards) de produtos para dar extrema clareza à vantagem financeira sem perder a identidade premium."
+      "title": "Calendário de Eventos no Escritório Virtual",
+      "description": "Prototipamos a funcionalidade do Calendário da Afiliada no app para centralizar campanhas, comunicados, treinamentos e novidades."
     },
     {
-      "title": "Protótipo do Campo de Cupom no Checkout/Complete",
-      "description": "Desenhamos o local de exibição da inserção do cupom para a etapa final do checkout."
+      "title": "Novo Formato de Troca de Rede",
+      "description": "Prototipamos a funcionalidade que permitirá aos administradores realizarem a troca de rede diretamente pelo painel com rastreabilidade e justificativa."
     },
     {
-      "title": "Avanços na pesquisa e diagnóstico de conversão (Ecommerce Global)",
-      "description": "Concluímos etapas de diagnóstico que mapearam atritos na jornada, resultando em protótipos do Sticky cart mobile e na redução de ruído visual promocional na homepage."
+      "title": "Protótipos de Melhorias na Tela de Saque",
+      "description": "Criamos os protótipos que visam melhorar a experiência e a confiabilidade do fluxo das solicitações de saque."
     },
     {
-      "title": "Protótipo de Modal de Aviso para Download de novo APP",
-      "description": "Prototipamos a tela de aviso para usuários baixarem a nova aplicação, direcionando de forma imperativa para o download do app atualizado."
+      "title": "Revisão de emails transacionais Wake",
+      "description": "Desenhamos a revisão visual e informacional completa dos e-mails transacionais enviados via plataforma Wake."
     },
     {
-      "title": "Outras demandas pontuais",
-      "description": "Executamos diversas melhorias como definição de cores globais, template PDP One Page, templates de banners EUA, adaptações de UX no Connect, gestão de banners e módulo de transmissão."
+      "title": "Prototipação da Landing Page (LP) - Novo Ybera PRO",
+      "description": "Desenhamos a página institucional com foco em captar novos distribuidores e profissionais para o ecossistema."
+    },
+    {
+      "title": "Relatórios Administrativos - Novo Ybera PRO",
+      "description": "Desenhamos os últimos protótipos dos painéis de relatórios para o administrador na nova plataforma PRO."
     }
   ],
+  "newPro": [],
+  "erpSenior": [],
+  "support": [],
   "comparative": {
     "overview": "O ciclo de desenvolvimento da versão 1.2.36 foi concluído com 56 entregas (throughputs), totalizando 5.667 pontos de Business Value Score (BVS). Este resultado demonstra uma alta densidade de valor por entrega, mantendo o patamar de entregas robustas observado nos meses anteriores.",
     "historyIntro": "Ao observarmos a linha do tempo do ano, a evolução da operação de Produto e Tecnologia demonstra as seguintes métricas:",
     "history": [
-      { "month": "Janeiro 26", "version": "1.2.32", "summary": "42 entregas | 2.914 pontos." },
-      { "month": "Fevereiro 26", "version": "1.2.33", "summary": "81 entregas | 5.432 pontos." },
-      { "month": "Março 26", "version": "1.2.34", "summary": "64 entregas | 6.702 pontos." },
-      { "month": "Abril 26", "version": "1.2.35", "summary": "59 entregas | 5.476 pontos." },
-      { "month": "Maio 26", "version": "1.2.36", "summary": "56 entregas | 5.667 pontos." }
+      {
+        "month": "Janeiro 26",
+        "version": "1.2.32",
+        "summary": "42 entregas | 2.914 pontos."
+      },
+      {
+        "month": "Fevereiro 26",
+        "version": "1.2.33",
+        "summary": "81 entregas | 5.432 pontos."
+      },
+      {
+        "month": "Março 26",
+        "version": "1.2.34",
+        "summary": "64 entregas | 6.702 pontos."
+      },
+      {
+        "month": "Abril 26",
+        "version": "1.2.35",
+        "summary": "59 entregas | 5.476 pontos."
+      },
+      {
+        "month": "Maio 26",
+        "version": "1.2.36",
+        "summary": "56 entregas | 5.667 pontos."
+      }
     ],
     "insightsIntro": "A análise detalhada das novas implementações de maio revela três pilares fundamentais de maturidade corporativa:",
     "insights": [
@@ -317,28 +415,24 @@
   },
   "nextSteps": [
     {
-      "title": "Integração com o TikTok Shop e Shopee - Ybera Club Brasil - Fase 1",
-      "description": "Dando início ao Ybera Club Omnichannel."
+      "title": "Global",
+      "description": "Implementação final do Calendário de Eventos no Escritório Virtual, Refatoração do Módulo de Transmissão do Escritório e entrega do Protótipo da Loja da Influencer."
     },
     {
-      "title": "V2 do Plano de Carreira - Ybera Club Brasil",
-      "description": "Inclusão das microconquistas entre os marcos do plano de carreira."
+      "title": "Brasil (Club e Connect)",
+      "description": "Lançamento da V4 Lybera Shop (pagamentos combinados de saldo + dinheiro e regra de Ativação Mensal), evolução das integrações diretas da Shopee V2 e TikTok V3, implementação da integração Adyen na Lybera Shop, desenvolvimento da campanha gamificada Copa do Mundo, Protótipo da Ferramenta de Microlives, inclusão do Plano de Carreira no Painel Administrativo, e melhorias de governança no Connect (Métricas de Engajamento)."
     },
     {
-      "title": "Encerramento da implementação do ERP Sênior",
-      "description": "Finalização da implementação do ERP Sênior, com todas as validações realizadas."
+      "title": "EUA/LATAM",
+      "description": "Implementação da Lybera Shop V2 no Chile (Gateway de Pagamento), implementação do Kit Primeira Compra e Plano de Carreira para as operações do Chile e Panamá, implementação de Nova Regra de Negócio (Ativação Mensal) e finalização da Barra de Urgência de Estoque e melhorias no Hair Quiz dos EUA."
     },
     {
-      "title": "Ferramenta de Inclusão de Banners no Escritório Virtual - Ybera Club Global",
-      "description": "Os admins poderão se comunicar de forma mais visual com o club, com uma nova ferramenta de inserção de banners. Tudo feito diretamente pelo painel administrativo do Club."
+      "title": "E-commerce (Brasil e Global)",
+      "description": "Evolução da Homepage Ybera.com, Diagnóstico e Otimização de Performance (PageSpeed), estruturação de CRM (Clevertap x Nimbus), implementação de Bases LGPD, revisão dos e-mails transacionais da Wake, migração pendente da Loja Tray para Shopify e a otimização da funcionalidade de Busca nos sites USA & LATAM."
     },
     {
-      "title": "V4 Lybera Shop Ybera Club Brasil - Fase 1",
-      "description": "Inserção de pagamentos com saldo bloqueado e compras válidas para ativação mensal."
-    },
-    {
-      "title": "Payout USA",
-      "description": "Meio automatizado de payout, utilizando a Wise como meio de operar os pagamentos de comissão."
+      "title": "Inovação e Dados",
+      "description": "Lançamento do Assistente de IA para Regras de Negócio, V1 do Motor de Cancelamento Automático de Pedidos, entrega do Ybera Assistant V1, V2 do Quinzenário Executivo e desenvolvimento do Painel Ybera Club."
     }
   ]
 }

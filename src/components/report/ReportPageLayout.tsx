@@ -12,7 +12,7 @@ export function ReportPageLayout({ children }: ReportPageLayoutProps) {
       {/* overflow-x-clip em vez de hidden: evita scroll horizontal sem o scrollport que quebra position:sticky nos filhos. */}
       {/* Manchas/blocos suaves de fundo (decorativo) */}
       <div
-        className="fixed inset-0 pointer-events-none overflow-hidden -z-10"
+        className="pointer-events-none fixed inset-0 -z-10 hidden overflow-hidden sm:block"
         aria-hidden
       >
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-report-pastel-blue/30 rounded-full blur-3xl" />

@@ -97,7 +97,7 @@ export function ReportSectionTitle({
       </span>
       <h2
         id={titleId}
-        className={`relative z-[1] w-full min-w-0 shrink-0 break-words text-[1.65rem] font-bold leading-tight max-sm:text-[1.625rem] max-sm:leading-tight max-sm:tracking-tight sm:max-w-full sm:text-3xl sm:leading-normal md:text-4xl lg:w-fit lg:max-w-full lg:break-normal lg:text-[40px] lg:whitespace-nowrap ${padMobileDecoration} ${COPY_MAX_MOBILE_ONLY}`}
+        className={`relative z-[1] w-full min-w-0 shrink-0 break-words text-[1.65rem] font-bold leading-tight max-sm:text-[1.625rem] max-sm:leading-tight max-sm:tracking-tight sm:max-w-full sm:text-3xl sm:leading-normal md:text-4xl lg:w-full lg:max-w-[760px] lg:break-normal lg:text-[40px] xl:w-fit xl:max-w-full xl:whitespace-nowrap ${padMobileDecoration} ${COPY_MAX_MOBILE_ONLY}`}
         style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
       >
         {titleSplit ? (
@@ -181,15 +181,15 @@ export function ReportSectionTitle({
           className="
             flex w-full min-w-0 max-w-full flex-col gap-0 max-sm:flex-none
             sm:flex-1 sm:gap-6
-            lg:grid lg:grid-cols-12 lg:flex-none lg:items-end lg:gap-x-8 lg:gap-y-0
+            lg:grid lg:grid-cols-12 lg:flex-none lg:items-end lg:gap-x-12 lg:gap-y-0
           "
         >
-          <div className="relative min-w-0 max-w-full lg:col-span-4 lg:col-start-1">
+          <div className="relative min-w-0 max-w-full lg:col-span-5 lg:col-start-1">
             {titleBlock}
           </div>
 
           {description ? (
-            <div className="min-w-0 w-full max-w-full md:max-w-[460px] lg:col-start-5 lg:col-span-6 lg:max-w-[640px]">
+            <div className="min-w-0 w-full max-w-full md:max-w-[460px] lg:col-start-7 lg:col-span-5 lg:max-w-[640px]">
               <p
                 className="min-w-0 w-full text-left text-[15px] font-semibold leading-relaxed text-neutral-500 max-sm:mt-0 max-sm:pt-3 pr-0 sm:pr-12 sm:text-base md:pr-0 lg:w-full lg:pr-0"
                 style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}

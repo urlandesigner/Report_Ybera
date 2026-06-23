@@ -64,6 +64,7 @@ export interface ImprovementCard {
   icon?: string
   title: string
   text: string
+  notes?: DeliveryNote[]
 }
 
 export interface ProductDesignCard {
@@ -73,6 +74,8 @@ export interface ProductDesignCard {
   title: string
   text: string
   image?: string
+  ctaLabel?: string
+  ctaHref?: string
 }
 
 export interface SupportCard {
@@ -152,15 +155,16 @@ export const reportMock: ReportData = {
     },
     {
       id: '5',
-      badge: '06',
-      title: 'Arquitetura',
+      badge: '05',
+      title: 'Suporte & Relatórios',
       description:
-        'Iniciativas estruturais voltadas à evolução da base técnica da plataforma, com foco em performance, eficiência operacional e sustentação do crescimento do ecossistema.',
-      brand: 'Architecture',
+        'Demandas de suporte, geração de dados estratégicos e iniciativas de apoio operacional realizadas no ciclo.',
+      titleSplit: { left: 'Suporte &', right: 'Relatórios' },
+      brand: 'Strategy',
     },
     {
       id: '6',
-      badge: '07',
+      badge: '06',
       title: 'Próximos passos',
       description:
         'Principais iniciativas em andamento e próximas entregas, com foco na evolução do ecossistema, expansão de funcionalidades e ganho de escala operacional.',
@@ -204,7 +208,7 @@ export const reportMock: ReportData = {
       id: 'd1',
       name: 'Ybera Club Global',
       deliveries: [
-        { title: 'V3 – Ybera Shop com Tags', bullets: ['Implementação de tags que desabilitam produtos: servirá para Cliente Novo, Revendedora, Parceiro e Lojista. Tags para identificar quem é o usuário do ecommerce.'] },
+        { title: 'V3 – Ybera Shop com Tags', bullets: ['Implementação de tags que desabilitam produtos: servirá para Cliente Novo, Revendedora, Parceiro e Lojista. Tags para identificar quem é o usuário do e-commerce.'] },
         { title: 'Redirect URL Club', bullets: ['Redirecionamento implementado como o novo domínio Ybera e melhorias na área.'] },
         { title: 'Ajustes de Copy – E-mails Transacionais', bullets: ['Ajustes nos e-mails transacionais para deixá-los mais adequados e com o branding correto.'] },
       ],
@@ -246,10 +250,10 @@ export const reportMock: ReportData = {
       id: 'd6',
       name: 'Ecommerce Shopify Global',
       deliveries: [
-        { title: 'Promoção Buy X Get Y Agridade', bullets: ['Promoção de "Compre 1 Leve 2" com variação de acordo com a quantidade de produtos.'] },
+        { title: 'Promoção Buy X Get Y Agendada', bullets: ['Promoção de "Compre 1 Leve 2" com variação de acordo com a quantidade de produtos.'] },
         { title: 'TikTok Ads – Chile e Panamá', bullets: ['Integração da plataforma de anúncios do TikTok para campanhas no Shopify.'] },
         { title: 'Judge.me – Avaliações de Produtos', bullets: ['Integração da ferramenta Judge.me para avaliações de produtos e comentários.'] },
-        { title: 'Checkout Pro Mercado Pago – México', bullets: ['Checkout Pro através do Mercado Pago para vendedores com pagamentos em até 12 meses.'] },
+        { title: 'Checkout Pro Mercado Pago – México', bullets: ['Checkout Pro por meio do Mercado Pago para vendedores com pagamentos em até 12 meses.'] },
       ],
     },
     {
@@ -274,7 +278,7 @@ export const reportMock: ReportData = {
     },
   ],
   improvementsCards: [
-    { id: 'i1', title: 'Refactor Front/Mobile - APP', text: 'Alterações de Frontend para republicação do APP nas stores Apple e Android, atualizando identidade visual do club.' },
+    { id: 'i1', title: 'Refactor Front/Mobile - APP', text: 'Alterações de frontend para republicação do APP nas stores Apple e Android, atualizando a identidade visual do Club.' },
     { id: 'i2', title: 'Ajustes Processamento de Metas', text: 'Resolução de problema de memória para diminuir lentidão nos processamentos futuros.' },
     { id: 'i3', title: 'Refactor Backend - Configurações', text: 'Alteração na estrutura de configurações (projeto base) para facilitar gestão de configurações do sistema.' },
     { id: 'i4', title: 'Open Telemetry Implementado', text: 'Rastreamento e métricas distribuídas para observabilidade e diagnóstico do sistema.' },
@@ -290,7 +294,7 @@ export const reportMock: ReportData = {
     { id: 'p4', number: '04', variant: 'pastel-blue', title: 'Ferramenta de Banners', text: 'Design Thinking da nova ferramenta de banners para Escritório global.' },
     { id: 'p5', number: '05', variant: 'pastel-green', title: 'Site Institucional Ybera Group', text: 'Estrutura completa prototipada, aguardando imagens do Marketing.' },
     { id: 'p6', number: '06', variant: 'pastel-yellow', title: 'Protótipo Cotação de Frete na PDP', text: 'Reinserção da cotação de frete dentro da página de detalhamento do produto.' },
-    { id: 'p7', number: '07', variant: 'pastel-orange', title: 'Live Commerce USA', text: 'Protótipo para primeira experiência de Liveshop nos EUA.' },
+    { id: 'p7', number: '07', variant: 'pastel-orange', title: 'Live Commerce USA', text: 'Protótipo para a primeira experiência de LiveShop nos EUA.' },
     { id: 'p8', number: '08', variant: 'pastel-blue', title: 'Modais e Barra de Progresso', text: 'Demonstrativo de limites mensais de aquisição de conexões no Connect.' },
   ],
   supportCards: [

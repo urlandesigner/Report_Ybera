@@ -18,7 +18,7 @@ const HERO_BG_LAYERS = [
 const HERO_AURORA_COLORS = ['#83FF8F', '#CC7FF0', '#A855F7'] as const
 
 /** Mesma coluna de conteúdo que `REPORT_SECTION_INNER_CLASS` (sem padding vertical das secções). */
-const HERO_CONTENT_COLUMN = ['mx-auto w-full min-w-0', REPORT_MAX_WIDTH_CLASS, 'px-4 sm:px-6 lg:px-0'].join(' ')
+const HERO_CONTENT_COLUMN = ['mx-auto w-full min-w-0', REPORT_MAX_WIDTH_CLASS, 'px-3 sm:px-6 lg:px-0'].join(' ')
 
 function HeroTitleLine({
   children,
@@ -101,7 +101,7 @@ export function HeroHeader({ data }: { data: HeroData }) {
           className="relative z-[1] grid min-h-0 flex-1 grid-cols-1 items-center gap-8 py-2 sm:grid-cols-[minmax(0,1.1fr)_auto] sm:gap-3 md:gap-4 lg:py-0"
           delay={0.05}
         >
-          <h1 className="relative z-[1] min-w-0" style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+          <h1 className="relative z-[1] flex min-w-0 flex-col items-center text-center sm:block sm:items-stretch sm:text-left" style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
               <HeroTitleLine
                 reduceMotion={reduceMotion}
                 className="block w-fit max-w-full text-[clamp(1.5rem,5.5vw,4.375rem)] font-extralight leading-[1.08] tracking-tight sm:leading-[1.1]"
@@ -138,7 +138,7 @@ export function HeroHeader({ data }: { data: HeroData }) {
             style={{ width: 'min(100%, 700px)' }}
             aria-hidden
           />
-          <div className="relative z-10 min-w-0">
+          <div className="relative z-10 min-w-0 text-center sm:text-left">
             <p className="text-[14px] leading-snug text-white/60 sm:text-[16px] sm:leading-relaxed">{data.heroFooterLine1}</p>
             <p className="mt-2 text-[14px] leading-snug text-white/60 sm:text-[16px] sm:leading-relaxed">{data.heroFooterLine2}</p>
           </div>

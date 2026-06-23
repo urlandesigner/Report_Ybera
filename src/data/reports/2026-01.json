@@ -1,0 +1,329 @@
+{
+  "title": "Relatório Mensal de Tecnologia",
+  "month": "Janeiro 2026",
+  "metaTag": "Janeiro 2026",
+  "heroFooterLine1": "Ciclo de Desenvolvimento 1.2.32 — Sprints 25 (2025), 1 e 2 (2026)",
+  "heroFooterLine2": "Versão lançada em 27 de janeiro de 2026.",
+  "executiveSummary": [
+    {
+      "title": "Implementações Globais",
+      "description": "V3 da Lybera Shop com sistema de tags, redirecionamento do novo domínio do Club e ajustes em e-mails transacionais."
+    },
+    {
+      "title": "Expansão Internacional",
+      "description": "Checkout Pro do Mercado Pago no México, promoções Buy X Get Y agendadas e integração TikTok Ads para Chile e Panamá."
+    },
+    {
+      "title": "E-commerce Brasil",
+      "description": "Implementação do Pix Parcelado (Pagaleve), regionalização de frete com cálculo antecipado e organização completa do Strapi."
+    },
+    {
+      "title": "Inteligência Artificial",
+      "description": "Integração com Impulsis para WhatsApp no Zendesk e automação de leitura de NFEs com novos códigos CNAE."
+    },
+    {
+      "title": "Arquitetura & Performance",
+      "description": "Migração para .NET 10, Open Telemetry implementado e refatoração completa do processamento de metas."
+    }
+  ],
+  "highlights": [],
+  "deliveries": [
+    {
+      "category": "Ybera Club Global",
+      "items": [
+        {
+          "title": "V3 - Lybera Shop",
+          "description": "Inserimos tags de destaque na vitrine, configuráveis pelo admin, para impulsionar conversão e destacar produtos estratégicos."
+        },
+        {
+          "title": "Redirect URL Club",
+          "description": "Aplicamos redirecionamento para o novo domínio do Club (`app.yberaclub.com`), garantindo acesso correto para quem tentar usar a URL antiga."
+        },
+        {
+          "title": "Ajustes de Copy dos E-mails Transacionais do Clube",
+          "description": "Revisamos os e-mails relacionados à adesão do Kit Primeira Compra, tanto por pagamento quanto por isenção."
+        }
+      ]
+    },
+    {
+      "category": "Ybera Club Brasil",
+      "items": [
+        {
+          "title": "Melhorias na área administrativa do Connect",
+          "description": "Fizemos algumas atualizações na área administrativa do Connect, quais sejam:",
+          "notes": [
+            {
+              "label": "",
+              "text": "Ao acessar a área de precificação, o administrador visualizará um modal ao finalizar a atualização dos presets de preço, com um informativo de que as mudanças alteram significativamente a precificação e se o admin deseja salvar as informações. Esta alteração visa aprimorar a facilidade de uso e proporcionar maior clareza das informações, além de reduzir o tempo médio de análise."
+            },
+            {
+              "label": "",
+              "text": "Exportação de Relatórios Administrativos, como Leads, Gestores e Conexões, em formato Excel."
+            }
+          ]
+        },
+        {
+          "title": "Connect - Exibir valor do Lead para o Admin antes da aprovação",
+          "description": "o Admin passa a visualizar o valor do lead antes da aprovação, garantindo maior clareza na tomada de decisão de colocar o lead na vitrine ou não."
+        },
+        {
+          "title": "Gestão de aprovação e retorno de Leads para integração na vitrine",
+          "description": "agora o admin gerencia a reprovação dos leads, permitindo que estes ajustem seus perfis quando necessário, para nova tentativa de aprovação futura."
+        },
+        {
+          "title": "Meta Gamificada",
+          "description": "Tesouro Ybera (Janeiro 2025) — Realizamos todo o cadastramento das metas automaticamente escaláveis de Janeiro, além do processo de gamificação do escritório e envio de checkpoints para o CRM do Unnichat, garantindo engajamento via escritório e WhatsApp."
+        },
+        {
+          "title": "Cadastramento de Metas - Janeiro - KIT CRONOGRAMA CAPILAR | CUIDADOS PROFUNDOS MIRRA",
+          "description": "Realizamos também o cadastramento das metas cujos critérios eram vendas de produtos combinados, e que possuíam como prêmio produtos específicos."
+        },
+        {
+          "title": "Extração de Relatórios",
+          "description": "Uma série de relatórios foi extraída, mediante solicitação, como:",
+          "notes": [
+            {
+              "label": "",
+              "text": "Relatório de Crescimento do Club em 2025;"
+            },
+            {
+              "label": "",
+              "text": "Comissões pagas ao Club em 2025."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Ecommerce Brasil",
+      "items": [
+        {
+          "title": "Implementação da Troca de Meio de Pagamento para Pix Parcelado (Pagaleve)",
+          "description": "Avançamos na substituição do operador de Pix Parcelado para melhorar a experiência de compra e reduzir cancelamentos."
+        },
+        {
+          "title": "Regionalização de Frete (Cálculo e Exibição Antecipada)",
+          "description": "Os valores de frete agora podem ser exibidos antes do checkout, logo após o cliente informar CEP/UF."
+        },
+        {
+          "title": "Organização e Limpeza do Content Manager (Strapi)",
+          "description": "Organizamos o gestor de conteúdo para facilitar atualizações, reduzir ruído operacional e evitar erros de uso."
+        }
+      ]
+    },
+    {
+      "category": "Ybera Club PRO Brasil",
+      "items": [
+        {
+          "title": "Disparo em Massa de E-mails para Clientes Pendentes de Cadastro no PRO",
+          "description": "Habilitamos uma forma rápida e eficiente de reengajar grandes volumes de clientes pendentes, com mensagem padrão de alta conversão."
+        }
+      ]
+    },
+    {
+      "category": "Ybera Club EUA/LATAM",
+      "items": [
+        {
+          "title": "Implementação de Tradução para o Modal de Plano de Carreira no Backend",
+          "description": "Garantimos que o modal da homepage do Escritório Virtual respeite automaticamente o idioma configurado pelo usuário."
+        },
+        {
+          "title": "Cancelamento Local de Pedidos Pendentes de Envio ao ERP",
+          "description": "Permitimos que a equipe administrativa cancele pedidos antes do processamento sistêmico completo, agilizando estornos e liberações."
+        },
+        {
+          "title": "Expiração de Pedido Kit Primeira Compra (Pagamento Zelle)",
+          "description": "Pedidos pagos com Zelle Key passaram a expirar em 24 horas para evitar acúmulo de pedidos não finalizados e preservar a consistência do estoque."
+        },
+        {
+          "title": "Cancelamento Local de Pedidos Pendentes de Envio ao ERP",
+          "description": "Agora é possível que a equipe de administração da loja interna cancele pedidos que ainda não foram processados pelo ERP, agilizando o estorno/liberação do pedido em cenários onde há necessidade de cancelamento antes do processamento sistêmico completo."
+        }
+      ]
+    },
+    {
+      "category": "Ecommerce Shopify Global",
+      "items": [
+        {
+          "title": "Implementação de Promoção Buy X Get Y Agendada via Metafields",
+          "description": "Permitimos promoções automáticas do tipo “Compre 1 e Leve 2”, ativadas por metafields e agendamento por data/hora."
+        },
+        {
+          "title": "Instalação do App TikTok Ads na Shopify | Ecommerce Panama/Chile",
+          "description": "Instalamos a integração do TikTok Ads nas operações do Chile e Panamá."
+        },
+        {
+          "title": "Instalação do Judge.me nas Lojas Chile e Panamá",
+          "description": "Habilitamos avaliações e comentários de clientes para reforçar prova social e conversão."
+        },
+        {
+          "title": "Metacampo para Descrição de Itens de KIT",
+          "description": "Criamos um campo específico para detalhamento dos itens dos kits na Shopify, reutilizado na documentação de despacho."
+        },
+        {
+          "title": "Implementação do Checkout Pro do Mercado Pago no México",
+          "description": "Ativamos o Checkout Pro com foco em redução de taxas, ampliação das opções de pagamento e melhoria de conversão."
+        }
+      ]
+    },
+    {
+      "category": "Implementações NO CODE",
+      "items": [
+        {
+          "title": "Abertura das Vendas do Acelerador Influencer",
+          "description": "Configuramos a abertura das vendas com novas condições comerciais, direcionadas aos integrantes do Club."
+        },
+        {
+          "title": "Ajustes na Página de Venda do Acelerador - Ybera Club Pass",
+          "description": "Ajustamos logo e informações de vendas para melhorar clareza comercial."
+        },
+        {
+          "title": "Ajustes de Copy do E-mail de Onboarding Acelerador Influencer | Pass",
+          "description": "Refinamos a comunicação de onboarding vinculada à compra do Acelerador 2026."
+        },
+        {
+          "title": "Criação de Meios de Exclusão de Usuários do Academy",
+          "description": "Implementamos a lógica de exclusão de usuários do Academy via painel administrativo."
+        }
+      ]
+    },
+    {
+      "category": "Implementações em IA",
+      "items": [
+        {
+          "title": "Integração com Impulsis para Disparo Ativo de Mensagens via WhatsApp no Zendesk",
+          "description": "Implementamos uma ferramenta homologada pela Meta para disparos ativos e comunicação escalável fora da janela padrão de 24 horas."
+        },
+        {
+          "title": "Adição de Código CNAE em Leitor Automático de NFEs",
+          "description": "Atualizamos os códigos CNAE aceitos no leitor automático de notas fiscais, fortalecendo a automação dos saques."
+        },
+        {
+          "title": "Ajustes Gerais no Zendesk",
+          "description": "Aplicamos melhorias pontuais em SLA do SAC e categorização de formulários de suporte."
+        }
+      ]
+    },
+    {
+      "category": "Implementações de Dados",
+      "items": [
+        {
+          "title": "Finalização da Documentação de Cronograma de Entregas - Tech Intelligence",
+          "description": "Consolidamos um escopo mais claro sobre as entregas e responsabilidades do time de Dados."
+        }
+      ]
+    }
+  ],
+  "architecture": [
+    {
+      "title": "Refactor Front/Mobile para publicação do APP",
+      "description": "uma série de alterações de frontend se fez necessária na republicação do APP nas stores da Apple e do Android, com o intuito de atualizar a identidade visual do Club. O app aguarda, agora, a aprovação para propagar sua nova versão."
+    },
+    {
+      "title": "Ajustes no processamento das metas - Global",
+      "description": "Realizamos ajustes na gestão das metas, visando a resolução do problema de memória para diminuir a lentidão em seus processamentos futuros, olhando para o novo componente de metas que será implementado ainda neste quarter."
+    },
+    {
+      "title": "Refactor Pontual do Backend",
+      "description": "algumas atualizações importantes foram realizadas:"
+    },
+    {
+      "title": "Alteração na estrutura de configurações (projeto base)",
+      "description": "para facilitar a gestão de configurações do sistema."
+    },
+    {
+      "title": "Instalação e configuração do Open Telemetry",
+      "description": "uma ferramenta que permite monitoramento de recursos do servidor em tempo real, como erros, picos de memória e processador, chamadas excessivas, etc."
+    },
+    {
+      "title": "Atualização do Backend para .NET 10",
+      "description": ""
+    },
+    {
+      "title": "Migração do Serializador JSON para System.Text.Json",
+      "description": "migração realizada com o intuito de melhorar a escalabilidade e a performance da nossa aplicação."
+    },
+    {
+      "title": "Criação controle de pagamento de prêmio de metas para evitar pagamento duplicado",
+      "description": "com a finalidade de impedir duplicação nas premiações de metas e evitar estornos incômodos."
+    },
+    {
+      "title": "Criação de Novo Modelo de Critério de Vendas nas Metas",
+      "description": "nas metas com critérios de vendas por produtos, agora é possível que 2 ou mais produtos compartilhem a mesma quantidade necessária para alcançar a meta."
+    }
+  ],
+  "architectureSectionVariant": "improvements",
+  "productDesign": [
+    {
+      "title": "Protótipo Novo Pass",
+      "description": "ticketeira para venda dos ingressos dos eventos do Grupo"
+    },
+    {
+      "title": "Site Institucional Ybera Group",
+      "description": "embora ainda careça de algumas imagens, já solicitadas ao Marketing do grupo, toda a estrutura já foi prototipada, tendo como Stakeholder Luciana Torezani. Agora, é agendar a apresentação."
+    },
+    {
+      "title": "Protótipo Live Interativa",
+      "description": "o protótipo do nosso componente de LiveShop está pronto."
+    },
+    {
+      "title": "Protótipo Cotação de Frete na PDP",
+      "description": "realizamos a prototipagem da cotação de frete na PDP, implementação importante para a UX do e-commerce. O objetivo é a reinserção da cotação de frete dentro da página de detalhamento do produto."
+    },
+    {
+      "title": "Protótipo Elementos Visuais da Landing Page #TBT Black November",
+      "description": "realizamos a prototipagem de toda a experiência da Landing Page do nosso TBT, além dos ajustes que serão feitos em toda a experiência da loja ybera.com."
+    },
+    {
+      "title": "Protótipo Live Commerce USA",
+      "description": "para a primeira experiência de LiveShop nos EUA, também trabalhamos com um protótipo para pautar as implementações na Shopify USA."
+    },
+    {
+      "title": "Nova Ferramenta para Inserção de Banners no Escritório B2C",
+      "description": "finalização de todo o Design Thinking da nova ferramenta de banners para o Escritório global. Agora, é agendar a apresentação da proposta."
+    },
+    {
+      "title": "Criação de modais informativos e barra de progresso de limite de compra de leads no checkout",
+      "description": "com a solicitação de implementar limites mensais de aquisição de conexões no Connect, prototipamos um demonstrativo para tornar notória a informação de quantos leads ainda restam para o gestor tentar a conexão."
+    },
+    {
+      "title": "Banners #TBT Black November para o Escritório Virtual Brasil e PRO",
+      "description": "finalizamos o design dos banners que implementaremos no Escritório Virtual Brasil (Influencer e PRO), segmentados pela identidade visual da TBT."
+    }
+  ],
+  "newPro": [],
+  "erpSenior": [],
+  "support": [
+    {
+      "title": "Relatórios Extraídos",
+      "description": "Relatório de Crescimento do Club em 2025 e Comissões pagas ao Club em 2025, mediante solicitação das áreas."
+    },
+    {
+      "title": "Tech Intelligence",
+      "description": "Finalização da documentação de cronograma de entregas com escopo claro sobre o que será entregue pelo time de Dados."
+    },
+    {
+      "title": "Operações",
+      "description": "Suporte com implementações de exportação de relatórios, gestão de leads e automação de processos administrativos."
+    }
+  ],
+  "nextStepsColumns": [
+    {
+      "title": "AGUARDANDO APROVAÇÃO",
+      "items": [
+        "Publicação do APP atualizado nas stores Apple e Android",
+        "Apresentação do protótipo do Site Institucional Ybera Group",
+        "Apresentação da nova ferramenta de banners para Escritório"
+      ]
+    },
+    {
+      "title": "EM DESENVOLVIMENTO",
+      "items": [
+        "Novo componente de metas para melhor performance",
+        "Implementação dos protótipos de Live Commerce (Brasil e USA)",
+        "Cotação de frete na página de produto (PDP)"
+      ]
+    }
+  ],
+  "nextSteps": []
+}

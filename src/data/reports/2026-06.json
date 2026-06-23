@@ -284,6 +284,7 @@
       "description": "Realizamos um massivo pacote de melhorias de performance nos sistemas Club Brasil, Ecommerce e PRO, incluindo novas automações no endpoint do Middleware via Bling."
     }
   ],
+  "architectureSectionVariant": "architecture",
   "productDesign": [
     {
       "title": "Ajuste de Exibição de Brindes Progressivos no Cart Drawer - Shopify",
@@ -358,6 +359,9 @@
       "description": "Prosseguimos com a finalização da Otimização da Página de Produto (PDP), Busca e Descoberta de Produtos, Padronização via Design System, Melhoria da Navegação (Home), Otimização de Modais e Popups e da Estruturação do Template visando Escalabilidade."
     }
   ],
+  "newPro": [],
+  "erpSenior": [],
+  "support": [],
   "comparative": {
     "overview": "O ciclo de desenvolvimento da versão 1.2.37 (Junho/26) foi concluído com um escopo de 55 entregas (throughputs), totalizando expressivos 4.569 pontos de Business Value Score (BVS) consolidados. Mantivemos a regularidade em torno de meia centena de entregas com projetos focados, desta vez, em arquitetura de retenção e governança de dados.",
     "historyIntro": "Ao observarmos a linha do tempo do ano, a evolução da operação de Produto e Tecnologia demonstra as seguintes métricas:",

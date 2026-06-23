@@ -3,8 +3,8 @@ import type { ReportJson } from './report.types'
 type ReportEntry = { year: string; month: string; data: ReportJson }
 type PeriodValue = `${string}-${string}`
 
-// Mantemos meses antigos no repositório, mas só expomos aqui os períodos aprovados para o site.
-const PUBLISHED_REPORT_PERIODS: PeriodValue[] = ['2026-06']
+// Mantemos JSONs legados no repositório, mas só expomos os meses que já têm Markdown inputado no fluxo atual.
+const PUBLISHED_REPORT_PERIODS: PeriodValue[] = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06']
 
 const reportModules = import.meta.glob<ReportJson>('./reports/*.json', {
   eager: true,

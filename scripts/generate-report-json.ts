@@ -23,6 +23,7 @@ const monthlyOutputDir = join(outputDir, 'reports')
 const monthlyReportFilename = /^(\d{4})-(\d{2})\.md$/i
 
 type TitleDescriptionItem = ExecutiveSummaryItem
+type TitleDescriptionItemWithNotes = ExecutiveSummaryItem & { notes?: DeliveryNoteJson[] }
 
 function normalizeNewlines(s: string): string {
   return s.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
@@ -58,6 +59,14 @@ function extractSectionBody(lines: string[], sectionTitle: string): string[] {
       return body
     }
     i += 1
+  }
+  return []
+}
+
+function extractFirstSectionBody(lines: string[], sectionTitles: string[]): string[] {
+  for (const sectionTitle of sectionTitles) {
+    const body = extractSectionBody(lines, sectionTitle)
+    if (body.length > 0) return body
   }
   return []
 }
@@ -147,6 +156,37 @@ function parseTitleDescriptionBullets(bodyLines: string[]): TitleDescriptionItem
   return items
 }
 
+function parseTitleDescriptionBulletsWithNotes(
+  bodyLines: string[]
+): TitleDescriptionItemWithNotes[] {
+  const items: TitleDescriptionItemWithNotes[] = []
+
+  for (const raw of bodyLines) {
+    const bullet = raw.match(/^(\s*)-\s+(.*)$/)
+    if (!bullet) continue
+
+    const indent = leadingWhitespaceLength(bullet[1] ?? '')
+    const content = (bullet[2] ?? '').trim()
+    if (!content) continue
+
+    if (indent < 2) {
+      const { title, description } = parseDeliveryLineContent(content)
+      items.push({ title, description })
+      continue
+    }
+
+    const last = items[items.length - 1]
+    if (!last) continue
+
+    const note = noteFromContent(content)
+    const notes = last.notes ?? []
+    notes.push(note)
+    last.notes = notes
+  }
+
+  return items
+}
+
 /**
  * `## Destaques`: cada bullet `- Título: descrição` inicia um destaque.
  * Bullets `-` SEM `:` logo abaixo viram sub-itens (lista) do destaque atual.
@@ -187,7 +227,8 @@ function parseHighlights(bodyLines: string[]): HighlightItem[] {
  */
 function parseProductDesignBullets(bodyLines: string[]): ProductDesignItem[] {
   const items: ProductDesignItem[] = []
-  const withImage = /^(.+?)\s*\|\s*image:\s*(\S+)\s*:\s*(.*)$/i
+  const withImage =
+    /^(.+?)\s*\|\s*image:\s*(\S+)(?:\s*\|\s*cta:\s*(.+?))?(?:\s*\|\s*ctaUrl:\s*(\S+))?\s*:\s*(.*)$/i
 
   for (const raw of bodyLines) {
     const line = raw.trim()
@@ -199,10 +240,14 @@ function parseProductDesignBullets(bodyLines: string[]): ProductDesignItem[] {
     if (m) {
       const title = m[1].trim()
       const image = m[2].trim()
-      const description = m[3].trim()
+      const ctaLabel = m[3]?.trim() ?? ''
+      const ctaHref = m[4]?.trim() ?? ''
+      const description = m[5].trim()
       if (title) {
         const row: ProductDesignItem = { title, description }
         if (image) row.image = image
+        if (ctaLabel) row.ctaLabel = ctaLabel
+        if (ctaHref) row.ctaHref = ctaHref
         items.push(row)
       }
       continue
@@ -219,6 +264,30 @@ function parseProductDesignBullets(bodyLines: string[]): ProductDesignItem[] {
     })
   }
   return items
+}
+
+function parseNextStepsColumns(bodyLines: string[]): Array<{ title: string; items: string[] }> {
+  const columns: Array<{ title: string; items: string[] }> = []
+  let current: { title: string; items: string[] } | null = null
+
+  for (const raw of bodyLines) {
+    const line = raw.trim()
+    if (!line) continue
+
+    const heading = line.match(/^###\s+(.+?)\s*$/)
+    if (heading) {
+      current = { title: heading[1].trim(), items: [] }
+      columns.push(current)
+      continue
+    }
+
+    if (line.startsWith('-')) {
+      const content = line.replace(/^-\s+/, '').trim()
+      if (content && current) current.items.push(content)
+    }
+  }
+
+  return columns.filter((column) => column.title && column.items.length > 0)
 }
 
 /**
@@ -497,10 +566,24 @@ function buildReportJson(content: string): ReportJson {
   const executiveSummary = parseTitleDescriptionBullets(extractSectionBody(lines, 'Resumo Executivo'))
   const highlights = parseHighlights(extractSectionBody(lines, 'Destaques'))
   const deliveries = parseEntregasPrincipais(extractSectionBody(lines, 'Entregas Principais'))
-  const architecture = parseTitleDescriptionBullets(extractSectionBody(lines, 'Arquitetura'))
+  const improvementsBody = extractSectionBody(lines, 'Melhorias & Otimizações')
+  const architectureBody = extractSectionBody(lines, 'Arquitetura')
+  const architectureSectionVariant =
+    improvementsBody.length > 0 ? 'improvements' : 'architecture'
+  const architecture = parseTitleDescriptionBulletsWithNotes(
+    improvementsBody.length > 0 ? improvementsBody : architectureBody
+  )
   const productDesign = parseProductDesignBullets(extractSectionBody(lines, 'Produto & Design'))
+  const newPro = parseProductDesignBullets(extractFirstSectionBody(lines, ['Novo PRO', 'Novo Pro']))
+  const erpSenior = parseTitleDescriptionBulletsWithNotes(
+    extractFirstSectionBody(lines, ['ERP Sênior', 'ERP Senior'])
+  )
+  const support = parseTitleDescriptionBullets(extractSectionBody(lines, 'Suporte & Relatórios'))
   const comparative = parseComparative(extractSectionBody(lines, 'Comparativo'))
-  const nextSteps = parseTitleDescriptionBullets(extractSectionBody(lines, 'Próximos Passos'))
+  const nextStepsBody = extractSectionBody(lines, 'Próximos Passos')
+  const nextStepsColumns = parseNextStepsColumns(nextStepsBody)
+  const nextSteps =
+    nextStepsColumns.length > 0 ? [] : parseTitleDescriptionBullets(nextStepsBody)
 
   return {
     title: title ?? '',
@@ -512,8 +595,13 @@ function buildReportJson(content: string): ReportJson {
     highlights: highlights ?? [],
     deliveries: deliveries ?? [],
     architecture: architecture ?? [],
+    architectureSectionVariant,
     productDesign: productDesign ?? [],
+    newPro: newPro ?? [],
+    erpSenior: erpSenior ?? [],
+    support: support ?? [],
     ...(comparative ? { comparative } : {}),
+    ...(nextStepsColumns.length > 0 ? { nextStepsColumns } : {}),
     nextSteps: nextSteps ?? [],
   }
 }
@@ -574,6 +662,8 @@ function logPayload(outputFile: string, payload: ReportJson): void {
   console.log(`  deliveries: ${payload.deliveries.length} categor(ies), ${deliveryItems} item(s)`)
   console.log(`  architecture: ${payload.architecture.length} card(s)`)
   console.log(`  productDesign: ${payload.productDesign.length} card(s)`)
+  console.log(`  newPro: ${payload.newPro.length} card(s)`)
+  console.log(`  erpSenior: ${payload.erpSenior.length} card(s)`)
   console.log(`  nextSteps: ${payload.nextSteps.length} item(s)`)
 }
 

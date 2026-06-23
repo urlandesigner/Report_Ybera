@@ -26,11 +26,16 @@ export function DestaquesCards({ items }: DestaquesCardsProps) {
   if (items.length <= 4) {
     return (
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px]">
-        {items.map((item, index) => (
-          <AnimatedReveal key={item.id} index={index}>
-            <HighlightCard item={item} className="h-full min-w-0" />
-          </AnimatedReveal>
-        ))}
+        {items.map((item, index) => {
+          const isOrphan = items.length % 2 === 1 && index === items.length - 1
+          return (
+            <div key={item.id} className={isOrphan ? 'md:col-span-2' : undefined}>
+              <AnimatedReveal index={index}>
+                <HighlightCard item={item} className="h-full min-w-0" />
+              </AnimatedReveal>
+            </div>
+          )
+        })}
       </div>
     )
   }

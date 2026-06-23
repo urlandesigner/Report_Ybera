@@ -26,7 +26,11 @@ Corrija ortografia/pontuação óbvias e organize, mas não crie informação no
 
 ## Regra adicional deste projeto
 
+- O `## Resumo Executivo` normalmente **não existe no documento-fonte**. Gere essa seção
+  a partir da leitura completa do mês, sintetizando os principais temas em cards executivos.
 - **Somente a seção `## Resumo Executivo` pode ter texto sintetizado/redigido.**
+- Como padrão, gere até **6 cards** no `Resumo Executivo`; use menos apenas quando o mês
+  tiver pouco conteúdo.
 - Em **todas as outras seções**, o conteúdo deve espelhar o documento-fonte o mais fielmente possível.
 - Se o documento-fonte trouxer **apenas o título** de um item, mantenha **apenas o título** no Markdown.
 - Não complete descrições faltantes, não deduza contexto e não transforme tópicos curtos em explicações novas fora do `Resumo Executivo`.

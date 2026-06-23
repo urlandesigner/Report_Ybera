@@ -71,7 +71,12 @@ colado na conversa como fonte.
 
 ## Regras do conteúdo mensal
 
-- A única seção que pode ter texto sintetizado é `## Resumo Executivo`.
+- O `## Resumo Executivo` normalmente **não vem do Google Docs**: ele deve ser gerado
+  a partir da leitura completa do documento do mês, resumindo os principais temas em
+  cards executivos.
+- A única seção que pode ter texto sintetizado/redigido é `## Resumo Executivo`.
+- Como padrão, gere até 6 cards no `Resumo Executivo`; use menos apenas quando o mês tiver
+  pouco conteúdo (ex.: janeiro ficou com 5).
 - Todas as outras seções devem espelhar o documento-fonte o mais fielmente possível.
 - Se o documento trouxer só o título de um item, mantenha só o título no `.md`.
 - Não invente cards, descrições, números, versões, próximos passos ou destaques.

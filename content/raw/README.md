@@ -18,7 +18,9 @@ Você também pode colar o texto direto no chat ao rodar `/format-report 2026-07
 ## Regras importantes do input
 
 - O texto bruto é apenas fonte de referência. A fonte oficial do site é sempre `content/reports/YYYY-MM.md`.
-- Só o `Resumo Executivo` pode ser sintetizado/redigido.
+- O `Resumo Executivo` normalmente não vem no doc: gere essa seção a partir da leitura completa do mês.
+- Só o `Resumo Executivo` pode ser sintetizado/redigido; as demais seções não podem ganhar texto novo.
+- Como padrão, gere até 6 cards no `Resumo Executivo`; use menos se o mês tiver pouco conteúdo.
 - Todas as outras seções devem seguir o documento-fonte sem inventar descrição, número, card ou seção.
 - Se o documento trouxer apenas o título de um item, mantenha apenas o título no Markdown.
 - Se o mês não tiver uma seção, não crie essa seção no Markdown.

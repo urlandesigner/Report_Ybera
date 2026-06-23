@@ -9,6 +9,10 @@ export interface ProductDesignItem {
   description: string
   /** Hero / card: URL pública, ex. `/assets/kaizen.png` — markdown: `| image: /caminho:` */
   image?: string
+  /** CTA opcional do card hero — markdown: `| cta: Texto do CTA:` */
+  ctaLabel?: string
+  /** Link opcional do CTA — markdown: `| ctaUrl: https://...` */
+  ctaHref?: string
 }
 
 /** Subitem indentado sob uma entrega em `## Entregas Principais` (`  - rótulo: texto`). */
@@ -33,17 +37,31 @@ export interface DeliveryCategoryJson {
 export interface ArchitectureItem {
   title: string
   description: string
+  notes?: DeliveryNoteJson[]
+}
+
+export interface SupportItem {
+  title: string
+  description: string
 }
 
 export interface HighlightItem {
   title: string
   description: string
+  /** Sub-itens (lista) exibidos dentro do card — bullets `-` sem `:` abaixo do destaque. */
+  bullets?: string[]
 }
 
 /** Item de `## Próximos Passos` — `- título: descrição` */
 export interface NextStepItem {
   title: string
   description: string
+}
+
+/** Coluna agrupada em `## Próximos Passos` (`### Título` + bullets simples). */
+export interface NextStepsColumnItem {
+  title: string
+  items: string[]
 }
 
 /** Card de versão no "Comparativo Histórico (Acumulado)". */
@@ -94,10 +112,20 @@ export interface ReportJson {
   deliveries: DeliveryCategoryJson[]
   /** Section `## Arquitetura` → cards da seção 05 (badge 05) */
   architecture: ArchitectureItem[]
+  /** Origem visual da seção de arquitetura: `Melhorias & Otimizações` ou `Arquitetura` */
+  architectureSectionVariant?: 'improvements' | 'architecture'
   /** Section `## Produto & Design` */
   productDesign: ProductDesignItem[]
+  /** Section `## Novo PRO` */
+  newPro: ProductDesignItem[]
+  /** Section `## ERP Sênior` */
+  erpSenior: ArchitectureItem[]
+  /** Section `## Suporte & Relatórios` */
+  support: SupportItem[]
   /** Section `## Comparativo` (opcional) — exibida após Produto & Design */
   comparative?: ComparativeSection
+  /** Variante agrupada de `## Próximos Passos` */
+  nextStepsColumns?: NextStepsColumnItem[]
   /** Section `## Próximos Passos` — `- título: descrição` */
   nextSteps: NextStepItem[]
 }

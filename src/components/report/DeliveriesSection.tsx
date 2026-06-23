@@ -86,12 +86,12 @@ export function DeliveriesSection({ categories }: DeliveriesSectionProps) {
       {categories.map((category, index) => (
         <AnimatedReveal key={category.id} index={animIndex++}>
           <article
-            className={`relative grid grid-cols-1 gap-10 overflow-visible rounded-report-lg bg-[rgba(241,241,241,0.5)] p-3 lg:grid-cols-[320px_1fr] ${
+            className={`relative grid grid-cols-1 gap-8 overflow-visible rounded-report-lg bg-[rgba(241,241,241,0.5)] p-3 sm:gap-10 lg:grid-cols-[320px_1fr] ${
               index > 0 ? 'mt-6 md:mt-12' : ''
             }`}
           >
-          <aside className="relative overflow-visible p-3 sm:p-6 lg:p-0">
-            <div className="w-fit rounded-2xl px-4 py-3 lg:sticky lg:top-[96px]">
+          <aside className="relative overflow-visible px-3 pt-3 pb-0 sm:p-6 lg:p-0">
+            <div className="w-fit rounded-2xl px-4 py-0 sm:py-3 lg:sticky lg:top-[96px]">
               <h3
                 className="text-[24px] font-semibold leading-[130%] tracking-[-0.06em] text-[#3C3C3C] sm:text-3xl md:text-[40px] lg:text-[48px] lg:leading-[3rem] lg:tracking-[-1.44px]"
                 style={fontSans}

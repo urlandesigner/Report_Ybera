@@ -1,11 +1,13 @@
 import { type ReactNode } from 'react'
 import { clsx } from 'clsx'
+import { ArrowRight } from 'lucide-react'
 import type { ProductDesignCard } from '../../data/reportMock'
 import { CARD_HOVER_ARTICLE_CLASSES, cardHoverShadowStyle } from './Card'
 import { ParallaxImage, StaggerContainer, StaggerItem } from '../animations'
 
 /** Hero (índice 0): lilás claro */
 const PD_HERO_BG = '#EDE9FE'
+const PD_GREEN_SURFACE_BG = '#E7F5E8'
 
 /**
  * Itens 1–3 no grid de 3 colunas (posições fixas):
@@ -79,14 +81,16 @@ function ProductDesignSurfaceCard({
 function ProductDesignHeroCard({
   item,
   icon,
+  backgroundColor,
 }: {
   item: ProductDesignCard
   icon: ReactNode
+  backgroundColor: string
 }) {
   return (
     <article
       className={clsx(CARD_HOVER_ARTICLE_CLASSES, 'w-full rounded-report-2xl font-sans')}
-      style={{ backgroundColor: PD_HERO_BG, ...cardHoverShadowStyle(PD_HERO_BG) }}
+      style={{ backgroundColor, ...cardHoverShadowStyle(backgroundColor) }}
     >
       <div
         className={clsx(
@@ -121,6 +125,18 @@ function ProductDesignHeroCard({
           >
             {item.text}
           </div>
+          {item.ctaLabel ? (
+            <a
+              href={item.ctaHref || '#'}
+              target={item.ctaHref ? '_blank' : undefined}
+              rel={item.ctaHref ? 'noreferrer' : undefined}
+              className="mt-1 inline-flex items-center gap-3 rounded-full bg-[#1D1D1F] px-6 py-4 text-left text-[15px] font-bold leading-none text-white transition duration-300 ease-out hover:-translate-y-0.5"
+              style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+            >
+              <span>{item.ctaLabel}</span>
+              <ArrowRight className="h-5 w-5 shrink-0 stroke-[2.2]" />
+            </a>
+          ) : null}
         </div>
         {item.image ? (
           <div className="order-1 flex min-w-0 w-full items-center justify-center overflow-hidden rounded-2xl md:order-2">
@@ -141,42 +157,67 @@ function ProductDesignHeroCard({
 export interface ProductDesignSectionContentProps {
   cards: ProductDesignCard[]
   cardIcon: ReactNode
+  colorScheme?: 'default' | 'green'
 }
 
 /**
  * Layout Produto & Design: hero (item 0) + grid 3 (itens 1–3) + grids 2 (demais), cores por posição.
  */
-export function ProductDesignSectionContent({ cards, cardIcon }: ProductDesignSectionContentProps) {
+export function ProductDesignSectionContent({
+  cards,
+  cardIcon,
+  colorScheme = 'default',
+}: ProductDesignSectionContentProps) {
   if (cards.length === 0) return null
 
   const hero = cards[0]
   const trio = cards.slice(1, 4)
   const rest = cards.slice(4)
+  const heroBackground = colorScheme === 'green' ? PD_GREEN_SURFACE_BG : PD_HERO_BG
 
   return (
     <StaggerContainer className="flex flex-col gap-4 md:gap-[32px]" stagger={0.07}>
       <StaggerItem>
-        <ProductDesignHeroCard item={hero} icon={cardIcon} />
+        <ProductDesignHeroCard
+          item={hero}
+          icon={cardIcon}
+          backgroundColor={heroBackground}
+        />
       </StaggerItem>
 
       {trio.length > 0 && (
         <StaggerContainer className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px] lg:grid-cols-3 lg:gap-[32px]" stagger={0.06}>
-          {trio.map((item, i) => (
-            <StaggerItem key={item.id}>
-              <ProductDesignSurfaceCard
-                title={item.title}
-                backgroundColor={PD_TRIO_BGS[i]}
-                icon={cardIcon}
-              >
-                {item.text}
-              </ProductDesignSurfaceCard>
-            </StaggerItem>
-          ))}
+          {trio.map((item, i) => {
+            const isLast = i === trio.length - 1
+            const orphanMd = isLast && trio.length % 2 === 1
+            const orphanLg = isLast && trio.length % 3 === 1
+            const colSpan = orphanMd && orphanLg
+              ? 'md:col-span-2 lg:col-span-3'
+              : orphanMd
+              ? 'md:col-span-2 lg:col-span-1'
+              : orphanLg
+              ? 'lg:col-span-3'
+              : undefined
+            return (
+              <StaggerItem key={item.id} className={colSpan}>
+                <ProductDesignSurfaceCard
+                  title={item.title}
+                  backgroundColor={colorScheme === 'green' ? PD_GREEN_SURFACE_BG : PD_TRIO_BGS[i]}
+                  icon={cardIcon}
+                >
+                  {item.text}
+                </ProductDesignSurfaceCard>
+              </StaggerItem>
+            )
+          })}
         </StaggerContainer>
       )}
 
       {chunkPairs(rest).map((pair, rowIdx) => {
-        const [leftBg, rightBg] = PD_PAIR_ROW_BGS[rowIdx % PD_PAIR_ROW_BGS.length]
+        const [leftBg, rightBg] =
+          colorScheme === 'green'
+            ? [PD_GREEN_SURFACE_BG, PD_GREEN_SURFACE_BG]
+            : PD_PAIR_ROW_BGS[rowIdx % PD_PAIR_ROW_BGS.length]
         return (
           <StaggerContainer
             key={`pd-pair-row-${rowIdx}`}
@@ -184,7 +225,7 @@ export function ProductDesignSectionContent({ cards, cardIcon }: ProductDesignSe
             stagger={0.07}
           >
             {pair.map((item, colIdx) => (
-              <StaggerItem key={item.id}>
+              <StaggerItem key={item.id} className={pair.length === 1 ? 'md:col-span-2' : undefined}>
                 <ProductDesignSurfaceCard
                   title={item.title}
                   backgroundColor={colIdx === 0 ? leftBg : rightBg}

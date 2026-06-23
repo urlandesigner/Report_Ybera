@@ -1,12 +1,30 @@
 import { clsx } from 'clsx'
 import type { ComparativeSection } from '../../data/report.types'
 import { CARD_HOVER_ARTICLE_CLASSES, cardHoverShadowStyle } from './Card'
-import { StaggerContainer, StaggerItem } from '../animations'
 
 const FONT_SANS = '"Plus Jakarta Sans", sans-serif'
 
 /** Fundo lilás dos cards de versão (Figma). */
 const VERSION_CARD_BG = '#EDE9FE'
+
+function splitHistoryRows<T>(items: T[]): T[][] {
+  if (items.length <= 5) return [items]
+
+  const rowCount = Math.ceil(items.length / 5)
+  const baseSize = Math.floor(items.length / rowCount)
+  const remainder = items.length % rowCount
+
+  const rows: T[][] = []
+  let cursor = 0
+
+  for (let i = 0; i < rowCount; i += 1) {
+    const rowSize = baseSize + (i < remainder ? 1 : 0)
+    rows.push(items.slice(cursor, cursor + rowSize))
+    cursor += rowSize
+  }
+
+  return rows
+}
 
 function BlockHeading({ children }: { children: string }) {
   return (
@@ -48,6 +66,8 @@ export interface ComparativeSectionContentProps {
  * + Insights Estratégicos para a Diretoria (duas colunas) + Conclusão Estratégica.
  */
 export function ComparativeSectionContent({ data }: ComparativeSectionContentProps) {
+  const historyRows = splitHistoryRows(data.history)
+
   return (
     <div className="flex flex-col gap-4 md:gap-[32px]">
       {/* Visão Geral da Versão */}
@@ -63,43 +83,50 @@ export function ComparativeSectionContent({ data }: ComparativeSectionContentPro
         <SurfaceBlock>
           <BlockHeading>Comparativo Histórico (Acumulado 2026)</BlockHeading>
           {data.historyIntro ? <BodyText>{data.historyIntro}</BodyText> : null}
-          <StaggerContainer
-            className="mt-1 grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 lg:grid-cols-5 lg:gap-4"
-            stagger={0.06}
-          >
-            {data.history.map((item, i) => (
-              <StaggerItem key={`${item.version}-${i}`}>
-                <article
-                  className={clsx(
-                    CARD_HOVER_ARTICLE_CLASSES,
-                    'flex h-full flex-col items-start gap-2 rounded-report-lg p-5'
-                  )}
-                  style={{ backgroundColor: VERSION_CARD_BG, ...cardHoverShadowStyle(VERSION_CARD_BG) }}
-                >
-                  <span
-                    className="text-xs font-medium text-neutral-500"
-                    style={{ fontFamily: FONT_SANS }}
+          <div className="mt-1 flex flex-col gap-3 lg:gap-4">
+            {historyRows.map((row, rowIdx) => (
+              <div
+                key={`history-row-${rowIdx}`}
+                className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 lg:gap-4 lg:[grid-template-columns:repeat(var(--history-cols),minmax(0,1fr))]"
+                style={{ ['--history-cols' as string]: String(row.length) }}
+              >
+                {row.map((item, itemIdx) => (
+                  <article
+                    key={`${item.version}-${rowIdx}-${itemIdx}`}
+                    className={clsx(
+                      CARD_HOVER_ARTICLE_CLASSES,
+                      'flex h-full flex-col items-start gap-2 rounded-report-lg p-5'
+                    )}
+                    style={{
+                      backgroundColor: VERSION_CARD_BG,
+                      ...cardHoverShadowStyle(VERSION_CARD_BG),
+                    }}
                   >
-                    {item.month}
-                  </span>
-                  <span
-                    className="text-2xl font-bold leading-tight text-[#1E1E20]"
-                    style={{ fontFamily: FONT_SANS }}
-                  >
-                    Versão
-                    <br />
-                    {item.version}
-                  </span>
-                  <span
-                    className="mt-1 text-sm font-normal leading-snug text-neutral-600"
-                    style={{ fontFamily: FONT_SANS }}
-                  >
-                    {item.summary}
-                  </span>
-                </article>
-              </StaggerItem>
+                    <span
+                      className="inline-flex rounded-full px-3 py-1 text-xs font-semibold text-neutral-500"
+                      style={{ fontFamily: FONT_SANS, background: 'rgba(255, 255, 255, 0.35)' }}
+                    >
+                      {item.month}
+                    </span>
+                    <span
+                      className="text-2xl font-bold leading-tight text-[#1E1E20]"
+                      style={{ fontFamily: FONT_SANS }}
+                    >
+                      Versão
+                      <br />
+                      {item.version}
+                    </span>
+                    <span
+                      className="mt-1 text-sm font-bold leading-snug text-neutral-600"
+                      style={{ fontFamily: FONT_SANS }}
+                    >
+                      {item.summary}
+                    </span>
+                  </article>
+                ))}
+              </div>
             ))}
-          </StaggerContainer>
+          </div>
         </SurfaceBlock>
       ) : null}
 
@@ -118,7 +145,7 @@ export function ComparativeSectionContent({ data }: ComparativeSectionContentPro
             ) : null}
           </div>
 
-          <div className="flex flex-col gap-6 lg:col-span-7 lg:col-start-6">
+          <div className="flex flex-col gap-6 lg:col-span-8 lg:col-start-5">
             {data.insights.map((insight, i) => (
               <div key={`insight-${i}`} className="flex flex-col gap-2">
                 <h4

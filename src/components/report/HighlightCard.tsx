@@ -11,6 +11,8 @@ export interface HighlightCardItem {
   id: string
   title: string
   description: string
+  /** Sub-itens exibidos como lista dentro do card. */
+  bullets?: string[]
 }
 
 interface HighlightCardProps {
@@ -33,7 +35,20 @@ export function HighlightCard({ item, className }: HighlightCardProps) {
     >
       <h3 className={titleClass}>{headline}</h3>
       {subtitle ? <p className={subtitleClass}>{subtitle}</p> : null}
-      <p className={clsx(descriptionClass, 'mt-1')}>{item.description}</p>
+      {item.description ? <p className={clsx(descriptionClass, 'mt-1')}>{item.description}</p> : null}
+      {item.bullets?.length ? (
+        <ul className="mt-1 flex flex-col gap-2">
+          {item.bullets.map((bullet, i) => (
+            <li key={i} className={clsx(descriptionClass, 'flex gap-2.5')}>
+              <span
+                className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#87E097]"
+                aria-hidden
+              />
+              <span className="min-w-0">{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </article>
   )
 }

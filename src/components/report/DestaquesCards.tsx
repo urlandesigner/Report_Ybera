@@ -11,10 +11,41 @@ export interface DestaquesCardsProps {
 export function DestaquesCards({ items }: DestaquesCardsProps) {
   if (!items.length) return null
 
+  if (items.length === 1) {
+    return (
+      <div className="flex flex-col gap-4 md:gap-[32px]">
+        <AnimatedReveal index={0}>
+          <HighlightCard item={items[0]} className="w-full" />
+        </AnimatedReveal>
+      </div>
+    )
+  }
+
+  // Para coleções pequenas, priorizamos equilíbrio visual em vez do layout editorial
+  // com card hero, evitando uma última célula vazia quando há 4 cards.
+  if (items.length <= 4) {
+    return (
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px]">
+        {items.map((item, index) => {
+          const isOrphan = items.length % 2 === 1 && index === items.length - 1
+          return (
+            <div key={item.id} className={isOrphan ? 'md:col-span-2' : undefined}>
+              <AnimatedReveal index={index}>
+                <HighlightCard item={item} className="h-full min-w-0" />
+              </AnimatedReveal>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
   const [first, ...rest] = items
   const cards2to5 = rest.slice(0, 4)
   const card6 = rest[4]
   const tail = rest.slice(5)
+  const tailGridItems = tail.length % 2 === 1 ? tail.slice(0, -1) : tail
+  const tailFullWidth = tail.length % 2 === 1 ? tail[tail.length - 1] : null
 
   let animIndex = 0
 
@@ -37,15 +68,20 @@ export function DestaquesCards({ items }: DestaquesCardsProps) {
           <HighlightCard item={card6} className="w-full" />
         </AnimatedReveal>
       ) : null}
-      {tail.length > 0 && (
+      {tailGridItems.length > 0 && (
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-[32px]">
-          {tail.map((item) => (
+          {tailGridItems.map((item) => (
             <AnimatedReveal key={item.id} index={animIndex++}>
               <HighlightCard item={item} className="h-full min-w-0" />
             </AnimatedReveal>
           ))}
         </div>
       )}
+      {tailFullWidth ? (
+        <AnimatedReveal index={animIndex++}>
+          <HighlightCard item={tailFullWidth} className="w-full" />
+        </AnimatedReveal>
+      ) : null}
     </div>
   )
 }

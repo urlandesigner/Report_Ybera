@@ -4,8 +4,8 @@
  */
 export const REPORT_MAX_WIDTH_CLASS = 'max-w-[1200px]'
 
-/** Sem padding horizontal: as secções alinham diretamente à largura máxima do relatório. */
-export const REPORT_PAD_X = 'px-0'
+/** Respiro lateral no mobile; em telas maiores mantemos o alinhamento atual do layout. */
+export const REPORT_PAD_X = 'px-3 sm:px-6 lg:px-0'
 
 /** Padding vertical do bloco de conteúdo dentro de cada secção. */
 export const REPORT_PAD_Y = 'py-8 sm:py-10'

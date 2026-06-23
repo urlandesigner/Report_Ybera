@@ -62,8 +62,19 @@ export function ExecutiveSummarySection({
 
       {/* Grid 6 cards: 3 por linha no desktop (lg:grid-cols-3); 2 colunas no sm; 1 no mobile */}
       <StaggerContainer className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-[32px] lg:grid-cols-3" stagger={0.07}>
-        {cards.map((item, index) => (
-          <StaggerItem key={item.id}>
+        {cards.map((item, index) => {
+          const isLast = index === cards.length - 1
+          const orphanSm = isLast && cards.length % 2 === 1
+          const orphanLg = isLast && cards.length % 3 === 1
+          const colSpan = orphanSm && orphanLg
+            ? 'sm:col-span-2 lg:col-span-3'
+            : orphanSm
+            ? 'sm:col-span-2 lg:col-span-1'
+            : orphanLg
+            ? 'lg:col-span-3'
+            : undefined
+          return (
+          <StaggerItem key={item.id} className={colSpan}>
             <article
               className={`${CARD_HOVER_ARTICLE_CLASSES} relative flex min-h-0 flex-1 flex-col items-start gap-[1.25rem] overflow-hidden rounded-[20px] border p-6`}
               style={{ borderColor: '#E6E8EC', ['--card-hover-shadow' as string]: '0 25px 50px -12px #E6E8ECcc' }}
@@ -111,7 +122,8 @@ export function ExecutiveSummarySection({
               </div>
             </article>
           </StaggerItem>
-        ))}
+          )
+        })}
       </StaggerContainer>
     </section>
   )
